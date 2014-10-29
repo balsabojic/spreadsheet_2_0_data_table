@@ -1,4 +1,4 @@
-name := """spreadsheet_2_0_data_table"""
+name := """spreadsheet"""
 
 version := "1.0-SNAPSHOT"
 
