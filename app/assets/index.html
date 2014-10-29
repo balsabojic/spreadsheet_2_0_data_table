@@ -1,10 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="Spreadsheet">
 <head lang="en">
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <title>Spreadsheet 2.0</title>
+
+    <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+    <link rel="stylesheet" href="/assets/css/main.css">
 </head>
 <body>
-Entry for the angular app.
+
+<div ui-view="main">
+  Entry for the angular app.
+  <a ui-sref="type">Switch to type view</a>
+</div>
+
+<script type="text/javascript" src="/assets/lib/angularjs/angular.js"></script>
+<script type="text/javascript" src="/assets/lib/angular-ui-bootstrap/ui-bootstrap-tpls.js"></script>
+<script type="text/javascript" src="/assets/lib/angular-ui-router/angular-ui-router.js"></script>
+
+<script type="text/javascript" src="/assets/js/app.js"></script>
+<script type="text/javascript" src="/assets/js/type/type.js"></script>
 </body>
 </html>
