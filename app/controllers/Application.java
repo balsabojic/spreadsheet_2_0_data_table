@@ -1,14 +1,13 @@
 package controllers;
 
-import play.*;
-import play.mvc.*;
-
-import views.html.*;
+import play.api.mvc.Action;
+import play.api.mvc.AnyContent;
+import play.mvc.Controller;
 
 public class Application extends Controller {
 
-    public static Result index() {
-        return ok(index.render("Your new application is ready."));
+    public static Action<AnyContent> index(String any) {
+        return Assets.at("/public", "index.html", false);
     }
 
 }
