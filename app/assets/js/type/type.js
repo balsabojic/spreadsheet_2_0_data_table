@@ -3,8 +3,8 @@ angular.module('Spreadsheet.type', [
 ])
 
   .config(function ($stateProvider) {
-    $stateProvider.state('type', {
-      url: '/type',
+    $stateProvider.state('types', {
+      url: '/types',
       views: {
         'main': {
           controller: 'TypeCtrl',
@@ -14,6 +14,9 @@ angular.module('Spreadsheet.type', [
     });
   })
 
-  .controller('TypeCtrl', function ($scope) {
-    $scope.samples = ['one', 'two', 'three'];
+  .controller('TypeCtrl', function ($scope, $http) {
+    $http.get('/api/types')
+      .success(function (data) {
+        $scope.types = data;
+      });
   });

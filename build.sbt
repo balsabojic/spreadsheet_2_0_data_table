@@ -11,7 +11,7 @@ libraryDependencies ++= Seq(
   javaEbean,
   cache,
   javaWs,
-  "org.mongodb" % "mongo-java-driver" % "2.9.3",
+  "org.mongodb" % "mongo-java-driver" % "2.12.4",
   "org.webjars" % "bootstrap" % "3.3.0",
   "org.webjars" % "angularjs" % "1.3.0",
   "org.webjars" % "angular-ui-bootstrap" % "0.11.2",

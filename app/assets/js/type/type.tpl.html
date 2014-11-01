@@ -1,6 +1,6 @@
 <p>This is from the type template file</p>
 <ul>
-  <li ng-repeat="sample in samples">{{sample}}</li>
+  <li ng-repeat="type in types track by $index">{{type.name}}</li>
 </ul>
 
 <a ui-sref="home">back to home</a>
