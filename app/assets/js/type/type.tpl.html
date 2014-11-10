@@ -1,7 +1,7 @@
 <div class="row">
   <div class="col-sm-3 col-md-2 sidebar" ui-view="sidebar">
-    <ul class="nav">
-      <li ng-repeat="type in types track by $index">
+    <ul class="nav nav-sidebar">
+      <li ng-repeat="type in types track by $index" ui-sref-active="active">
         <a ui-sref="types.detail({id: type._id.$oid})">{{type.name}}</a>
       </li>
     </ul>
