@@ -1,7 +1,6 @@
 angular.module('Spreadsheet.type', [
   'ui.router'
 ])
-
   .config(function ($stateProvider) {
     $stateProvider.state('types', {
       url: '/types',
@@ -13,7 +12,6 @@ angular.module('Spreadsheet.type', [
       }
     });
   })
-
   .controller('TypeCtrl', function ($scope, $http) {
     $http.get('/api/types')
       .success(function (data) {
