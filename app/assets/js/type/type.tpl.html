@@ -1,6 +1,12 @@
-<p>This is from the type template file</p>
-<ul>
-  <li ng-repeat="type in types track by $index">{{type.name}}</li>
-</ul>
-
-<a ui-sref="home">back to home</a>
+<div class="row">
+  <div class="col-sm-3 col-md-2 sidebar" ui-view="sidebar">
+    <ul class="nav">
+      <li ng-repeat="type in types track by $index">
+        <a ui-sref="types.detail({id: type._id.$oid})">{{type.name}}</a>
+      </li>
+    </ul>
+  </div>
+  <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2" ui-view>
+    No type selected
+  </div>
+</div>

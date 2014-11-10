@@ -1,14 +1,16 @@
 angular.module('Spreadsheet', [
   'Spreadsheet.type',
-  'Spreadsheet.sidebar',
   'ui.router'
 ])
   .config(function appConfig($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider
       .state('home', {
-        url: '/'
+        url: '/',
+        controller: function($location) {
+          $location.path('/types');
+        }
       });
-    $urlRouterProvider.otherwise('/');
+    $urlRouterProvider.otherwise('/types');
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
