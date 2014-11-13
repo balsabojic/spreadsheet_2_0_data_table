@@ -53,21 +53,48 @@ public class DB {
      * > db.dropDatabase()
      */
     private void initializeDB() {
-        System.out.println("Initialize test data");
         DBCollection types = mongoDB.getCollection("Type");
-        BasicDBObject courseType = new BasicDBObject("name", "Course");
-        BasicDBObject personType = new BasicDBObject("name", "Person");
-        types.insert(courseType);
-        types.insert(personType);
-
         DBCollection instances = mongoDB.getCollection("Instance");
-        instances.insert(new BasicDBObject("type", courseType.get("_id"))
-                .append("attributes",
-                        Arrays.asList(
-                                new BasicDBObject("title", "Practical Course Software Engineering for Business Information Systems"),
-                                new BasicDBObject("content", "In this course, students realize in small teams an innovative web application of medium complexity in Java."))
-                ));
-        instances.insert(new BasicDBObject("type", courseType.get("_id")));
+
+        // Types
+        BasicDBObject type_organizer = new BasicDBObject("name", "organizer");
+        type_organizer.append("attributes", Arrays.asList(
+                new BasicDBObject("name", "name").append("type", "string"),
+                new BasicDBObject("name", "address").append("type", "string")
+        ));
+        types.insert(type_organizer);
+
+        BasicDBObject type_course = new BasicDBObject("name", "course");
+        type_course.append("attributes", Arrays.asList(
+                new BasicDBObject("name", "title").append("type", "string"),
+                new BasicDBObject("name", "content").append("type", "string"),
+                new BasicDBObject("name", "organizer").append("type", "string"),
+                new BasicDBObject("name", "category").append("type", "string"),
+                new BasicDBObject("name", "date_start").append("type", "date"),
+                new BasicDBObject("name", "num_students").append("type", "string"),
+                new BasicDBObject("name", "hasLab").append("type", "boolean")
+        ));
+        types.insert(type_course);
+
+        // Instances
+        BasicDBObject instance_organizer = new BasicDBObject("type", type_organizer.get("_id"));
+        instance_organizer.append("attributes", Arrays.asList(
+                new BasicDBObject("name", "name").append("value", "Prof. Matthes"),
+                new BasicDBObject("name", "address").append("value", "Example street")
+        ));
+        instances.insert(instance_organizer);
+
+        BasicDBObject instance_course = new BasicDBObject("type", type_course.get("_id"));
+        instance_course.append("attributes", Arrays.asList(
+                new BasicDBObject("name", "title").append("value", "Practical Course Software Engineering for Business Information Systems"),
+                new BasicDBObject("name", "content").append("value", "In this course, students realize in small teams an innovative web application of medium complexity in Java."),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer.get("_id")),
+                new BasicDBObject("name", "category").append("value", "Practical course"),
+                new BasicDBObject("name", "date_start").append("value", "25-10-2014"),
+                new BasicDBObject("name", "num_students").append("value", "40"),
+                new BasicDBObject("name", "hasLab").append("value", "true")
+        ));
+        instances.insert(instance_course);
     }
 
     protected com.mongodb.DB getMongoDB() {
