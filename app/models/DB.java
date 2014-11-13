@@ -68,11 +68,11 @@ public class DB {
         type_course.append("attributes", Arrays.asList(
                 new BasicDBObject("name", "title").append("type", "string"),
                 new BasicDBObject("name", "content").append("type", "string"),
-                new BasicDBObject("name", "organizer").append("type", "string"),
+                new BasicDBObject("name", "organizer").append("type", "reference"),
                 new BasicDBObject("name", "category").append("type", "string"),
                 new BasicDBObject("name", "date_start").append("type", "date"),
                 new BasicDBObject("name", "num_students").append("type", "string"),
-                new BasicDBObject("name", "hasLab").append("type", "boolean")
+                new BasicDBObject("name", "has_lab").append("type", "boolean")
         ));
         types.insert(type_course);
 
