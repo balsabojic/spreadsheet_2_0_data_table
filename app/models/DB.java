@@ -83,7 +83,7 @@ public class DB {
                 new BasicDBObject("name", "address").append("value", "Example street")
         ));
         instances.insert(instance_organizer);
-
+        
         BasicDBObject instance_course = new BasicDBObject("type", type_course.get("_id"));
         instance_course.append("attributes", Arrays.asList(
                 new BasicDBObject("name", "title").append("value", "Practical Course Software Engineering for Business Information Systems"),
@@ -95,6 +95,122 @@ public class DB {
                 new BasicDBObject("name", "hasLab").append("value", "true")
         ));
         instances.insert(instance_course);
+        
+        BasicDBObject instance_organizer1 = new BasicDBObject("type", type_organizer.get("_id"));
+        instance_organizer1.append("attributes", Arrays.asList(
+                new BasicDBObject("name", "name").append("value", "Prof. Thomas"),
+                new BasicDBObject("name", "address").append("value", "Example street")
+        ));
+        instances.insert(instance_organizer1);
+        
+        BasicDBObject instance_course1 = new BasicDBObject("type", type_course.get("_id"));
+        instance_course1.append("attributes", Arrays.asList(
+        		new BasicDBObject("name", "title").append("value", "Software Engineering"),
+                new BasicDBObject("name", "content").append("value", "Softwaring Engineering"),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer1.get("_id")),
+                new BasicDBObject("name", "category").append("value", "Lecture"),
+                new BasicDBObject("name", "date_start").append("value", "29-11-2014"),
+                new BasicDBObject("name", "num_students").append("value", "200"),
+                new BasicDBObject("name", "hasLab").append("value", "true")
+        ));
+        instances.insert(instance_course1);
+        
+        BasicDBObject instance_organizer2 = new BasicDBObject("type", type_organizer.get("_id"));
+        instance_organizer2.append("attributes", Arrays.asList(
+                new BasicDBObject("name", "name").append("value", "Prof. Millber"),
+                new BasicDBObject("name", "address").append("value", "Example street")
+        ));
+        instances.insert(instance_organizer2);
+        
+        BasicDBObject instance_course2 = new BasicDBObject("type", type_course.get("_id"));
+        instance_course2.append("attributes", Arrays.asList(
+        		new BasicDBObject("name", "title").append("value", "Software Architecture"),
+                new BasicDBObject("name", "content").append("value", "Softwaring Architecture"),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer2.get("_id")),
+                new BasicDBObject("name", "category").append("value", "Lecture"),
+                new BasicDBObject("name", "date_start").append("value", "19-11-2014"),
+                new BasicDBObject("name", "num_students").append("value", "200"),
+                new BasicDBObject("name", "hasLab").append("value", "true")
+        ));
+        instances.insert(instance_course2);
+        
+        BasicDBObject instance_organizer3 = new BasicDBObject("type", type_organizer.get("_id"));
+        instance_organizer3.append("attributes", Arrays.asList(
+                new BasicDBObject("name", "name").append("value", "Prof. Armstrong"),
+                new BasicDBObject("name", "address").append("value", "Example street")
+        ));
+        instances.insert(instance_organizer3);
+        
+        BasicDBObject instance_course3 = new BasicDBObject("type", type_course.get("_id"));
+        instance_course3.append("attributes", Arrays.asList(
+        		new BasicDBObject("name", "title").append("value", "Design Pattern"),
+                new BasicDBObject("name", "content").append("value", "Basic Object Oriented Design Pattern"),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer3.get("_id")),
+                new BasicDBObject("name", "category").append("value", "Lecture"),
+                new BasicDBObject("name", "date_start").append("value", "19-11-2014"),
+                new BasicDBObject("name", "num_students").append("value", "200"),
+                new BasicDBObject("name", "hasLab").append("value", "true")
+        ));
+        instances.insert(instance_course3);
+        
+        BasicDBObject instance_organizer4 = new BasicDBObject("type", type_organizer.get("_id"));
+        instance_organizer4.append("attributes", Arrays.asList(
+                new BasicDBObject("name", "name").append("value", "Prof. Muller"),
+                new BasicDBObject("name", "address").append("value", "Example street")
+        ));
+        instances.insert(instance_organizer4);
+        
+        BasicDBObject instance_course4 = new BasicDBObject("type", type_course.get("_id"));
+        instance_course4.append("attributes", Arrays.asList(
+        		new BasicDBObject("name", "title").append("value", "Computer Networks"),
+                new BasicDBObject("name", "content").append("value", "Basic Computer Networks"),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer4.get("_id")),
+                new BasicDBObject("name", "category").append("value", "Lecture"),
+                new BasicDBObject("name", "date_start").append("value", "09-12-2014"),
+                new BasicDBObject("name", "num_students").append("value", "200"),
+                new BasicDBObject("name", "hasLab").append("value", "true")
+        ));
+        instances.insert(instance_course4);
+        
+        
+        BasicDBObject instance_organizer5 = new BasicDBObject("type", type_organizer.get("_id"));
+        instance_organizer5.append("attributes", Arrays.asList(
+                new BasicDBObject("name", "name").append("value", "Prof. Arohnson"),
+                new BasicDBObject("name", "address").append("value", "Example street 5")
+        ));
+        instances.insert(instance_organizer5);
+        
+        BasicDBObject instance_course5 = new BasicDBObject("type", type_course.get("_id"));
+        instance_course5.append("attributes", Arrays.asList(
+        		new BasicDBObject("name", "title").append("value", "Game Theory"),
+                new BasicDBObject("name", "content").append("value", "Basic Game Theory"),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer5.get("_id")),
+                new BasicDBObject("name", "category").append("value", "Praktikum"),
+                new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
+                new BasicDBObject("name", "num_students").append("value", "20"),
+                new BasicDBObject("name", "hasLab").append("value", "true")
+        ));
+        instances.insert(instance_course5);
+        
+        BasicDBObject instance_organizer6 = new BasicDBObject("type", type_organizer.get("_id"));
+        instance_organizer6.append("attributes", Arrays.asList(
+                new BasicDBObject("name", "name").append("value", "Prof. Johnson"),
+                new BasicDBObject("name", "address").append("value", "Example street 6")
+        ));
+        instances.insert(instance_organizer6);
+        
+        BasicDBObject instance_course6 = new BasicDBObject("type", type_course.get("_id"));
+        instance_course6.append("attributes", Arrays.asList(
+        		new BasicDBObject("name", "title").append("value", "Computer Vision"),
+                new BasicDBObject("name", "content").append("value", "Computer Vision"),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer6.get("_id")),
+                new BasicDBObject("name", "category").append("value", "Lecture"),
+                new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
+                new BasicDBObject("name", "num_students").append("value", "20"),
+                new BasicDBObject("name", "hasLab").append("value", "true")
+        ));
+        instances.insert(instance_course6);
+        
     }
 
     protected com.mongodb.DB getMongoDB() {
