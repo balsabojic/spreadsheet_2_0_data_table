@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.mongodb.DBCursor;
 import play.libs.Json;
 
-public class Collection {
+public abstract class Collection {
 
     private String name;
     private DB db;
@@ -23,4 +23,6 @@ public class Collection {
         }
         return  result;
     }
+
+    public abstract String parseJSON(String json);
 }
