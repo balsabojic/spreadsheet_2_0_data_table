@@ -22,4 +22,9 @@ angular.module('Spreadsheet.type', [
   })
   .controller('TypeDetailCtrl', function ($scope, $http, $stateParams) {
     $scope.typeId = $stateParams.id;
+    $http.get('/api/types/' + $scope.typeId)
+      .success(function (data) {
+        console.log(data);
+        $scope.type = data;
+      });
   });

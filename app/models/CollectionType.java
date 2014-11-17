@@ -28,14 +28,14 @@ public class CollectionType extends Collection {
         String new_json = "";
 
         ArrayList<Type> new_list = new ArrayList<Type>();
-        for (Type type: list) {
+        for (Type type : list) {
             HashMap<String, String> hash_id = (HashMap<String, String>) type.get_id();
             String id_value = hash_id.get("$oid");
 
             Object type_name = type.getName();
 
             ArrayList<HashMap<String, String>> attributes = new ArrayList<HashMap<String, String>>();
-            for (HashMap<String, String> hash_attribute: type.getAttributes()) {
+            for (HashMap<String, String> hash_attribute : type.getAttributes()) {
                 attributes.add(hash_attribute);
             }
 

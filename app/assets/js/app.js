@@ -6,11 +6,11 @@ angular.module('Spreadsheet', [
     $stateProvider
       .state('home', {
         url: '/',
-        controller: function($location) {
-          $location.path('/types');
+        controller: function($state) {
+          $state.go('types');
         }
       });
-    $urlRouterProvider.otherwise('/types');
+    $urlRouterProvider.otherwise('/');
     $locationProvider.html5Mode({
       enabled: true,
       requireBase: false
