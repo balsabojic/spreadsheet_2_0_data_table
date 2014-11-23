@@ -3,6 +3,13 @@ package models;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.JsonNodeFactory;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import org.bson.types.ObjectId;
+import play.libs.Json;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,8 +17,11 @@ import java.util.HashMap;
 
 public class CollectionInstance extends Collection {
 
+    private DBCollection instances;
+
     public CollectionInstance() {
         super("Instance");
+        instances = db.getMongoDB().getCollection(name);
     }
 
     @Override
@@ -62,5 +72,19 @@ public class CollectionInstance extends Collection {
         }
 
         return new_json;
+    }
+
+    public String findInstanceByType(String type_id) {
+        ObjectId id = new ObjectId(type_id);
+        BasicDBObject query = new BasicDBObject("type", id);
+        DBCursor cursor = db.getMongoDB().getCollection(this.name).find(query);
+        ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+        while (cursor.hasNext()) {
+            result.add(Json.parse(cursor.next().toString()));
+        }
+        String json = "";
+        json = parseJSON(result.toString());
+
+        return json;
     }
 }

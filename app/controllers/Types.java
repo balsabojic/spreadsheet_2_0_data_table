@@ -1,6 +1,7 @@
 package controllers;
 
 import models.Collection;
+import models.CollectionInstance;
 import models.CollectionType;
 import org.bson.types.ObjectId;
 import play.mvc.Controller;
@@ -16,5 +17,11 @@ public class Types extends Controller {
     public static Result index(String id) {
         Collection typeCol = new CollectionType();
         return ok(typeCol.findOne(new ObjectId(id)));
+    }
+
+    public static Result getInstaceByType(String typeId) {
+        CollectionInstance instances = new CollectionInstance();
+        String data = instances.findInstanceByType(typeId);
+        return ok(data);
     }
 }

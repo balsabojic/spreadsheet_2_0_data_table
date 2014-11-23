@@ -3,6 +3,7 @@ package models;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mongodb.DBCollection;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,8 +11,11 @@ import java.util.HashMap;
 
 public class CollectionType extends Collection {
 
+    private DBCollection types;
+
     public CollectionType() {
         super("Type");
+        types = db.getMongoDB().getCollection(name);
     }
 
     @Override

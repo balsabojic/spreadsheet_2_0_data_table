@@ -10,8 +10,8 @@ import play.libs.Json;
 
 public abstract class Collection {
 
-    private String name;
-    private DB db;
+    protected String name;
+    protected DB db;
 
     public Collection(String name) {
         this.name = name;
