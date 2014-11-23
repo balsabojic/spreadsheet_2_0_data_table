@@ -87,4 +87,27 @@ public class CollectionInstance extends Collection {
 
         return json;
     }
+
+    public String findInstanceByTypeWithLimit(String type_id, int from, int limit) {
+        ObjectId id = new ObjectId(type_id);
+        BasicDBObject query = new BasicDBObject("type", id);
+        DBCursor cursor = db.getMongoDB().getCollection(this.name).find(query);
+        ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+        int counter = 1;
+        while (cursor.hasNext()) {
+            if (counter >= from && limit != 0) {
+                result.add(Json.parse(cursor.next().toString()));
+            }
+            else {
+                cursor.next();
+            }
+            if (counter == (from + limit - 1) || limit == 0) break;
+            counter++;
+        }
+        String json = "";
+        json = parseJSON(result.toString());
+
+        return json;
+    }
+
 }

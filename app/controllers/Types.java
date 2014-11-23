@@ -24,4 +24,16 @@ public class Types extends Controller {
         String data = instances.findInstanceByType(typeId);
         return ok(data);
     }
+
+    public static Result findInstanceByTypeWithLimit(String typeId, String from, String limit) {
+        CollectionInstance instance = new CollectionInstance();
+        try {
+            int from_num = Integer.parseInt(from);
+            int limit_num = Integer.parseInt(limit);
+            String data = instance.findInstanceByTypeWithLimit(typeId, from_num, limit_num);
+            return ok(data);
+        } catch (NumberFormatException e) {
+            return ok("Error in integer parsing, please try again");
+        }
+    }
 }
