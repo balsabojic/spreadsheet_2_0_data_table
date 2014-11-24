@@ -17,4 +17,7 @@ angular.module('Spreadsheet', [
     });
   })
   .run(function run() {
+  })
+  .filter('unsafe', function ($sce) {
+    return $sce.trustAsHtml;
   });
