@@ -1,4 +1,4 @@
-angular.module('Spreadsheet.services', [])
+angular.module('Spreadsheet.services')
   .factory('InstanceService', function () {
     return {
       convert: function (data) {

@@ -113,7 +113,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "29-11-2014"),
                 new BasicDBObject("name", "num_students").append("value", "200"),
-                new BasicDBObject("name", "has_lab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "false")
         ));
         instances.insert(instance_course1);
         
@@ -132,7 +132,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "19-11-2014"),
                 new BasicDBObject("name", "num_students").append("value", "200"),
-                new BasicDBObject("name", "has_lab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "false")
         ));
         instances.insert(instance_course2);
         
@@ -151,7 +151,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "19-11-2014"),
                 new BasicDBObject("name", "num_students").append("value", "200"),
-                new BasicDBObject("name", "has_lab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "false")
         ));
         instances.insert(instance_course3);
         
@@ -170,7 +170,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "09-12-2014"),
                 new BasicDBObject("name", "num_students").append("value", "200"),
-                new BasicDBObject("name", "has_lab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "false")
         ));
         instances.insert(instance_course4);
         
@@ -190,7 +190,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Praktikum"),
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
-                new BasicDBObject("name", "has_lab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "false")
         ));
         instances.insert(instance_course5);
         

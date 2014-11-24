@@ -25,7 +25,6 @@ angular.module('Spreadsheet.type', [
     $scope.typeId = $stateParams.id;
     $http.get('/api/types/' + $scope.typeId)
       .success(function (data) {
-        console.log(data);
         $scope.type = data;
       });
 

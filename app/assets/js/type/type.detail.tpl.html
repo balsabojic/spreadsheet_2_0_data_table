@@ -11,7 +11,7 @@
   <tbody>
   <tr ng-repeat="instance in instances">
     <td ng-repeat="attr in type.attributes">
-      {{instance.attributes[attr.name]}}
+      <span ng-bind-html="instance.attributes[attr.name] | attributeFormat:attr.type | unsafe"></span>
     </td>
   </tr>
   </tbody>
