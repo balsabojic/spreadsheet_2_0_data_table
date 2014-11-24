@@ -18,3 +18,5 @@ libraryDependencies ++= Seq(
   "org.webjars" % "angular-ui-router" % "0.2.11-1",
   "org.webjars" % "font-awesome" % "4.2.0"
 )
+
+javacOptions ++= Seq("-Xlint:unchecked")
