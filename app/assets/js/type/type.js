@@ -1,4 +1,5 @@
 angular.module('Spreadsheet.type', [
+  'Spreadsheet.services',
   'ui.router'
 ])
   .config(function ($stateProvider) {
@@ -20,11 +21,16 @@ angular.module('Spreadsheet.type', [
         $scope.types = data;
       });
   })
-  .controller('TypeDetailCtrl', function ($scope, $http, $stateParams) {
+  .controller('TypeDetailCtrl', function ($scope, $http, $stateParams, InstanceService) {
     $scope.typeId = $stateParams.id;
     $http.get('/api/types/' + $scope.typeId)
       .success(function (data) {
         console.log(data);
         $scope.type = data;
+      });
+
+    $http.get('/api/types/' + $scope.typeId + '/instances')
+      .success(function (data) {
+        console.log(InstanceService.convert(data));
       });
   });
