@@ -31,6 +31,6 @@ angular.module('Spreadsheet.type', [
 
     $http.get('/api/types/' + $scope.typeId + '/instances')
       .success(function (data) {
-        console.log(InstanceService.convert(data));
+        $scope.instances = InstanceService.convert(data);
       });
   });

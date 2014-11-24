@@ -8,4 +8,11 @@
     </th>
   </tr>
   </thead>
+  <tbody>
+  <tr ng-repeat="instance in instances">
+    <td ng-repeat="attr in type.attributes">
+      {{instance.attributes[attr.name]}}
+    </td>
+  </tr>
+  </tbody>
 </table>
