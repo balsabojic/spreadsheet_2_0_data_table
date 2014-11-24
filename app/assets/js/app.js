@@ -6,7 +6,7 @@ angular.module('Spreadsheet', [
     $stateProvider
       .state('home', {
         url: '/',
-        controller: function($state) {
+        controller: function ($state) {
           $state.go('types');
         }
       });

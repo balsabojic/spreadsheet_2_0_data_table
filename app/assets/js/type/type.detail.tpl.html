@@ -10,8 +10,8 @@
   </thead>
   <tbody>
   <tr ng-repeat="instance in instances">
-    <td ng-repeat="attr in type.attributes">
-      <span ng-bind-html="instance.attributes[attr.name] | attributeFormat:attr.type | unsafe"></span>
+    <td ng-repeat="attr in type.attributes"
+        ng-bind-html="instance.attributes[attr.name] | attributeFormat:attr.type | unsafe">
     </td>
   </tr>
   </tbody>
