@@ -30,8 +30,10 @@ public class DB {
         if (mongoDB == null) {
             mongoDB = mongoClient.getDB(defaultDB);
         }
-        if (!mongoDB.collectionExists("Type")) {
-            initializeDB();
+        synchronized (connUri) {
+            if (!mongoDB.collectionExists("Type")) {
+                initializeDB();
+            }
         }
     }
 
@@ -52,7 +54,7 @@ public class DB {
      * > use spreadsheet
      * > db.dropDatabase()
      */
-    private void initializeDB() {
+    synchronized private void initializeDB() {
         DBCollection types = mongoDB.getCollection("Type");
         DBCollection instances = mongoDB.getCollection("Instance");
 
@@ -92,7 +94,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Practical course"),
                 new BasicDBObject("name", "date_start").append("value", "25-10-2014"),
                 new BasicDBObject("name", "num_students").append("value", "40"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course);
         
@@ -111,7 +113,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "29-11-2014"),
                 new BasicDBObject("name", "num_students").append("value", "200"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course1);
         
@@ -130,7 +132,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "19-11-2014"),
                 new BasicDBObject("name", "num_students").append("value", "200"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course2);
         
@@ -149,7 +151,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "19-11-2014"),
                 new BasicDBObject("name", "num_students").append("value", "200"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course3);
         
@@ -168,7 +170,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "09-12-2014"),
                 new BasicDBObject("name", "num_students").append("value", "200"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course4);
         
@@ -188,7 +190,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Praktikum"),
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course5);
         
@@ -207,7 +209,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course6);
         
@@ -226,7 +228,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course7);
         
@@ -245,7 +247,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course8);
         
@@ -264,7 +266,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course9);
         
@@ -283,7 +285,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course10);
         
@@ -302,7 +304,7 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
-                new BasicDBObject("name", "hasLab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true")
         ));
         instances.insert(instance_course11);
         
