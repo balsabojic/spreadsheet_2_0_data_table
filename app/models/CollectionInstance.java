@@ -5,9 +5,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBCollection;
-import com.mongodb.DBCursor;
+import com.mongodb.*;
 import org.bson.types.ObjectId;
 import play.libs.Json;
 
@@ -91,7 +89,7 @@ public class CollectionInstance extends Collection {
     public String findInstanceByTypeWithLimit(String type_id, int from, int limit) {
         ObjectId id = new ObjectId(type_id);
         BasicDBObject query = new BasicDBObject("type", id);
-        DBCursor cursor = db.getMongoDB().getCollection(this.name).find(query);
+        DBCursor cursor = instances.find(query);
         ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
         int counter = 1;
         while (cursor.hasNext()) {
@@ -108,6 +106,32 @@ public class CollectionInstance extends Collection {
         json = parseJSON(result.toString());
 
         return json;
+    }
+
+    public void updateInstanceAttribute(String instance_id, String attribute_name, String value) {
+        ObjectId id = new ObjectId(instance_id);
+        BasicDBObject query = new BasicDBObject("_id", id);
+        DBCursor cursor = db.getMongoDB().getCollection("Instance").find(query);
+        ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+        while (cursor.hasNext()) {
+            DBObject instance = cursor.next();
+            BasicDBList attributes = (BasicDBList) instance.get("attributes");
+            int i = 0;
+            if (attributes != null) {
+                for (Object attribute: attributes) {
+                    if (attribute != null) {
+                        HashMap<String, Object> attribute_hash_map = (HashMap<String, Object>) attribute;
+                        if (attribute_hash_map != null && attribute_hash_map.get("name").equals(attribute_name)) {
+                            attribute_hash_map.put("value", value);
+                            attributes.put(i, attribute_hash_map);
+                            instance.put("attributes", attributes);
+                            instances.save(instance);
+                        }
+                    }
+                    i++;
+                }
+            }
+        }
     }
 
 }
