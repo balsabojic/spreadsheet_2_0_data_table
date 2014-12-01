@@ -7,7 +7,6 @@ GET        /api/types                                                  controlle
 GET        /api/types/:id                                              controllers.Types.index(id: String)
 GET        /api/types/:typeId/instances                                controllers.Types.getInstaceByType(typeId: String)
 GET        /api/types/:typeId/instances/from/:from/limit/:limit        controllers.Types.findInstanceByTypeWithLimit(typeId: String, from: String, limit: String)
-PUT        /api/instances/:id:name:value                               controllers.Instances.updateInstanceAttribute(id: String, name: String, value: String)
 
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file                                               controllers.Assets.at(path="/public", file)
