@@ -37,8 +37,8 @@ public class Types extends Controller {
         }
     }
 
-    public static void addTypeAttribute() {
+    public static void addTypeAttribute(String id, String name, String value) {
         CollectionType type = new CollectionType();
-        type.addTypeAttribute("547ba3d14a711799aa325e4e", "room", "integer");
+        type.addTypeAttribute(id, name, value);
     }
 }
