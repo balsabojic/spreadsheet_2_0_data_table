@@ -117,6 +117,7 @@ public class CollectionInstance extends Collection {
             DBObject instance = cursor.next();
             BasicDBList attributes = (BasicDBList) instance.get("attributes");
             int i = 0;
+            boolean found = false;
             if (attributes != null) {
                 for (Object attribute: attributes) {
                     if (attribute != null) {
@@ -126,9 +127,18 @@ public class CollectionInstance extends Collection {
                             attributes.put(i, attribute_hash_map);
                             instance.put("attributes", attributes);
                             instances.save(instance);
+                            found = true;
                         }
                     }
                     i++;
+                }
+                if (found == false) {
+                    HashMap<String, Object> attribute_hash_map = new HashMap<String, Object>();
+                    attribute_hash_map.put("name", attribute_name);
+                    attribute_hash_map.put("value", value);
+                    attributes.put(i, attribute_hash_map);
+                    instance.put("attributes", attributes);
+                    instances.save(instance);
                 }
             }
         }
