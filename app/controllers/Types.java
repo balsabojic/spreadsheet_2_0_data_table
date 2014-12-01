@@ -36,4 +36,9 @@ public class Types extends Controller {
             return ok("Error in integer parsing, please try again");
         }
     }
+
+    public static void addTypeAttribute() {
+        CollectionType type = new CollectionType();
+        type.addTypeAttribute("547ba3d14a711799aa325e4e", "room", "integer");
+    }
 }

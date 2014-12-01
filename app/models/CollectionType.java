@@ -3,7 +3,8 @@ package models;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.mongodb.DBCollection;
+import com.mongodb.*;
+import org.bson.types.ObjectId;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -58,5 +59,22 @@ public class CollectionType extends Collection {
         }
 
         return new_json;
+    }
+
+    public void addTypeAttribute(String type_id, String attribute_name, String attribute_type) {
+        DBCollection types = db.getMongoDB().getCollection("Type");
+        ObjectId id = new ObjectId(type_id);
+        BasicDBObject query = new BasicDBObject("_id", id);
+        DBCursor cursor = types.find(query);
+        if (cursor.hasNext()) {
+            DBObject type = cursor.next();
+            BasicDBList attributes = (BasicDBList) type.get("attributes");
+            HashMap<String, String> attribute = new HashMap<String, String>();
+            attribute.put("name", attribute_name);
+            attribute.put("type", attribute_type);
+            attributes.add(attribute);
+            type.put("attributes", attributes);
+            types.save(type);
+        }
     }
 }
