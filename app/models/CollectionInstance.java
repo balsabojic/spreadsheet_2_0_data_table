@@ -11,6 +11,7 @@ import play.libs.Json;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class CollectionInstance extends Collection {
@@ -142,6 +143,20 @@ public class CollectionInstance extends Collection {
                 }
             }
         }
+    }
+
+    public void addNewInstance(String type_id, String attribute_name, String value) {
+        DBCollection instances = db.getMongoDB().getCollection("Instance");
+        HashMap<String, String> attribute = new HashMap<String, String>();
+        attribute.put("name", attribute_name);
+        attribute.put("value", value);
+        BasicDBObject instance = new BasicDBObject();
+        instance.append("type", new ObjectId(type_id))
+                .append("attributes",
+                        Arrays.asList(
+                                new BasicDBObject(attribute)
+                        ));
+        instances.insert(instance);
     }
 
 }

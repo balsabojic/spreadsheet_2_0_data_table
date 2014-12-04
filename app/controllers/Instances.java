@@ -9,4 +9,9 @@ public class Instances extends Controller{
         CollectionInstance instance = new CollectionInstance();
         instance.updateInstanceAttribute(id, name, value);
     }
-}
+
+    public static void addNewInstance(String typeId, String attributeName, String attributeValue) {
+        CollectionInstance instance = new CollectionInstance();
+        instance.addNewInstance(typeId, attributeName, attributeValue);
+    }
+ }
