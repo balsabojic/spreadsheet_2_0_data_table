@@ -14,4 +14,9 @@ public class Instances extends Controller{
         CollectionInstance instance = new CollectionInstance();
         instance.addNewInstance(typeId, attributeName, attributeValue);
     }
+
+    public static void deleteInstance(String instance_id) {
+        CollectionInstance instance = new CollectionInstance();
+        instance.deleteInstance(instance_id);
+    }
  }

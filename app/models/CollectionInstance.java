@@ -146,7 +146,6 @@ public class CollectionInstance extends Collection {
     }
 
     public void addNewInstance(String type_id, String attribute_name, String value) {
-        DBCollection instances = db.getMongoDB().getCollection("Instance");
         HashMap<String, String> attribute = new HashMap<String, String>();
         attribute.put("name", attribute_name);
         attribute.put("value", value);
@@ -157,6 +156,12 @@ public class CollectionInstance extends Collection {
                                 new BasicDBObject(attribute)
                         ));
         instances.insert(instance);
+    }
+
+    public void deleteInstance(String instance_id) {
+        ObjectId id = new ObjectId(instance_id);
+        BasicDBObject query = new BasicDBObject("_id", id);
+        instances.remove(query);
     }
 
 }
