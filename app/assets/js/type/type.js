@@ -1,5 +1,5 @@
 angular.module('Spreadsheet.type', [
-  'Spreadsheet.directives',
+  'Spreadsheet.jsx',
   'Spreadsheet.services',
   'ui.router'
 ])
