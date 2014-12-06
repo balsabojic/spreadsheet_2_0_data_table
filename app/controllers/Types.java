@@ -19,18 +19,14 @@ public class Types extends Controller {
         return ok(typeCol.findOne(new ObjectId(id)));
     }
 
-    public static Result getInstaceByType(String typeId) {
-        CollectionInstance instances = new CollectionInstance();
-        String data = instances.findInstanceByType(typeId);
-        return ok(data);
-    }
 
-    public static Result findInstanceByTypeWithLimit(String typeId, String from, String limit) {
+    public static Result getInstances(String typeId, String from, String limit, String orderBy, String asc) {
         CollectionInstance instance = new CollectionInstance();
         try {
             int from_num = Integer.parseInt(from);
             int limit_num = Integer.parseInt(limit);
-            String data = instance.findInstanceByTypeWithLimit(typeId, from_num, limit_num);
+            int asc_num = Integer.parseInt(asc);
+            String data = instance.getInstances(typeId, from_num, limit_num, orderBy, asc_num);
             return ok(data);
         } catch (NumberFormatException e) {
             return ok("Error in integer parsing, please try again");

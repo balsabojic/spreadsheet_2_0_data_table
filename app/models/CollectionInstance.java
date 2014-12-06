@@ -73,40 +73,87 @@ public class CollectionInstance extends Collection {
         return new_json;
     }
 
-    public String findInstanceByType(String type_id) {
-        ObjectId id = new ObjectId(type_id);
-        BasicDBObject query = new BasicDBObject("type", id);
-        DBCursor cursor = db.getMongoDB().getCollection(this.name).find(query);
-        ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
-        while (cursor.hasNext()) {
-            result.add(Json.parse(cursor.next().toString()));
-        }
-        String json = "";
-        json = parseJSON(result.toString());
-
-        return json;
-    }
-
-    public String findInstanceByTypeWithLimit(String type_id, int from, int limit) {
+    public String getInstances(String type_id, int from, int limit, String orderBy, int asc) {
         ObjectId id = new ObjectId(type_id);
         BasicDBObject query = new BasicDBObject("type", id);
         DBCursor cursor = instances.find(query);
         ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
-        int counter = 1;
-        while (cursor.hasNext()) {
-            if (counter >= from && limit != 0) {
-                result.add(Json.parse(cursor.next().toString()));
-            }
-            else {
-                cursor.next();
-            }
-            if (counter == (from + limit - 1) || limit == 0) break;
-            counter++;
-        }
         String json = "";
-        json = parseJSON(result.toString());
+        ArrayList<DBObject> objects = new ArrayList<DBObject>();
+        while (cursor.hasNext()) {
+            objects.add(cursor.next());
+        }
+        if (!"".equals(orderBy)) {
+            for (int i = 1; i < objects.size(); i++) {
+                for (int j = 0; j < objects.size() - 1; j++) {
+                    DBObject obj1 = objects.get(i);
+                    DBObject obj2 = objects.get(j);
+                    String value1 = getValue(obj1, orderBy);
+                    String value2 = getValue(obj2, orderBy);
+                    if (asc == 1) {
+                        if (value1.compareTo(value2) < 0) {
+                            objects.set(i, obj2);
+                            objects.set(j, obj1);
+                        }
+                    } else if (asc == -1) {
+                        if (value1.compareTo(value2) > 0) {
+                            objects.set(i, obj2);
+                            objects.set(j, obj1);
+                        }
+                    }
 
+                }
+            }
+            if (from == 0 && limit == 0) {
+                for (DBObject obj : objects) {
+                    result.add(Json.parse(obj.toString()));
+                }
+            } else {
+                int counter = 1;
+                for (DBObject obj : objects) {
+                    if (counter >= from && limit != 0) {
+                        result.add(Json.parse(obj.toString()));
+                    }
+                    if (counter == (from + limit - 1) || limit == 0) break;
+                    counter++;
+                }
+            }
+        }
+        else {
+            if (from == 0 && limit == 0) {
+                for (DBObject obj : objects) {
+                    result.add(Json.parse(obj.toString()));
+                }
+            } else {
+                int counter = 1;
+                for (DBObject obj : objects) {
+                    if (counter >= from && limit != 0) {
+                        result.add(Json.parse(obj.toString()));
+                    }
+                    if (counter == (from + limit - 1) || limit == 0) break;
+                    counter++;
+                }
+            }
+        }
+
+        json = parseJSON(result.toString());
         return json;
+    }
+
+    private String getValue(DBObject obj1, String orderBy) {
+        BasicDBList attributes = (BasicDBList) obj1.get("attributes");
+        String value = "";
+        if (attributes != null) {
+            for (Object attribute : attributes) {
+                if (attribute != null) {
+                    HashMap<String, Object> attribute_hash_map = (HashMap<String, Object>) attribute;
+                    if (attribute_hash_map != null && attribute_hash_map.get("name").equals(orderBy)) {
+                        value = attribute_hash_map.get("value").toString();
+                    }
+                }
+            }
+        }
+        return value;
     }
 
     public void updateInstanceAttribute(String instance_id, String attribute_name, String value) {
