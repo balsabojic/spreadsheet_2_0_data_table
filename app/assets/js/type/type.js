@@ -1,4 +1,5 @@
 angular.module('Spreadsheet.type', [
+  'Spreadsheet.directives',
   'Spreadsheet.services',
   'ui.router'
 ])
@@ -15,19 +16,24 @@ angular.module('Spreadsheet.type', [
         templateUrl: '/assets/js/type/type.detail.tpl.html'
       });
   })
-  .controller('TypeCtrl', function ($scope, $http) {
+  .controller('TypeCtrl', function ($scope, $http, $state) {
+    $scope.currentType = null;
     $http.get('/api/types')
       .success(function (data) {
         $scope.types = data;
       });
+
+    $scope.changeType = function () {
+      $state.go('types.detail', {id: $scope.currentType});
+    };
   })
   .controller('TypeDetailCtrl', function ($scope, $http, $stateParams, InstanceService) {
     $scope.typeId = $stateParams.id;
+    $scope.$parent.currentType = $scope.typeId;
     $http.get('/api/types/' + $scope.typeId)
       .success(function (data) {
         $scope.type = data;
       });
-
     $http.get('/api/types/' + $scope.typeId + '/instances')
       .success(function (data) {
         $scope.instances = InstanceService.convert(data);
