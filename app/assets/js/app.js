@@ -1,5 +1,6 @@
 angular.module('Spreadsheet', [
   'Spreadsheet.type',
+  'react',
   'ui.router'
 ])
   .config(function appConfig($stateProvider, $urlRouterProvider, $locationProvider) {

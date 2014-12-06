@@ -28,14 +28,6 @@ angular.module('Spreadsheet.type', [
     };
   })
   .controller('TypeDetailCtrl', function ($scope, $http, $stateParams, InstanceService) {
-    $scope.typeId = $stateParams.id;
-    $scope.$parent.currentType = $scope.typeId;
-    $http.get('/api/types/' + $scope.typeId)
-      .success(function (data) {
-        $scope.type = data;
-      });
-    $http.get('/api/types/' + $scope.typeId + '/instances')
-      .success(function (data) {
-        $scope.instances = InstanceService.convert(data);
-      });
+    $scope.$parent.currentType = $stateParams.id;
+    $scope.data = {id: $stateParams.id};
   });
