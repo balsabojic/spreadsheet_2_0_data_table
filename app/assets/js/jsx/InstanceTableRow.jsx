@@ -9,10 +9,10 @@ angular.module('Spreadsheet.jsx')
           var cell;
           switch (attribute.type) {
             case 'boolean':
-              cell = <CellBoolean value={value} />;
+              cell = <CellBoolean value={value} instance={instance} attribute={attribute}/>;
               break;
             default:
-              cell = <CellString value={value} />;
+              cell = <CellString value={value} instance={instance} attribute={attribute}/>;
           }
           cells[attribute.name] = cell;
         });

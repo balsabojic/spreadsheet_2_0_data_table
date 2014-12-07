@@ -1,5 +1,5 @@
 angular.module('Spreadsheet.jsx')
-  .factory('CellString', function () {
+  .factory('CellString', function ($http) {
     return React.createClass({
       getInitialState: function () {
         return {isEditing: false};
@@ -16,7 +16,15 @@ angular.module('Spreadsheet.jsx')
         }
       },
       handleUpdate: function () {
-        console.log(this.refs.input.getDOMNode().value);
+        var value = this.refs.input.getDOMNode().value;
+        $http.post('/updateInstance', {
+          instance_id: this.props.instance._id,
+          attribute_name: this.props.attribute.name,
+          attribute_value: value
+        })
+          .success(function (data) {
+            console.log('Updated');
+          });
         this.setState({isEditing: false});
       },
       render: function () {
