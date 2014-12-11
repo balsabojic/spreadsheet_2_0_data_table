@@ -31,6 +31,7 @@ angular.module('Spreadsheet.jsx')
                     // check if the attribute is free (not already in headers) or not
                     // if not, push it to the headers
                     if (!_.find(headers, {name: attrName})) {
+                      data[i].attributes[j]["isFree"] = true;
                       headers.push(data[i].attributes[j]);
                     }
                   }
