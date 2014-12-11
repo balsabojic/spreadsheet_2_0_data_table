@@ -30,13 +30,13 @@ angular.module('Spreadsheet.jsx')
       render: function () {
         if (this.state.isEditing) {
           return (
-            <td>
+            <div>
               <input type="text" ref="input" defaultValue={this.props.value}
               onBlur={this.handleUpdate} onKeyPress={this.onKeyPress} />
-            </td>
+            </div>
             );
         }
-        return (<td onClick={this.onClick}>{this.props.value}</td>);
+        return (<div onClick={this.onClick}>{this.props.value}</div>);
       }
     });
   });

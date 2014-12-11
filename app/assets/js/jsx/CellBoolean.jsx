@@ -3,10 +3,10 @@ angular.module('Spreadsheet.jsx')
     return React.createClass({
       render: function () {
         if (this.props.value === 'true')
-          return (<td><i className="fa fa-check"></i></td>);
+          return <i className="fa fa-check"></i>;
         if (this.props.value === 'false')
-          return (<td><i className="fa fa-times"></i></td>);
-        return (<td></td>);
+          return <i className="fa fa-times"></i>;
+        return <div></div>;
       }
     });
   });
