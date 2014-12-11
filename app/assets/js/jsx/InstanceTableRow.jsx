@@ -4,16 +4,21 @@ angular.module('Spreadsheet.jsx')
       render: function () {
         var cells = {};
         var instance = this.props.instance;
-        this.props.type.attributes.forEach(function (attribute) {
-          var value = instance.attributes[attribute.name];
-          var cell;
-          switch (attribute.type) {
-            case 'boolean':
-              cell = <CellBoolean value={value} instance={instance} attribute={attribute}/>;
-              break;
-            default:
-              cell = <CellString value={value} instance={instance} attribute={attribute}/>;
+        this.props.headers.forEach(function (attribute) {
+          if (_.has(instance.attributes, attribute.name)) {
+            var value = instance.attributes[attribute.name];
+            var cell;
+            switch (attribute.type) {
+              case 'boolean':
+                cell = <CellBoolean value={value} instance={instance} attribute={attribute}/>;
+                break;
+              default:
+                cell = <CellString value={value} instance={instance} attribute={attribute}/>;
+            }
+          } else {
+            cell = <td></td>;
           }
+
           cells[attribute.name] = cell;
         });
         return (<tr>{cells}</tr>);

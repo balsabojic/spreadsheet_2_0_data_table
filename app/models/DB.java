@@ -230,7 +230,7 @@ public class DB {
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
                 new BasicDBObject("name", "has_lab").append("value", "true"),
-                new BasicDBObject("name", "ects").append("value", 5)
+                new BasicDBObject("name", "ects").append("type", "number").append("value", 5)
         ));
         instances.insert(instance_course7);
         
@@ -238,7 +238,7 @@ public class DB {
         instance_organizer8.append("attributes", Arrays.asList(
                 new BasicDBObject("name", "name").append("value", "Prof. Rooney"),
                 new BasicDBObject("name", "address").append("value", "Example street 8"),
-                new BasicDBObject("name", "telephone").append("value", "1234-5678-90")
+                new BasicDBObject("name", "telephone").append("type", "string").append("value", "1234-5678-90")
         ));
         instances.insert(instance_organizer8);
         
@@ -251,7 +251,7 @@ public class DB {
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
                 new BasicDBObject("name", "has_lab").append("value", "true"),
-                new BasicDBObject("name", "language").append("value", "english")
+                new BasicDBObject("name", "language").append("type", "string").append("value", "english")
         ));
         instances.insert(instance_course8);
         
