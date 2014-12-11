@@ -6,6 +6,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import play.Play;
 
+import javax.swing.plaf.basic.BasicOptionPaneUI;
 import java.net.UnknownHostException;
 import java.util.Arrays;
 
@@ -228,14 +229,16 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
-                new BasicDBObject("name", "has_lab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true"),
+                new BasicDBObject("name", "ects").append("value", 5)
         ));
         instances.insert(instance_course7);
         
         BasicDBObject instance_organizer8 = new BasicDBObject("type", type_organizer.get("_id"));
         instance_organizer8.append("attributes", Arrays.asList(
                 new BasicDBObject("name", "name").append("value", "Prof. Rooney"),
-                new BasicDBObject("name", "address").append("value", "Example street 8")
+                new BasicDBObject("name", "address").append("value", "Example street 8"),
+                new BasicDBObject("name", "telephone").append("value", "1234-5678-90")
         ));
         instances.insert(instance_organizer8);
         
@@ -247,7 +250,8 @@ public class DB {
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "09-04-2014"),
                 new BasicDBObject("name", "num_students").append("value", "20"),
-                new BasicDBObject("name", "has_lab").append("value", "true")
+                new BasicDBObject("name", "has_lab").append("value", "true"),
+                new BasicDBObject("name", "language").append("value", "english")
         ));
         instances.insert(instance_course8);
         

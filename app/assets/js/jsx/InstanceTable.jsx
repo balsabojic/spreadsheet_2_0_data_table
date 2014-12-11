@@ -4,6 +4,7 @@ angular.module('Spreadsheet.jsx')
       getInitialState: function () {
         return {
           type: {attributes: []},
+          headers: [],
           instances: []
         };
       },
@@ -11,19 +12,39 @@ angular.module('Spreadsheet.jsx')
         var typeId = this.props.id;
         $http.get('/api/types/' + typeId)
           .success(function (data) {
+            var headers = [];
+            data.attributes.forEach(function (attr) {
+              headers.push(attr);
+            });
             this.setState({type: data});
-          }.bind(this));
-        $http.get('/api/types/' + typeId + '/instances')
-          .success(function (data) {
-            var instances = InstanceService.convert(data);
-            this.setState({instances: instances});
+
+            $http.get('/api/types/' + typeId + '/instances')
+              .success(function (data) {
+                var attrs = {};
+                var i, j;
+                for (i = 0; i < data.length; i++) {
+                  attrs = {};
+                  for (j = 0; j < data[i].attributes.length; j++) {
+                    // convert from {name: "some name", value: "some value"} to {"some name": "some value"}
+                    var attrName = data[i].attributes[j].name;
+                    attrs[attrName] = data[i].attributes[j].value;
+                    // check if the attribute is free (not already in headers) or not
+                    // if not, push it to the headers
+                    if (!_.find(headers, {name: attrName})) {
+                      headers.push(data[i].attributes[j]);
+                    }
+                  }
+                  data[i].attributes = attrs;
+                }
+                this.setState({instances: data, headers: headers});
+              }.bind(this));
           }.bind(this));
       },
       render: function () {
         return (
           <table className="table table-bordered table-striped table-condensed">
-            <InstanceTableHeader type={this.state.type}/>
-            <InstanceTableBody type={this.state.type} instances={this.state.instances}/>
+            <InstanceTableHeader type={this.state.type} headers={this.state.headers} />
+            <InstanceTableBody type={this.state.type} headers={this.state.headers} instances={this.state.instances}/>
           </table>
           );
       }

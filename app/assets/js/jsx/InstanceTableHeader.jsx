@@ -5,7 +5,7 @@ angular.module('Spreadsheet.jsx')
         return (
           <thead>
             <tr>
-            {this.props.type.attributes.map(function (attribute) {
+            {this.props.headers.map(function (attribute) {
               return (
                 <th key={attribute.name}>
                   {attribute.name}
