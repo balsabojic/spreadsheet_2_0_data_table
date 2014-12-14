@@ -7,6 +7,7 @@ import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.JsonNodeFactory;
 import com.mongodb.*;
 import models.beans.Instance;
+import models.beans.UndoData;
 import org.bson.types.ObjectId;
 import play.libs.Json;
 
@@ -19,9 +20,38 @@ public class CollectionInstance extends Collection {
 
     private DBCollection instances;
 
+    private ArrayList<UndoData> undoList = new ArrayList<UndoData>();
+    private int undo_list_pointer = 0;
+
+
     public CollectionInstance() {
         super("Instance");
         instances = db.getMongoDB().getCollection(name);
+    }
+
+    public void addToUndoList(UndoData data) {
+        undoList.add(data);
+        undo_list_pointer = undoList.size() - 1;
+    }
+
+    public void undo() {
+        if (undo_list_pointer > 0) {
+            undo_list_pointer--;
+            UndoData data = undoList.get(undo_list_pointer);
+            updateInstanceAttribute(data.getInstance_id(), data.getAttribute_name(), data.getAttribute_value());
+        }
+        else if (undo_list_pointer == 0) {
+            UndoData data = undoList.get(undo_list_pointer);
+            updateInstanceAttribute(data.getInstance_id(), data.getAttribute_name(), data.getAttribute_value());
+        }
+    }
+
+    public void redo() {
+        if (undo_list_pointer < undoList.size() - 1) {
+            undo_list_pointer++;
+            UndoData data = undoList.get(undo_list_pointer);
+            updateInstanceAttribute(data.getInstance_id(), data.getAttribute_name(), data.getAttribute_value());
+        }
     }
 
     @Override
