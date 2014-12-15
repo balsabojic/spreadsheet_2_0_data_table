@@ -4,9 +4,13 @@ angular.module('Spreadsheet.services')
     var cache = {};
     return {
       publish: function (topic, args) {
+        args = args || [];
+        if (!_.isArray(args)) {
+          args = [args];
+        }
         if (cache[topic]) {
           _.forEach(cache[topic], function (func) {
-            func.apply(null, args || []);
+            func.apply(null, args);
           });
         }
       },

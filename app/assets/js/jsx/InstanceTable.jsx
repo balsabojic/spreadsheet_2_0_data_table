@@ -1,6 +1,7 @@
 angular.module('Spreadsheet.jsx')
-  .factory('InstanceTable', function ($http, InstanceService, InstanceTableHeader, InstanceTableBody) {
+  .factory('InstanceTable', function ($http, PubSubService, InstanceService, InstanceTableHeader, InstanceTableBody) {
     return React.createClass({
+      pubsubHandle: {},
       getInitialState: function () {
         return {
           type: {attributes: []},
@@ -10,6 +11,7 @@ angular.module('Spreadsheet.jsx')
       },
       componentDidMount: function () {
         var typeId = this.props.id;
+        this.pubsubHandle['cellUpdate'] = PubSubService.subscribe('cellUpdate', this.onCellUpdate);
         $http.get('/api/types/' + typeId)
           .success(function (data) {
             var headers = [];
@@ -40,6 +42,9 @@ angular.module('Spreadsheet.jsx')
                 this.setState({instances: data, headers: headers});
               }.bind(this));
           }.bind(this));
+      },
+      componentWillUnmount: function () {
+        PubSubService.unsubscribe(this.pubsubHandle['cellUpdate']);
       },
       onLinkClick: function(orderBy) {
         var typeId = this.props.id;
@@ -73,6 +78,9 @@ angular.module('Spreadsheet.jsx')
               this.setState({instances: data, headers: headers});
             }.bind(this));
           }.bind(this));
+      },
+      onCellUpdate: function (instance) {
+        console.log(instance);
       },
       render: function () {
         return (
