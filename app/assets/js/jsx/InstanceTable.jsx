@@ -43,10 +43,12 @@ angular.module('Spreadsheet.jsx')
       },
       render: function () {
         return (
+          <div className="table-responsive">
           <table className="table table-bordered table-striped table-condensed">
             <InstanceTableHeader type={this.state.type} headers={this.state.headers} />
             <InstanceTableBody type={this.state.type} headers={this.state.headers} instances={this.state.instances}/>
           </table>
+          </div>
           );
       }
     });

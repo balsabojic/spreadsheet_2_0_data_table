@@ -1,5 +1,5 @@
 angular.module('Spreadsheet.jsx')
-  .factory('InstanceTableRow', function (CellString, CellBoolean) {
+  .factory('InstanceTableRow', function (CellString, CellBoolean, CellDate, CellNumber) {
     return React.createClass({
       render: function () {
         var cells = {};
@@ -7,11 +7,16 @@ angular.module('Spreadsheet.jsx')
         this.props.headers.forEach(function (attribute) {
           var value = instance.attributes[attribute.name];
           var cell;
-
           switch (attribute.type) {
-            case 'boolean':
+          	case 'boolean':
               cell = <CellBoolean value={value} instance={instance} attribute={attribute}/>;
               break;
+            case 'date':
+              cell = <CellDate value={value} instance={instance} attribute={attribute} />
+              	break;
+            case 'number':
+            	cell = <CellNumber value={value} instance={instance} attribute={attribute} />
+            	break;
             default:
               cell = <CellString value={value} instance={instance} attribute={attribute}/>;
           }

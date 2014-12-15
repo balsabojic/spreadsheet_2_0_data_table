@@ -7,7 +7,7 @@ angular.module('Spreadsheet.jsx')
             <tr>
             {this.props.headers.map(function (attribute) {
               return (
-                <th key={attribute.name} className={attribute.isFree ? "free-attr" : ""}>
+                <th key={attribute.name} className={attribute.isFree ? "free-attr" : "header"}>
                   {attribute.name}
                   <small className="label label-default">{attribute.type}</small>
                 </th>
