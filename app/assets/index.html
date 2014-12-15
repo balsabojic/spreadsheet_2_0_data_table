@@ -30,14 +30,12 @@
         <li><a ui-sref="home">Home</a></li>
         <li><a ui-sref="types">Types</a></li>
       </ul>
-      <form class="navbar-form navbar-left">
-        <input type="text" class="form-control" placeholder="Search...">
-      </form>
     </div>
   </div>
 </nav>
 
-<div class="container-fluid" ui-view></div>
+<div ui-view></div>
+
 <!-- vendor libs -->
 <script type="text/javascript" src="/assets/lib/angularjs/angular.min.js"></script>
 <script type="text/javascript" src="/assets/lib/angular-ui-bootstrap/ui-bootstrap-tpls.min.js"></script>
@@ -52,6 +50,7 @@
 <script type="text/javascript" src="/assets/js/services/index.js"></script>
 <script type="text/javascript" src="/assets/js/services/AttributeService.js"></script>
 <script type="text/javascript" src="/assets/js/services/InstanceService.js"></script>
+<script type="text/javascript" src="/assets/js/services/PubSubService.js"></script>
 <!-- react components -->
 <script type="text/javascript" src="/assets/js/jsx/index.js"></script>
 <script type="text/javascript" src="/assets/js/jsx/InstanceTable.js"></script>

@@ -1,8 +1,10 @@
-<h1>Type
-  <select ng-model="currentType"
-          ng-change="changeType()"
-          ng-options="type._id.$oid as type.name for type in types">
-    <option value="" disabled="disabled">--select one--</option>
-  </select>
-</h1>
+<div class="container-fluid">
+  <h4>Type
+    <select ng-model="currentType"
+            ng-change="changeType()"
+            ng-options="type._id.$oid as type.name for type in types">
+      <option value="" disabled="disabled">--select one--</option>
+    </select>
+  </h4>
+</div>
 <ui-view></ui-view>
