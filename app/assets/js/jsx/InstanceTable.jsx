@@ -6,12 +6,25 @@ angular.module('Spreadsheet.jsx')
         return {
           type: {attributes: []},
           headers: [],
-          instances: []
+          instances: [],
+          orderBy: '',
+          asc: 1
         };
       },
       componentDidMount: function () {
         var typeId = this.props.id;
         this.pubsubHandle['cellUpdate'] = PubSubService.subscribe('cellUpdate', this.onCellUpdate);
+        this.reload();
+      },
+      componentWillUnmount: function () {
+        PubSubService.unsubscribe(this.pubsubHandle['cellUpdate']);
+      },
+      reload: function () {
+        var typeId = this.props.id;
+        var instancesURL = '/api/types/' + typeId + '/instances';
+        if (_.isString(this.state.orderBy) && this.state.orderBy.trim().length > 0) {
+          instancesURL += '/orderBy/' + this.state.orderBy + '/' + (this.state.asc || 1);
+        }
         $http.get('/api/types/' + typeId)
           .success(function (data) {
             var headers = [];
@@ -19,8 +32,7 @@ angular.module('Spreadsheet.jsx')
               headers.push(attr);
             });
             this.setState({type: data});
-
-            $http.get('/api/types/' + typeId + '/instances')
+            $http.get(instancesURL)
               .success(function (data) {
                 var attrs = {};
                 var i, j;
@@ -35,6 +47,7 @@ angular.module('Spreadsheet.jsx')
                     if (!_.find(headers, {name: attrName})) {
                       data[i].attributes[j]["isFree"] = true;
                       headers.push(data[i].attributes[j]);
+                      console.log('You clicked: ' + data[i].attributes[j]);
                     }
                   }
                   data[i].attributes = attrs;
@@ -43,44 +56,14 @@ angular.module('Spreadsheet.jsx')
               }.bind(this));
           }.bind(this));
       },
-      componentWillUnmount: function () {
-        PubSubService.unsubscribe(this.pubsubHandle['cellUpdate']);
-      },
       onLinkClick: function(orderBy) {
-        var typeId = this.props.id;
-        $http.get('/api/types/' + typeId)
-          .success(function (data) {
-          var headers = [];
-          data.attributes.forEach(function (attr) {
-            headers.push(attr);
-          });
-          this.setState({type: data});
-          $http.get('/api/types/' + typeId + '/instances/orderBy/' +orderBy + '/' + 1)
-            .success(function (data) {
-              var attrs = {};
-              var i, j;
-              for (i = 0; i < data.length; i++) {
-                attrs = {};
-                for (j = 0; j < data[i].attributes.length; j++) {
-                  // convert from {name: "some name", value: "some value"} to {"some name": "some value"}
-                  var attrName = data[i].attributes[j].name;
-                  attrs[attrName] = data[i].attributes[j].value;
-                  // check if the attribute is free (not already in headers) or not
-                  // if not, push it to the headers
-                  if (!_.find(headers, {name: attrName})) {
-                    data[i].attributes[j]["isFree"] = true;
-                    headers.push(data[i].attributes[j]);
-                    console.log('You clicked: ' + data[i].attributes[j]);
-                  }
-                }
-                data[i].attributes = attrs;
-              }
-              this.setState({instances: data, headers: headers});
-            }.bind(this));
-          }.bind(this));
+        this.setState({orderBy: orderBy}, function () {
+          this.reload();
+        });
       },
       onCellUpdate: function (instance) {
         console.log(instance);
+        this.reload();
       },
       render: function () {
         return (
