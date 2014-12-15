@@ -67,7 +67,7 @@ angular.module('Spreadsheet.jsx')
       },
       render: function () {
         return (
-          <table className="table table-bordered table-striped table-condensed">
+          <table id="instanceTable" className="table table-bordered table-striped table-condensed">
             <InstanceTableHeader onLinkClick={this.onLinkClick} type={this.state.type} headers={this.state.headers} />
             <InstanceTableBody type={this.state.type} headers={this.state.headers} instances={this.state.instances}/>
           </table>
