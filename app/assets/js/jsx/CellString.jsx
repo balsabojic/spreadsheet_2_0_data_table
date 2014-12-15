@@ -5,6 +5,7 @@ angular.module('Spreadsheet.jsx')
         return {isEditing: false};
       },
       onClick: function () {
+    	console.log('Cell String console logged');
         this.setState({isEditing: true}, function () {
           this.refs.input.getDOMNode().focus();
         });
@@ -30,8 +31,8 @@ angular.module('Spreadsheet.jsx')
       render: function () {
         if (this.state.isEditing) {
           return (
-            <div>
-              <input type="text" ref="input" defaultValue={this.props.value}
+            <div className="input-group input-group-lg">
+              <textarea ref="input" className="form-control" defaultValue={this.props.value}
               onBlur={this.handleUpdate} onKeyPress={this.onKeyPress} />
             </div>
             );
