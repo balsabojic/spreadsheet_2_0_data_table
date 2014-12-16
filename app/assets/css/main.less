@@ -1,5 +1,25 @@
 @import "lib/bootstrap/less/bootstrap.less";
 
+@grid-gutter-width: 25px;
+
+@font-size-base: 13px;
+@font-family-base: Helvetica, sans-serif;
+@headings-font-weight: 600;
+
+@navbar-default-link-color: @link-color;
+@navbar-default-link-hover-color: @link-hover-color;
+
+@navbar-inverse-bg: #33628a;
+@navbar-inverse-color: #fff;
+@navbar-inverse-link-color: #fff;
+@navbar-inverse-link-active-color: #fff;
+@navbar-inverse-link-hover-bg: lighten(@navbar-inverse-link-active-bg, 5%);
+@navbar-height: 40px;
+
+@border-radius-base: 2px;
+@border-radius-large: 2px;
+@border-radius-small: 1px;
+
 body {
   padding-top: 50px;
 }
@@ -16,4 +36,8 @@ th.header {
 #instanceTable {
   margin: 0;
   padding: 0;
+}
+
+#instanceTable td.current {
+  border: solid 2px @component-active-bg;
 }
