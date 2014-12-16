@@ -34,14 +34,16 @@ angular.module('Spreadsheet.jsx')
         }
       },
 
+      focusOnInput: function () {
+        if (this.refs.input) {
+          this.refs.input.getDOMNode().focus();
+        }
+      },
+
       /** set state isEditing to true, focus on the input form control if there is one */
       startEditing: function () {
         if (this.props.isEditable) {
-          this.setState({isEditing: true}, function () {
-            if (this.refs.input) {
-              this.refs.input.getDOMNode().focus();
-            }
-          });
+          this.setState({isEditing: true}, this.focusOnInput);
         }
       },
 
@@ -95,7 +97,7 @@ angular.module('Spreadsheet.jsx')
           'free-attribute': this.props.attribute.isFreeAttribute
         });
         if (this.state.isEditing) {
-          return <td className={classes}>{this.renderInput()}</td>;
+          return <td className={classes} onClick={this.focusOnInput}>{this.renderInput()}</td>;
         } else {
           return <td className={classes} onClick={this.setCurrentCell}>{this.renderValue()}</td>;
         }

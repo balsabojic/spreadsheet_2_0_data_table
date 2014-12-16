@@ -30,7 +30,7 @@ angular.module('Spreadsheet.jsx')
         this.setState({optionIdx: optionIdx});
       },
       renderInput: function () {
-        return <input ref="input" type="text" value={this.options[this.state.optionIdx]} onKeyDown={this.onKeyDown} readOnly={true} />;
+        return <textarea ref="input" type="text" value={this.options[this.state.optionIdx]} onKeyDown={this.onKeyDown} onClick={this.nextValue} readOnly={true} />;
       },
       renderValue: function () {
         if (this.props.value === 'true')
