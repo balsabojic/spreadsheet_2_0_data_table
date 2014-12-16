@@ -74,7 +74,7 @@ angular.module('Spreadsheet.jsx')
       },
 
       onCellUpdate: function (e) {
-        this.data[e.instance_id].attributes[e.attribute_name] = e.attribute_value;
+        this.dataMap[e.instance_id].attributes[e.attribute_name] = e.attribute_value;
         this.setState({instances: this.data});
       },
 

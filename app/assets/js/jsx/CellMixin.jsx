@@ -1,11 +1,11 @@
 angular.module('Spreadsheet.jsx')
-  .factory('CellMixin', function (PubSubService) {
+  .factory('CellMixin', function ($http, PubSubService) {
     /**
      * CellMixin for reactjs Cell components.
      * The Cell component must define the methods:
      * - renderInput
      * - renderValue
-     * - updateValue
+     * - getInputValue returns the new value of the input
      */
     return {
       getDefaultProps: function () {
@@ -21,7 +21,7 @@ angular.module('Spreadsheet.jsx')
         };
       },
 
-      componentWillMount: function () {
+      componentDidMount: function () {
         if (this.state.isCurrentCell) {
           this.setCurrentCell();
         }
@@ -47,6 +47,19 @@ angular.module('Spreadsheet.jsx')
 
       /** set state isEditing to false */
       finishEditing: function () {
+        var value = this.getInputValue();
+        if (value !== this.props.value) {
+          var change = {
+            instance_id: this.props.instance._id,
+            attribute_name: this.props.attribute.name,
+            attribute_value: value
+          };
+          $http.post('/updateInstance', change)
+            .success(function () {
+              PubSubService.publish('cellUpdate', [change]);
+            });
+        }
+
         this.setState({isEditing: false});
       },
 
@@ -58,9 +71,7 @@ angular.module('Spreadsheet.jsx')
         PubSubService.publish('setCurrentCell', {rowIdx: this.props.rowIdx, colIdx: this.props.colIdx});
         this.setCurrentCellHandle = PubSubService.subscribe('setCurrentCell', this.unsetCurrentCell);
         this.setState({isCurrentCell: true}, function () {
-          if (this.props.isEditable) {
-            this.startEditing();
-          }
+          this.startEditing();
         });
       },
 
