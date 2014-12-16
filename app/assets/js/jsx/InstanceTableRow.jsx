@@ -22,9 +22,9 @@ angular.module('Spreadsheet.jsx')
             case 'boolean':
               cell = <CellBoolean {...props} />;
               break;
-//            case 'date':
-//              cell = <CellDate {...props} />;
-//              break;
+            case 'date':
+              cell = <CellDate {...props} />;
+              break;
             case 'number':
               cell = <CellNumber {...props} />;
               break;

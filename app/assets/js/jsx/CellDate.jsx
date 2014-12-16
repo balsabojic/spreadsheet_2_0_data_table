@@ -1,6 +1,19 @@
 angular.module('Spreadsheet.jsx')
-  .factory('CellDate', function ($http) {
-    return React.createClass({
+  .factory('CellDate', function ($http, PubSubService, CellMixin) {
+	  return React.createClass({
+	      displayName: 'CellDate',
+	      mixins: [CellMixin],
+	      getInputValue: function () {
+	        return this.refs.input.getDOMNode().value;
+	      },
+	      renderInput: function () {
+	    	  return <input type="date" ref="input" defaultValue={this.props.value}></input>;
+	      },
+	      renderValue: function () {
+	        return <div>{this.props.value}</div>;
+	      }
+	  });
+    /*return React.createClass({
       displayName: 'CellDate',
       getInitialState: function () {
     	  return {isEditing: false};
@@ -24,5 +37,5 @@ angular.module('Spreadsheet.jsx')
       render: function () {
     	return <input type="date" ref="input" className="form-control" defaultValue={this.props.value} onChange={this.onChange}></input>;
       }
-    });
+    });*/
   });
