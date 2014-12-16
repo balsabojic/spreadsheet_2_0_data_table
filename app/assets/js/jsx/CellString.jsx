@@ -7,11 +7,7 @@ angular.module('Spreadsheet.jsx')
         return this.refs.input.getDOMNode().value;
       },
       renderInput: function () {
-        return (
-          <div className="input-group input-group-lg">
-            <textarea ref="input" className="form-control" defaultValue={this.props.value} onKeyPress={this.onKeyPress} />
-          </div>
-          );
+        return <textarea ref="input" className="form-control" defaultValue={this.props.value} />;
       },
       renderValue: function () {
         return <div>{this.props.value}</div>;

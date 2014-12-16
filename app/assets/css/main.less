@@ -32,6 +32,22 @@ body {
 
   td.current {
     border: solid 3px @component-active-bg;
+    position: relative;
+
+    .form-control {
+      padding: @table-cell-padding;
+      border: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      background: transparent;
+      outline: none;
+      -webkit-box-shadow: none !important;
+      -moz-box-shadow: none !important;
+      box-shadow: none !important;
+    }
   }
 
   td.free-attribute {
