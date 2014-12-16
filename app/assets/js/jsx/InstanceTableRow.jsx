@@ -4,24 +4,34 @@ angular.module('Spreadsheet.jsx')
       displayName: 'InstanceTableRow',
       render: function () {
         var cells = {};
+        var rowIdx = this.props.rowIdx;
+        var currentCell = this.props.currentCell;
         var instance = this.props.instance;
-        this.props.headers.forEach(function (attribute) {
+        this.props.headers.forEach(function (attribute, idx) {
           var value = instance.attributes[attribute.name];
           var cell;
+          var props = {
+            value: value,
+            instance: instance,
+            attribute: attribute,
+            rowIdx: rowIdx,
+            colIdx: idx,
+            currentCell: currentCell
+          };
           switch (attribute.type) {
-          	case 'boolean':
-              cell = <CellBoolean value={value} instance={instance} attribute={attribute}/>;
+            case 'boolean':
+              cell = <CellBoolean {...props} />;
               break;
             case 'date':
-              cell = <CellDate value={value} instance={instance} attribute={attribute} />
-              	break;
+              cell = <CellDate {...props} />;
+              break;
             case 'number':
-            	cell = <CellNumber value={value} instance={instance} attribute={attribute} />
-            	break;
+              cell = <CellNumber {...props} />;
+              break;
             default:
-              cell = <CellString value={value} instance={instance} attribute={attribute}/>;
+              cell = <CellString {...props} />;
           }
-          cells[attribute.name] = (<td className={attribute.isFree ? "free-attr" : ""}>{cell}</td>);
+          cells[attribute.name] = (<td className={attribute.isFreeAttribute ? "free-attr" : ""}>{cell}</td>);
         });
         return (<tr>{cells}</tr>);
       }
