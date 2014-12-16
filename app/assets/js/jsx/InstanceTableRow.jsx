@@ -28,7 +28,9 @@ angular.module('Spreadsheet.jsx')
 //            case 'number':
 //              cell = <CellNumber {...props} />;
 //              break;
-            case 'string':
+            case 'reference':
+              cell = <CellString {...props} isEditable={false} />;
+              break;
             default:
               cell = <CellString {...props} />;
           }

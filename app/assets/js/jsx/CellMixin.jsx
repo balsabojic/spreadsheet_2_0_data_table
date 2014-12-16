@@ -78,7 +78,9 @@ angular.module('Spreadsheet.jsx')
       /** handle event when this cell no longer is current cell */
       unsetCurrentCell: function (currentCell) {
         if (this.state.isCurrentCell && (currentCell.rowIdx !== this.props.rowIdx || currentCell.colIdx !== this.props.colIdx)) {
-          this.finishEditing();
+          if (this.state.isEditing) {
+            this.finishEditing();
+          }
           this.setState({isCurrentCell: false});
           PubSubService.unsubscribe(this.setCurrentCellHandle);
         }
