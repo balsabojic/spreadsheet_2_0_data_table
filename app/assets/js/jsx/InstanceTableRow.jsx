@@ -25,9 +25,9 @@ angular.module('Spreadsheet.jsx')
 //            case 'date':
 //              cell = <CellDate {...props} />;
 //              break;
-//            case 'number':
-//              cell = <CellNumber {...props} />;
-//              break;
+            case 'number':
+              cell = <CellNumber {...props} />;
+              break;
             case 'reference':
               cell = <CellString {...props} isEditable={false} />;
               break;
