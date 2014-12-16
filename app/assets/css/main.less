@@ -20,24 +20,31 @@
 @border-radius-large: 2px;
 @border-radius-small: 1px;
 
+@table-border-color: #ccc;
+
 body {
   padding-top: 50px;
-}
-
-td.free-attribute, th.free-attribute {
-  background-color: #dddca2;
-}
-
-th.header {
-  background-color: #B5CeD2;
-  padding-left: 10px;
 }
 
 #instanceTable {
   margin: 0;
   padding: 0;
-}
 
-#instanceTable td.current {
-  border: solid 2px @component-active-bg;
+  td.current {
+    border: solid 3px @component-active-bg;
+  }
+
+  td.free-attribute {
+    background-color: darken(@table-bg-accent, 5%);
+  }
+
+  th {
+    background-color: @state-info-bg;
+    color: @state-info-text;
+    vertical-align: top;
+  }
+
+  th.free-attribute {
+    background-color: darken(@state-info-bg, 5%);
+  }
 }

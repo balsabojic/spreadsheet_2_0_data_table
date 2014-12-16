@@ -79,13 +79,13 @@ angular.module('Spreadsheet.jsx')
       },
 
       onSetCurrentCell: function (currentCell) {
-        this.setState({currentCell: currentCell})
+        this.setState({currentCell: currentCell});
       },
 
       render: function () {
         return (
           <div className="table-responsive">
-	          <table id="instanceTable" className="table table-bordered table-striped table-condensed">
+	          <table id="instanceTable" className="table table-bordered table-condensed">
 	            <InstanceTableHeader onLinkClick={this.onLinkClick} headers={this.state.headers} />
 	            <InstanceTableBody headers={this.state.headers} instances={this.state.instances} currentCell={this.state.currentCell} />
 	          </table>

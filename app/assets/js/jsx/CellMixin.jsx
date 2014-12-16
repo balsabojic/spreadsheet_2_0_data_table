@@ -10,47 +10,66 @@ angular.module('Spreadsheet.jsx')
     return {
       getDefaultProps: function () {
         return {
-          isEditable: false
+          isEditable: true
         };
       },
+
       getInitialState: function () {
         return {
           isEditing: false,
           isCurrentCell: (this.props.currentCell.rowIdx === this.props.rowIdx && this.props.currentCell.colIdx === this.props.colIdx)
         };
       },
+
       componentWillMount: function () {
-        if (this.props.isCurrentCell && this.props.isEditable) {
-          this.startEditing();
+        if (this.state.isCurrentCell) {
+          this.setCurrentCell();
         }
       },
+
       componentWillUnmount: function () {
         // unsubscribe incase we haven't
-        PubSubService.unsubscribe(this._setCurrentCellHandle);
-      },
-      startEditing: function () {
-        if (this.props.isEditable) {
-          this.setState({isEditing: true});
+        if (this.setCurrentCellHandle) {
+          PubSubService.unsubscribe(this.setCurrentCellHandle);
         }
       },
+
+      /** set state isEditing to true, focus on the input form control if there is one */
+      startEditing: function () {
+        if (this.props.isEditable) {
+          this.setState({isEditing: true}, function () {
+            if (this.refs.input) {
+              this.refs.input.getDOMNode().focus();
+            }
+          });
+        }
+      },
+
+      /** set state isEditing to false */
       finishEditing: function () {
         this.setState({isEditing: false});
       },
 
       /** handle for the pub/sub service */
-      _setCurrentCellHandle: null,
+      setCurrentCellHandle: null,
 
       /** change current cell to this cell */
-      _setCurrentCell: function () {
+      setCurrentCell: function () {
         PubSubService.publish('setCurrentCell', {rowIdx: this.props.rowIdx, colIdx: this.props.colIdx});
-        this._setCurrentCellHandle = PubSubService.subscribe('setCurrentCell', this._currentCellChange);
+        this.setCurrentCellHandle = PubSubService.subscribe('setCurrentCell', this.unsetCurrentCell);
+        this.setState({isCurrentCell: true}, function () {
+          if (this.props.isEditable) {
+            this.startEditing();
+          }
+        });
       },
 
       /** handle event when this cell no longer is current cell */
-      _currentCellChange: function (currentCell) {
-        if (currentCell.rowIdx !== this.props.rowIdx || currentCell.colIdx !== this.props.colIdx) {
+      unsetCurrentCell: function (currentCell) {
+        if (this.state.isCurrentCell && (currentCell.rowIdx !== this.props.rowIdx || currentCell.colIdx !== this.props.colIdx)) {
           this.finishEditing();
-          PubSubService.unsubscribe(this._setCurrentCellHandle);
+          this.setState({isCurrentCell: false});
+          PubSubService.unsubscribe(this.setCurrentCellHandle);
         }
       },
 
@@ -64,7 +83,7 @@ angular.module('Spreadsheet.jsx')
         if (this.state.isEditing) {
           return <td className={classes}>{this.renderInput()}</td>;
         } else {
-          return <td className={classes} onClick={this._setCurrentCell}>{this.renderValue()}</td>;
+          return <td className={classes} onClick={this.setCurrentCell}>{this.renderValue()}</td>;
         }
       }
     };
