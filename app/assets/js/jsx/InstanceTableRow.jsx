@@ -19,9 +19,9 @@ angular.module('Spreadsheet.jsx')
             currentCell: currentCell
           };
           switch (attribute.type) {
-//            case 'boolean':
-//              cell = <CellBoolean {...props} />;
-//              break;
+            case 'boolean':
+              cell = <CellBoolean {...props} />;
+              break;
 //            case 'date':
 //              cell = <CellDate {...props} />;
 //              break;
