@@ -10,16 +10,27 @@ angular.module('Spreadsheet.jsx')
         };
       },
       getInputValue: function () {
-        return this.props.value;
+        return this.options[this.state.optionIdx];
       },
       onKeyDown: function (e) {
-        e.preventDefault();
-        if (e.key === 'ArrowLeft' || e.key === 'ArrowDown') {
-          // unfinished
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+          e.preventDefault();
+          this.nextValue();
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+          e.preventDefault();
+          this.previousValue();
         }
       },
+      previousValue: function () {
+        var optionIdx = (this.state.optionIdx - 1 + this.options.length) % this.options.length;
+        this.setState({optionIdx: optionIdx});
+      },
+      nextValue: function () {
+        var optionIdx = (this.state.optionIdx + 1) % this.options.length;
+        this.setState({optionIdx: optionIdx});
+      },
       renderInput: function () {
-        return <input ref="input" type="text" className="form-control" defaultValue={this.props.value} onKeyDown={this.onKeyDown} />;
+        return <input ref="input" type="text" className="form-control" value={this.options[this.state.optionIdx]} onKeyDown={this.onKeyDown} />;
       },
       renderValue: function () {
         if (this.props.value === 'true')
@@ -30,38 +41,5 @@ angular.module('Spreadsheet.jsx')
           return <i className="fa fa-ban fa-fw"></i>;
         return <div></div>;
       }
-
-//      onClick: function () {
-//    	  this.setState({isEditing: true}, function () {
-//    		  if(this.props.value === 'true')
-//            	  this.props.value = 'false';
-//              else if(this.props.value === 'false')
-//            	  this.props.value = 'undefined';
-//              else
-//            	  this.props.value = 'true';
-//              this.handleUpdate();
-//            });
-//      },
-//      handleUpdate: function () {
-//          var value = this.props.value;
-//          $http.post('/updateInstance', {
-//            instance_id: this.props.instance._id,
-//            attribute_name: this.props.attribute.name,
-//            attribute_value: value
-//          })
-//            .success(function (data) {
-//              console.log('Updated');
-//            });
-//          this.setState({isEditing: false});
-//      },
-//      render: function () {
-//    	if (this.props.value === 'true')
-//          return <i className="fa fa-check" onClick={this.onClick}></i>;
-//        if (this.props.value === 'false')
-//          return <i className="fa fa-times" onClick={this.onClick}></i>;
-//        if (this.props.value == 'undefined')
-//        	return <i className="fa fa-ban fa-fw" onClick={this.onClick}></i>;
-//        return <div></div>;
-//      }
     });
   });
