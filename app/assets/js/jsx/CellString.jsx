@@ -1,12 +1,10 @@
 angular.module('Spreadsheet.jsx')
-  .factory('CellString', function ($http, PubSubService) {
+  .factory('CellString', function ($http, PubSubService, CellMixin) {
     return React.createClass({
       displayName: 'CellString',
-      getInitialState: function () {
-        return {isEditing: false};
-      },
+      mixins: [CellMixin],
       onClick: function () {
-    	console.log('Cell String console logged');
+        console.log('Cell String console logged');
         this.setState({isEditing: true}, function () {
           this.refs.input.getDOMNode().focus();
         });
@@ -30,16 +28,16 @@ angular.module('Spreadsheet.jsx')
           });
         this.setState({isEditing: false});
       },
-      render: function () {
-        if (this.state.isEditing) {
-          return (
-            <div className="input-group input-group-lg">
-              <textarea ref="input" className="form-control" defaultValue={this.props.value}
-              onBlur={this.handleUpdate} onKeyPress={this.onKeyPress} />
-            </div>
-            );
-        }
-        return (<div onClick={this.onClick}>{this.props.value}</div>);
+      renderInput: function () {
+        return (
+          <div className="input-group input-group-lg">
+            <textarea ref="input" className="form-control" defaultValue={this.props.value}
+            onBlur={this.handleUpdate} onKeyPress={this.onKeyPress} />
+          </div>
+          );
+      },
+      renderValue: function () {
+        return <div>{this.props.value}</div>;
       }
     });
   });

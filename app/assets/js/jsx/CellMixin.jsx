@@ -10,13 +10,13 @@ angular.module('Spreadsheet.jsx')
     return {
       getDefaultProps: function () {
         return {
-          isEditable: false,
-          isCurrentCell: false
+          isEditable: false
         };
       },
       getInitialState: function () {
         return {
-          isEditing: false
+          isEditing: false,
+          isCurrentCell: (this.props.currentCell.rowIdx === this.props.rowIdx && this.props.currentCell.colIdx === this.props.colIdx)
         };
       },
       componentWillMount: function () {
@@ -58,7 +58,7 @@ angular.module('Spreadsheet.jsx')
       render: function () {
         var cx = React.addons.classSet;
         var classes = cx({
-          'current': this.props.isCurrentCell,
+          'current': this.state.isCurrentCell,
           'free-attribute': this.props.attribute.isFreeAttribute
         });
         if (this.state.isEditing) {

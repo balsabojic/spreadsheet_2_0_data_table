@@ -19,19 +19,20 @@ angular.module('Spreadsheet.jsx')
             currentCell: currentCell
           };
           switch (attribute.type) {
-            case 'boolean':
-              cell = <CellBoolean {...props} />;
-              break;
-            case 'date':
-              cell = <CellDate {...props} />;
-              break;
-            case 'number':
-              cell = <CellNumber {...props} />;
-              break;
+//            case 'boolean':
+//              cell = <CellBoolean {...props} />;
+//              break;
+//            case 'date':
+//              cell = <CellDate {...props} />;
+//              break;
+//            case 'number':
+//              cell = <CellNumber {...props} />;
+//              break;
+            case 'string':
             default:
               cell = <CellString {...props} />;
           }
-          cells[attribute.name] = (<td className={attribute.isFreeAttribute ? "free-attr" : ""}>{cell}</td>);
+          cells[attribute.name] = cell;
         });
         return (<tr>{cells}</tr>);
       }
