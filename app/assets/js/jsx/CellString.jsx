@@ -7,7 +7,7 @@ angular.module('Spreadsheet.jsx')
         return this.refs.input.getDOMNode().value;
       },
       renderInput: function () {
-        return <textarea ref="input" className="field span12" id="textarea" rows="3" defaultValue={this.props.value} />;
+        return <textarea ref="input" defaultValue={this.props.value} />;
       },
       renderValue: function () {
         return <div>{this.props.value}</div>;

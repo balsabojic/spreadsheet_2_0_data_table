@@ -7,7 +7,7 @@ angular.module('Spreadsheet.jsx')
 	        return this.refs.input.getDOMNode().value;
 	      },
 	      renderInput: function () {
-	        return <input type="number" ref="input" className="form-control" defaultValue={this.props.value} />;
+	        return <input type="number" ref="input" defaultValue={this.props.value} />;
 	      },
 	      renderValue: function () {
 	        return <div>{this.props.value}</div>;

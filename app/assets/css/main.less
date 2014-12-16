@@ -30,24 +30,37 @@ body {
   margin: 0;
   padding: 0;
 
-  td.current {
-    border: solid 3px @component-active-bg;
+  td {
     position: relative;
 
-    .form-control {
-      padding: @table-cell-padding;
+    input, textarea {
+      padding: @table-condensed-cell-padding;
       border: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      bottom: 0;
-      right: 0;
+      height: auto;
+      width: 100%;
       background: transparent;
       outline: none;
       -webkit-box-shadow: none !important;
       -moz-box-shadow: none !important;
       box-shadow: none !important;
     }
+
+    textarea {
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      resize: none;
+    }
+  }
+
+  td.current {
+    border: solid 3px @component-active-bg;
+  }
+
+  td.editing {
+    padding: 0;
   }
 
   td.free-attribute {
