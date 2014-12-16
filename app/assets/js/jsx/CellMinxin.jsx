@@ -59,7 +59,7 @@ angular.module('Spreadsheet.jsx')
         var cx = React.addons.classSet;
         var classes = cx({
           'current': this.props.isCurrentCell,
-          'free-attribute': this.props.attribute.isFree
+          'free-attribute': this.props.attribute.isFreeAttribute
         });
         if (this.state.isEditing) {
           return <td className={classes}>{this.renderInput()}</td>;

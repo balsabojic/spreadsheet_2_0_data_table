@@ -3,23 +3,32 @@ angular.module('Spreadsheet.jsx')
     return React.createClass({
       displayName: 'InstanceTable',
       pubsubHandle: {},
+      data: [],    // access by index
+      dataMap: {}, // access by instance._id
+
       getInitialState: function () {
         return {
-          type: {attributes: []},
           headers: [],
           instances: [],
+          currentCell: {rowIdx: 0, colIdx: 0},
           orderBy: '',
           asc: 1
         };
       },
+
       componentDidMount: function () {
-        var typeId = this.props.id;
         this.pubsubHandle['cellUpdate'] = PubSubService.subscribe('cellUpdate', this.onCellUpdate);
+        this.pubsubHandle['setCurrentCell'] = PubSubService.subscribe('setCurrentCell', this.onSetCurrentCell);
         this.reload();
       },
+
       componentWillUnmount: function () {
-        PubSubService.unsubscribe(this.pubsubHandle['cellUpdate']);
+        _.forIn(this.pubsubHandle, function (handle) {
+          PubSubService.unsubscribe(handle);
+        });
       },
+
+      /** loading the types and instances from backend */
       reload: function () {
         var typeId = this.props.id;
         var instancesURL = '/api/types/' + typeId + '/instances';
@@ -32,9 +41,9 @@ angular.module('Spreadsheet.jsx')
             data.attributes.forEach(function (attr) {
               headers.push(attr);
             });
-            this.setState({type: data});
             $http.get(instancesURL)
               .success(function (data) {
+                this.data = data;
                 var attrs = {};
                 var i, j;
                 for (i = 0; i < data.length; i++) {
@@ -46,32 +55,39 @@ angular.module('Spreadsheet.jsx')
                     // check if the attribute is free (not already in headers) or not
                     // if not, push it to the headers
                     if (!_.find(headers, {name: attrName})) {
-                      data[i].attributes[j]["isFree"] = true;
+                      data[i].attributes[j]['isFreeAttribute'] = true;
                       headers.push(data[i].attributes[j]);
-                      console.log('You clicked: ' + data[i].attributes[j]);
                     }
                   }
                   data[i].attributes = attrs;
+                  this.dataMap[data[i]._id] = data[i];
                 }
-                this.setState({instances: data, headers: headers});
+                this.setState({instances: this.data, headers: headers});
               }.bind(this));
           }.bind(this));
       },
+
       onLinkClick: function(orderBy) {
         this.setState({orderBy: orderBy}, function () {
           this.reload();
         });
       },
-      onCellUpdate: function (instance) {
-        console.log(instance);
-        this.reload();
+
+      onCellUpdate: function (e) {
+        this.data[e.instance_id].attributes[e.attribute_name] = e.attribute_value;
+        this.setState({instances: this.data});
       },
+
+      onSetCurrentCell: function (currentCell) {
+        this.setState({currentCell: currentCell})
+      },
+
       render: function () {
         return (
           <div className="table-responsive">
 	          <table id="instanceTable" className="table table-bordered table-striped table-condensed">
-	            <InstanceTableHeader onLinkClick={this.onLinkClick} type={this.state.type} headers={this.state.headers} />
-	            <InstanceTableBody type={this.state.type} headers={this.state.headers} instances={this.state.instances}/>
+	            <InstanceTableHeader onLinkClick={this.onLinkClick} headers={this.state.headers} />
+	            <InstanceTableBody headers={this.state.headers} instances={this.state.instances} currentCell={this.state.currentCell} />
 	          </table>
           </div>
           );
