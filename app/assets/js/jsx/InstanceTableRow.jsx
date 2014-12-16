@@ -1,6 +1,7 @@
 angular.module('Spreadsheet.jsx')
   .factory('InstanceTableRow', function (CellString, CellBoolean, CellDate, CellNumber) {
     return React.createClass({
+      displayName: 'InstanceTableRow',
       render: function () {
         var cells = {};
         var instance = this.props.instance;

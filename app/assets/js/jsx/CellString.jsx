@@ -1,6 +1,7 @@
 angular.module('Spreadsheet.jsx')
   .factory('CellString', function ($http, PubSubService) {
     return React.createClass({
+      displayName: 'CellString',
       getInitialState: function () {
         return {isEditing: false};
       },

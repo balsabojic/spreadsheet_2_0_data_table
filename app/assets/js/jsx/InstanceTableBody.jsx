@@ -1,6 +1,7 @@
 angular.module('Spreadsheet.jsx')
   .factory('InstanceTableBody', function (InstanceTableRow) {
     return React.createClass({
+      displayName: 'InstanceTableBody',
       render: function () {
         var rows = {};
         var headers = this.props.headers;

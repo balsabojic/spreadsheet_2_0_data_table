@@ -1,6 +1,7 @@
 angular.module('Spreadsheet.jsx')
   .factory('CellDate', function ($http) {
     return React.createClass({
+      displayName: 'CellDate',
       getInitialState: function () {
     	  return {isEditing: false};
       },

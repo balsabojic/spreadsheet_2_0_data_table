@@ -1,6 +1,7 @@
 angular.module('Spreadsheet.jsx')
   .factory('InstanceTable', function ($http, PubSubService, InstanceService, InstanceTableHeader, InstanceTableBody) {
     return React.createClass({
+      displayName: 'InstanceTable',
       pubsubHandle: {},
       getInitialState: function () {
         return {

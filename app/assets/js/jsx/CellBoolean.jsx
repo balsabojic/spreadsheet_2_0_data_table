@@ -1,6 +1,7 @@
 angular.module('Spreadsheet.jsx')
   .factory('CellBoolean', function ($http) {
     return React.createClass({
+      displayName: 'CellBoolean',
       getInitialState: function () {
     	  return {isEditing: false};
       },

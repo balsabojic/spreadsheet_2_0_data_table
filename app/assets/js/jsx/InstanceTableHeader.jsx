@@ -1,6 +1,7 @@
 angular.module('Spreadsheet.jsx')
   .factory('InstanceTableHeader', function () {
     return React.createClass({
+      displayName: 'InstanceTableHeader',
       onClick: function(orderBy) {
         this.props.onLinkClick(orderBy);
       },
