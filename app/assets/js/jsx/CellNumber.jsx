@@ -6,8 +6,14 @@ angular.module('Spreadsheet.jsx')
 	      getInputValue: function () {
 	        return this.refs.input.getDOMNode().value;
 	      },
+	      checkForNumber : function(evt){
+	    	  var charCode = (evt.which) ? evt.which : event.keyCode
+	    	  if (charCode > 31 && (charCode < 48 || charCode > 57))
+	    	        evt.preventDefault();
+	      },
 	      renderInput: function () {
-	        return <input type="number" ref="input" defaultValue={this.props.value} />;
+	        return <input type="number" ref="input" className="form-control" defaultValue={this.props.value} 
+	                onKeyPress={this.checkForNumber}/>;
 	      },
 	      renderValue: function () {
 	        return <div>{this.props.value}</div>;
