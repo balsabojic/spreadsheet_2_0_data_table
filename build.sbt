@@ -18,7 +18,8 @@ libraryDependencies ++= Seq(
   "org.webjars" % "angular-ui-router" % "0.2.11-1",
   "org.webjars" % "font-awesome" % "4.2.0",
   "org.webjars" % "react" % "0.12.1",
-  "org.webjars" % "lodash" % "2.4.1-6"
+  "org.webjars" % "lodash" % "2.4.1-6",
+  "org.webjars" % "react-bootstrap" % "0.13.0"
 )
 
 javacOptions ++= Seq("-Xlint:unchecked")
