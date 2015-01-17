@@ -2,13 +2,17 @@ angular.module('Spreadsheet.jsx')
   .factory('InstanceTableHeader', function () {
     return React.createClass({
       displayName: 'InstanceTableHeader',
-      onClick: function (orderBy) {
-        this.props.onLinkClick(orderBy);
+      onClick: function (orderBy, asc) {
+        this.props.onLinkClick(orderBy, asc);
       },
       render: function () {
         // define the component that will be used from ReactBootrap
         var OverlayTrigger = ReactBootstrap.OverlayTrigger;
         var Popover = ReactBootstrap.Popover;
+
+        var ButtonToolbar = ReactBootstrap.ButtonToolbar;
+        var DropdownButton = ReactBootstrap.DropdownButton;
+        var MenuItem = ReactBootstrap.MenuItem;
 
         return (
           <thead>
@@ -27,7 +31,14 @@ angular.module('Spreadsheet.jsx')
               return (
                 <OverlayTrigger key={attribute.name} trigger="hover" placement="bottom" overlay={attrPopover}>
                   <th className={attribute.isFree ? "free-attr" : ""}>
-                    <a onClick={this.onClick.bind(this, attribute.name)}> {attribute.name} </a>
+                    <ButtonToolbar>
+                      <DropdownButton bsSize="small" title={attribute.name}>
+                        <MenuItem onClick={this.onClick.bind(this, attribute.name, 1)} eventKey="1">Sort ascending</MenuItem>
+                        <MenuItem onClick={this.onClick.bind(this, attribute.name, 0)} eventKey="2">Sort descending</MenuItem>
+                        <MenuItem divider />
+                        <MenuItem eventKey="4">Filter</MenuItem>
+                      </DropdownButton>
+                    </ButtonToolbar>
                   </th>
                 </OverlayTrigger>
                 );

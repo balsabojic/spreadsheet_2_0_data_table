@@ -33,7 +33,7 @@ angular.module('Spreadsheet.jsx')
         var typeId = this.props.id;
         var instancesURL = '/api/types/' + typeId + '/instances';
         if (_.isString(this.state.orderBy) && this.state.orderBy.trim().length > 0) {
-          instancesURL += '/orderBy/' + this.state.orderBy + '/' + (this.state.asc || 1);
+          instancesURL += '/orderBy/' + this.state.orderBy + '/' + (this.state.asc && 1);
         }
         $http.get('/api/types/' + typeId)
           .success(function (data) {
@@ -67,8 +67,8 @@ angular.module('Spreadsheet.jsx')
           }.bind(this));
       },
 
-      onLinkClick: function(orderBy) {
-        this.setState({orderBy: orderBy}, function () {
+      onLinkClick: function(orderBy, asc) {
+        this.setState({orderBy: orderBy, asc: asc}, function () {
           this.reload();
         });
       },

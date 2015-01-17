@@ -134,7 +134,7 @@ public class CollectionInstance extends Collection {
                             objects.set(i, obj2);
                             objects.set(j, obj1);
                         }
-                    } else if (asc == -1) {
+                    } else if (asc == 0) {
                         if (value1.compareTo(value2) > 0) {
                             objects.set(i, obj2);
                             objects.set(j, obj1);
