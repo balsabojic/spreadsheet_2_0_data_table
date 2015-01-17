@@ -47,4 +47,16 @@ public class Instances extends Controller{
         CollectionInstance instance = new CollectionInstance();
         instance.deleteInstance(instance_id);
     }
+
+    public static Result undo() {
+        CollectionInstance instance = new CollectionInstance();
+        instance.undo();
+        return ok("Success");
+    }
+
+    public static Result redo() {
+        CollectionInstance instance = new CollectionInstance();
+        instance.redo();
+        return ok("Success");
+    }
  }

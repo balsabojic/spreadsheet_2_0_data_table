@@ -3,18 +3,18 @@
 # ~~~~
 
 # REST API
-GET        /api/types                                                  controllers.Types.list()
-GET        /api/types/:id                                              controllers.Types.index(id: String)
-GET        /api/types/:typeId/instances                                controllers.Types.getInstances(typeId: String, from = "0", limit = "0", orderBy = "", asc = "0")
-GET        /api/types/:typeId/instances/from/:from/limit/:limit        controllers.Types.getInstances(typeId: String, from: String, limit: String, orderBy = "", asc = "0")
-GET        /api/types/:typeId/instances/orderBy/:orderBy/:asc          controllers.Types.getInstances(typeId, from = "0", limit = "0", orderBy, asc)
+GET         /api/types                                                  controllers.Types.list()
+GET         /api/types/:id                                              controllers.Types.index(id: String)
+GET         /api/types/:typeId/instances                                controllers.Types.getInstances(typeId: String, from = "0", limit = "0", orderBy = "", asc = "0")
+GET         /api/types/:typeId/instances/from/:from/limit/:limit        controllers.Types.getInstances(typeId: String, from: String, limit: String, orderBy = "", asc = "0")
+GET         /api/types/:typeId/instances/orderBy/:orderBy/:asc          controllers.Types.getInstances(typeId, from = "0", limit = "0", orderBy, asc)
 
-POST        /addInstance         controllers.Instances.addInstace()
-POST        /updateInstance      controllers.Instances.updateInstance()
+POST        /addInstance                                                controllers.Instances.addInstace()
+POST        /updateInstance                                             controllers.Instances.updateInstance()
 
 # Map static resources from the /public folder to the /assets URL path
-GET        /assets/*file                                               controllers.Assets.at(path="/public", file)
+GET         /assets/*file                                               controllers.Assets.at(path="/public", file)
 
 # Home page
-GET        /                                                           controllers.Application.index(any="")
-GET        /*any                                                       controllers.Application.index(any: String)
+GET         /                                                           controllers.Application.index(any="")
+GET         /*any                                                       controllers.Application.index(any: String)
