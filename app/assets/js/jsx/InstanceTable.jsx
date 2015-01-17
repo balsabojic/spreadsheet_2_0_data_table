@@ -67,6 +67,10 @@ angular.module('Spreadsheet.jsx')
           }.bind(this));
       },
 
+      handleFilterChange: function(filter) {
+        //alert(filter);
+      },
+
       onLinkClick: function(orderBy, asc) {
         this.setState({orderBy: orderBy, asc: asc}, function () {
           this.reload();
@@ -86,7 +90,7 @@ angular.module('Spreadsheet.jsx')
         return (
           <div className="table-responsive">
 	          <table id="instanceTable" className="table table-bordered table-condensed">
-	            <InstanceTableHeader onLinkClick={this.onLinkClick} headers={this.state.headers} />
+	            <InstanceTableHeader onLinkClick={this.onLinkClick} handleFilterChange={this.handleFilterChange} headers={this.state.headers} />
 	            <InstanceTableBody headers={this.state.headers} instances={this.state.instances} currentCell={this.state.currentCell} />
 	          </table>
           </div>

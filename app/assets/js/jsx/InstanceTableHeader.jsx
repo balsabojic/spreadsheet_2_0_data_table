@@ -5,6 +5,11 @@ angular.module('Spreadsheet.jsx')
       onClick: function (orderBy, asc) {
         this.props.onLinkClick(orderBy, asc);
       },
+      handleFilterChange: function(event) {
+          var filter = event.target.value;
+          //alert(this.refs.filterInput.getDOMNode().id);
+          this.props.handleFilterChange(filter);
+      },
       render: function () {
         // define the component that will be used from ReactBootrap
         var OverlayTrigger = ReactBootstrap.OverlayTrigger;
@@ -36,7 +41,10 @@ angular.module('Spreadsheet.jsx')
                         <MenuItem onClick={this.onClick.bind(this, attribute.name, 1)} eventKey="1">Sort ascending</MenuItem>
                         <MenuItem onClick={this.onClick.bind(this, attribute.name, 0)} eventKey="2">Sort descending</MenuItem>
                         <MenuItem divider />
-                        <MenuItem eventKey="4">Filter</MenuItem>
+                        Filter
+                        <form>
+                          <input ref="filterInput" id={attribute.name} type="text" placeholder="Search..." onChange={this.handleFilterChange} />
+                        </form>
                       </DropdownButton>
                     </ButtonToolbar>
                   </th>
