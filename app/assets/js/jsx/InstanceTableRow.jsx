@@ -31,14 +31,13 @@ angular.module('Spreadsheet.jsx')
             case 'reference':
               cell = <CellString {...props} isEditable={false} />;
               break;
-            case 'string':
-              cell = <CellString {...props} />;
-              break;
             default:
-              cell = <CellNewColumn {...props} />;
+            	cell = <CellString {...props} />;
           }
           cells[attribute.name] = cell;
         });
+        cell = <CellNewColumn  />;
+        cells["New Column"] = cell;
         return (<tr>{cells}</tr>);
       }
     });

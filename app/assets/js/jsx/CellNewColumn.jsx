@@ -16,15 +16,13 @@ angular.module('Spreadsheet.jsx')
 	      },
 	      
 	      render: function () {
+	    	  
 	    	var Button = ReactBootstrap.Button;
-	    	var OverlayTrigger = ReactBootstrap.OverlayTrigger;
-	    	var Popover = ReactBootstrap.Popover;
-	    	
-	        return (
-	        	<OverlayTrigger trigger="hover" placement="left" overlay={<Popover>
-	        			Click to add free attributes</Popover>}>
+		    
+	    	return (
+	            <td>
 	            	<Button bsStyle="info" bsSize="small" onClick={this.click}>+</Button>
-	            </OverlayTrigger>
+	            </td>
 	        );
 	      }
 	 });
