@@ -1,5 +1,6 @@
 package controllers;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import models.Collection;
 import models.CollectionInstance;
 import models.CollectionType;
@@ -33,8 +34,21 @@ public class Types extends Controller {
         }
     }
 
-    public static void addTypeAttribute(String id, String name, String value) {
-        CollectionType type = new CollectionType();
-        type.addTypeAttribute(id, name, value);
+    public static Result addTypeAttribute() {
+        JsonNode json = request().body().asJson();
+        if(json == null) {
+            return badRequest("Expecting Json data");
+        } else {
+            String id = json.findPath("type_id").asText();
+            String name = json.findPath("attribute_name").asText();
+            String value = json.findPath("attribute_type").asText();
+            if(id == null || name == null || value == null) {
+                return badRequest("Missing one of the parameters");
+            } else {
+                CollectionType type = new CollectionType();
+                type.addTypeAttribute(id, name, value);
+                return ok("Success " + id + " " + name + " " + value);
+            }
+        }
     }
 }
