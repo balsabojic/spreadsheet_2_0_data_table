@@ -13,13 +13,14 @@ angular.module('Spreadsheet.jsx')
 		    var PopIns = (
 		    		<Popover title="Free Attribute">
 		    			<form>
-		    			    <Input type="select" label='Data Type' defaultValue="select">
+		    			    <Input type="select" label='Data Type' id="dataId" >
 		    			        <option value="String">String</option>
 		    			        <option value="Date">Date</option>
 		    			        <option value="Boolean">Boolean</option>
 		    			        <option value="Number">Number</option>
 	    			        </Input>
-		    			    <Input type="text" label='Value' required="required"/>
+	    			        <Input type="text" label='Header' required="required"/>
+	    			        <Input type="text" label='Value' required="required"/>
 		    			    <Input type="submit" value="Submit" />
 		    			</form>
 		    			 
