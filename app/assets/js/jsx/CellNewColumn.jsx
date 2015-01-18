@@ -3,27 +3,36 @@ angular.module('Spreadsheet.jsx')
 	  return React.createClass({
 	      displayName: 'CellNewColumn',
 	      
-	      click: function (){
-	    	    console.log('Inside click');
-		    	var OverlayTrigger = ReactBootstrap.OverlayTrigger;
-		    	var Popover = ReactBootstrap.Popover;
-		    	
-		        return (
-		        	<OverlayTrigger trigger="click" placement="top" overlay={<Popover title="Popover right">
-		        			<strong>Holy guacamole!</strong> Check this info.</Popover>}>
-		            </OverlayTrigger>
-		        );
-	      },
-	      
 	      render: function () {
 	    	  
 	    	var Button = ReactBootstrap.Button;
+		    var Popover = ReactBootstrap.Popover;
+		    var OverlayTrigger = ReactBootstrap.OverlayTrigger
+		    var Input = ReactBootstrap.Input
 		    
+		    var PopIns = (
+		    		<Popover title="Free Attribute">
+		    			<form>
+		    			    <Input type="select" label='Data Type' defaultValue="select">
+		    			        <option value="String">String</option>
+		    			        <option value="Date">Date</option>
+		    			        <option value="Boolean">Boolean</option>
+		    			        <option value="Number">Number</option>
+	    			        </Input>
+		    			    <Input type="text" label='Value' required="required"/>
+		    			    <Input type="submit" value="Submit" />
+		    			</form>
+		    			 
+		    		</Popover>	
+		    );
+	    	
 	    	return (
-	            <td>
-	            	<Button bsStyle="info" bsSize="small" onClick={this.click}>+</Button>
-	            </td>
-	        );
+	    		<OverlayTrigger trigger="click" placement="left" overlay={PopIns}>
+	    		<td>
+	    		    <Button bsStyle="default">+</Button>
+	    	     </td>
+	    	     </OverlayTrigger>
+	    	);
 	      }
 	 });
   });
