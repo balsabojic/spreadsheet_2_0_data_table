@@ -1,5 +1,5 @@
 angular.module('Spreadsheet.jsx')
-  .factory('InstanceTableRow', function (CellString, CellBoolean, CellDate, CellNumber) {
+  .factory('InstanceTableRow', function (CellString, CellBoolean, CellDate, CellNumber, CellNewColumn) {
     return React.createClass({
       displayName: 'InstanceTableRow',
       render: function () {
@@ -31,8 +31,11 @@ angular.module('Spreadsheet.jsx')
             case 'reference':
               cell = <CellString {...props} isEditable={false} />;
               break;
-            default:
+            case 'string':
               cell = <CellString {...props} />;
+              break;
+            default:
+              cell = <CellNewColumn {...props} />;
           }
           cells[attribute.name] = cell;
         });
