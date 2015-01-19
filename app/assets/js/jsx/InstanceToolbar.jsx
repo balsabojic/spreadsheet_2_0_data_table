@@ -9,30 +9,6 @@ angular.module('Spreadsheet.jsx')
         alert(text);
       },
       
-      newColumnPopOver : function() {
-    	  console.log('Inside New column popOver')
-    	  var Popover = ReactBootstrap.Popover;
-		    var OverlayTrigger = ReactBootstrap.OverlayTrigger
-		    var Input = ReactBootstrap.Input
-		    
-		    var PopIns = (
-		    		<Popover title="Free Attribute">
-		    			<div>
-		    			    <Input type="select" ref="dataType" label='Data Type' id="dataId" onChange={this.change}>
-		    			        <option value="String">String</option>
-		    			        <option value="Date">Date</option>
-		    			        <option value="Boolean">Boolean</option>
-		    			        <option value="Number">Number</option>
-	    			        </Input>
-	    			        <Input type="text" label='Header' required="required" id="header"/>
-	    			        <Input type="text" label='Value' required="required" id="inputVal"/>
-		    			    <Input type="submit" value="Submit" onClick={this.submit} />
-		    			</div>
-		    		</Popover>	
-		    );
-    	  
-      },
-      
       render: function () {
         var Button = ReactBootstrap.Button;
         var ButtonToolbar = ReactBootstrap.ButtonToolbar;
