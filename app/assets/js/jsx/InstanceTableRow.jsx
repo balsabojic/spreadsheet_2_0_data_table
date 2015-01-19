@@ -36,7 +36,7 @@ angular.module('Spreadsheet.jsx')
           }
           cells[attribute.name] = cell;
         });
-        cell = <CellNewColumn  />;
+        cell = <CellNewColumn instance={instance}/>;
         cells["New Column"] = cell;
         return (<tr>{cells}</tr>);
       }
