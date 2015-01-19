@@ -48,9 +48,9 @@ angular.module('Spreadsheet.jsx')
 	                  <Well bsSize="small">
                       <MenuItem onClick={this.onClick.bind(this, attribute.name, 1)} eventKey="1">Sort ascending</MenuItem>
                         <MenuItem onClick={this.onClick.bind(this, attribute.name, 0)} eventKey="2">Sort descending</MenuItem>
-                      </Well>
+                      
                       	<MenuItem divider />
-                      	<Well bsSize="small">
+                      	
 	                        Filter
 	                        <form>
 	                          <input ref="filterInput" id={attribute.name} type="text" placeholder="Search..." onChange={this.handleFilterChange} />

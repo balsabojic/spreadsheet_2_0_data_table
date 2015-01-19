@@ -43,7 +43,7 @@ angular.module('Spreadsheet.jsx')
 	    var PopIns = (
 	    		<Popover title="New Column">
 	    			<div>
-	    			    <Input type="select" ref="dataType" label='Data Type' id="dataId" onChange={this.change}>
+	    			    <Input type="select" ref="dataType" label='Data Type' id="dataId">
 	    			        <option value="String">String</option>
 	    			        <option value="Date">Date</option>
 	    			        <option value="Boolean">Boolean</option>
