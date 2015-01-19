@@ -72,9 +72,7 @@ angular.module('Spreadsheet.jsx')
       setCurrentCell: function () {
         PubSubService.publish('setCurrentCell', {rowIdx: this.props.rowIdx, colIdx: this.props.colIdx});
         this.setCurrentCellHandle = PubSubService.subscribe('setCurrentCell', this.unsetCurrentCell);
-        this.setState({isCurrentCell: true}, function () {
-          this.startEditing();
-        });
+        this.setState({isCurrentCell: true});
       },
 
       /** handle event when this cell no longer is current cell */
@@ -88,6 +86,11 @@ angular.module('Spreadsheet.jsx')
         }
       },
 
+      setCurrentCellAndStartEditing: function () {
+        this.setCurrentCell();
+        this.startEditing();
+      },
+
       /** render the component, the component must define `renderInput` and `renderValue` methods */
       render: function () {
         var cx = React.addons.classSet;
@@ -99,7 +102,7 @@ angular.module('Spreadsheet.jsx')
         if (this.state.isEditing) {
           return <td className={classes} onClick={this.focusOnInput}>{this.renderInput()}</td>;
         } else {
-          return <td className={classes} onClick={this.setCurrentCell}>{this.renderValue()}</td>;
+          return <td className={classes} onClick={this.setCurrentCellAndStartEditing}>{this.renderValue()}</td>;
         }
       }
     };
