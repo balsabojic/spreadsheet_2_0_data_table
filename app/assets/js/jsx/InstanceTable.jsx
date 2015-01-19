@@ -19,7 +19,12 @@ angular.module('Spreadsheet.jsx')
       componentDidMount: function () {
         this.pubsubHandle['cellUpdate'] = PubSubService.subscribe('cellUpdate', this.onCellUpdate);
         this.pubsubHandle['setCurrentCell'] = PubSubService.subscribe('setCurrentCell', this.onSetCurrentCell);
+        this.pubsubHandle['onFreeAttr'] = PubSubService.subscribe('onFreeAttr', this.onNewFreeAttribute);
         this.reload();
+      },
+      
+      onNewFreeAttribute: function () {
+    	  this.reload();
       },
 
       componentWillUnmount: function () {
