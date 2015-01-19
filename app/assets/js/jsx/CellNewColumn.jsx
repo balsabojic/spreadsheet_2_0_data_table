@@ -46,7 +46,7 @@ angular.module('Spreadsheet.jsx')
 	    			        </Input>
 	    			        <Input type="text" label='Header' required="required" id="header"/>
 	    			        <Input type="text" label='Value' required="required" id="inputVal"/>
-		    			    <Input type="submit" value="Submit" onClick={this.submit} />
+		    			    <Input type="submit" bsStyle="primary" value="Add" onClick={this.submit} />
 		    			</div>
 		    		</Popover>	
 		    );
