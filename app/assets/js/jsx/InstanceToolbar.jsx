@@ -18,7 +18,7 @@ angular.module('Spreadsheet.jsx')
 	    
 	    var PopIns = (
 	    		<Popover title="New Column">
-	    			<div>
+	    			<form>
 	    			    <Input type="select" ref="dataType" label='Data Type' id="dataId">
 	    			        <option value="String">String</option>
 	    			        <option value="Date">Date</option>
@@ -27,7 +27,7 @@ angular.module('Spreadsheet.jsx')
     			        </Input>
     			        <Input type="text" label='Header' required="required" id="header"/>
     			        <Input type="submit" bsStyle="primary" value="Add" onClick={this.submit} />
-	    			</div>
+	    			</form>
 	    		</Popover>	
 	    );
 	    
