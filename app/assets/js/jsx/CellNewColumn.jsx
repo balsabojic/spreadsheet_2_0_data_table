@@ -10,6 +10,16 @@ angular.module('Spreadsheet.jsx')
 	    	
 	    	var instance = this.props.instance;
 	    	
+	    	if(header == '' || header =='undefined' ){
+	    		alert('Please fill header field');
+	    		return false;
+	    	}
+	    	
+	    	if(value == '' || value =='undefined' ){
+	    		alert('Please submit value');
+	    		return false;
+	    	}
+	    	
 	    	var data = {
 	                instance_id: instance._id,
 	                attribute_name: header,
@@ -64,15 +74,15 @@ angular.module('Spreadsheet.jsx')
 		    var OverlayTrigger = ReactBootstrap.OverlayTrigger
 		    var Input = ReactBootstrap.Input
 		    
-		    var inputValue = <Input type="text" label='Value' required="required" id="inputVal"/>;
+		    var inputValue = <Input type="text" label='Value' required id="inputVal"/>;
 	    	  
 	    	  if(this.state.isString){
-	    		  inputValue = <Input type="text" label='Value' required="required" id="inputVal"/>
+	    		  inputValue = <Input type="text" label='Value' required id="inputVal"/>
 	    		  this.state.isString = false;
 	    		  
 	    	  }
 	    	  else if(this.state.isDate){
-	    		  inputValue = <Input type="date" label='Value' required="required" id="inputVal"/>;
+	    		  inputValue = <Input type="date" label='Value' required id="inputVal"/>;
 		          this.state.isDate = false;
 		          
 		      }
@@ -85,25 +95,24 @@ angular.module('Spreadsheet.jsx')
 	    		  this.state.isBoolean = false;
 		      }
 	    	  else if(this.state.isNumber){
-	    		  inputValue =  <Input type="number" label='Value' required="required" id="inputVal" onKeyPress={this.checkForNumber}/>
+	    		  inputValue =  <Input type="number" label='Value' required id="inputVal" onKeyPress={this.checkForNumber}/>
 	    		  this.state.isNumber = false;
 		      }
 	    	  
-		    
-		    var PopIns = (
+	    	var PopIns = (
 		    		<Popover title="Free Attribute">
-		    			<div>
+		    			<form>
 		    			    <Input type="select" label='Data Type' id="dataId" onChange={this.change}>
 		    			    	<option value="String">String</option>
 		    			        <option value="Date">Date</option>
 		    			        <option value="Boolean">Boolean</option>
 		    			        <option value="Number">Number</option>
 	    			        </Input>
-	    			        <Input type="text" label='Header' required="required" id="header"/>
+	    			        <Input type="text" label='Header' required id="header"/>
 	    			        
 	    			        {inputValue}
 	    			        <Input type="submit" bsStyle="primary" value="Add" onClick={this.submit} />
-		    			</div>
+		    			</form>
 		    		</Popover>	
 		    );
 	    	
