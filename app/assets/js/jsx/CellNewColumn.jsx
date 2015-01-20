@@ -3,9 +3,6 @@ angular.module('Spreadsheet.jsx')
 	  return React.createClass({
 	      displayName: 'CellNewColumn',
 	      
-	      options: ['string', 'date', 'number', 'boolean'],
-	      
-	      
 	      submit: function() {
 	    	var data_type = document.getElementById('dataId').value;
 	    	var header = document.getElementById('header').value;
@@ -81,9 +78,9 @@ angular.module('Spreadsheet.jsx')
 		      }
 	    	  else if(this.state.isBoolean){
 	    		  inputValue = <Input type="select" ref="dataType" label='Value' id="inputVal" onChange={this.change}>
-	    			        	<option value="True">True</option>
-	    			        	<option value="False">False</option>
-	    			        	<option value="Undefined">Undefined</option>
+	    			        	<option value="true">True</option>
+	    			        	<option value="false">False</option>
+	    			        	<option value="undefined">Undefined</option>
 	    			        </Input>
 	    		  this.state.isBoolean = false;
 		      }
@@ -96,7 +93,7 @@ angular.module('Spreadsheet.jsx')
 		    var PopIns = (
 		    		<Popover title="Free Attribute">
 		    			<div>
-		    			    <Input type="select" ref="dataType" label='Data Type' id="dataId" onChange={this.change}>
+		    			    <Input type="select" label='Data Type' id="dataId" onChange={this.change}>
 		    			    	<option value="String">String</option>
 		    			        <option value="Date">Date</option>
 		    			        <option value="Boolean">Boolean</option>
