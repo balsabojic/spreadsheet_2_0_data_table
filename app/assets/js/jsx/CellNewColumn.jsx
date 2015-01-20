@@ -83,7 +83,7 @@ angular.module('Spreadsheet.jsx')
 	    		  inputValue = <Input type="select" ref="dataType" label='Value' id="inputVal" onChange={this.change}>
 	    			        	<option value="True">True</option>
 	    			        	<option value="False">False</option>
-	    			        	<option value="UnDefined">UnDefined</option>
+	    			        	<option value="Undefined">Undefined</option>
 	    			        </Input>
 	    		  this.state.isBoolean = false;
 		      }
