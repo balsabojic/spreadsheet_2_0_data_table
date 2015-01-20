@@ -80,7 +80,7 @@ angular.module('Spreadsheet.jsx')
 		          
 		      }
 	    	  else if(this.state.isBoolean){
-	    		  inputValue = <Input type="select" ref="dataType" label='Data Type' id="inputVal" onChange={this.change}>
+	    		  inputValue = <Input type="select" ref="dataType" label='Value' id="inputVal" onChange={this.change}>
 	    			        	<option value="True">True</option>
 	    			        	<option value="False">False</option>
 	    			        	<option value="UnDefined">UnDefined</option>
