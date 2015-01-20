@@ -5,6 +5,7 @@ angular.module('Spreadsheet.jsx')
 	      
 	      options: ['string', 'date', 'number', 'boolean'],
 	      
+	      
 	      submit: function() {
 	    	var data_type = document.getElementById('dataId').value;
 	    	var header = document.getElementById('header').value;
@@ -24,8 +25,39 @@ angular.module('Spreadsheet.jsx')
 	    	
 	      },
 	      
+	      getInitialState: function () {
+	          return {
+	        	  isString: false,
+	        	  isNumber: false,
+	        	  isBoolean: false,
+	        	  isDate: false
+	          };
+	        },
+	      
 	      change: function (){
-	    	  console.log('change function called');
+	    	  var dataType = document.getElementById('dataId').value;
+	    	  
+	    	  if(dataType === "String"){
+	    		  this.setState({isString: true});
+	    	  }
+	    	  
+	    	  else if(dataType === "Date"){
+	    		  this.setState({isDate: true});
+	    	  }
+	    	  
+	    	  else if(dataType === "Boolean"){
+	    		  this.setState({isBoolean: true});
+	    	  }
+	    	  
+	    	  else if(dataType === "Number"){
+	    		  this.setState({isNumber: true});
+	    	  }
+	      },
+	      
+	      checkForNumber : function(evt){
+	    	  var charCode = (evt.which) ? evt.which : event.keyCode
+	    	  if (charCode > 31 && (charCode < 48 || charCode > 57))
+	    	        evt.preventDefault();
 	      },
 	      
 	      render: function () {
@@ -35,18 +67,45 @@ angular.module('Spreadsheet.jsx')
 		    var OverlayTrigger = ReactBootstrap.OverlayTrigger
 		    var Input = ReactBootstrap.Input
 		    
+		    var inputValue = <Input type="text" label='Value' required="required" id="inputVal"/>;
+	    	  
+	    	  if(this.state.isString){
+	    		  inputValue = <Input type="text" label='Value' required="required" id="inputVal"/>
+	    		  this.state.isString = false;
+	    		  
+	    	  }
+	    	  else if(this.state.isDate){
+	    		  inputValue = <Input type="date" label='Value' required="required" id="inputVal"/>;
+		          this.state.isDate = false;
+		          
+		      }
+	    	  else if(this.state.isBoolean){
+	    		  inputValue = <Input type="select" ref="dataType" label='Data Type' id="inputVal" onChange={this.change}>
+	    			        	<option value="True">True</option>
+	    			        	<option value="False">False</option>
+	    			        	<option value="UnDefined">UnDefined</option>
+	    			        </Input>
+	    		  this.state.isBoolean = false;
+		      }
+	    	  else if(this.state.isNumber){
+	    		  inputValue =  <Input type="number" label='Value' required="required" id="inputVal" onKeyPress={this.checkForNumber}/>
+	    		  this.state.isNumber = false;
+		      }
+	    	  
+		    
 		    var PopIns = (
 		    		<Popover title="Free Attribute">
 		    			<div>
 		    			    <Input type="select" ref="dataType" label='Data Type' id="dataId" onChange={this.change}>
-		    			        <option value="String">String</option>
+		    			    	<option value="String">String</option>
 		    			        <option value="Date">Date</option>
 		    			        <option value="Boolean">Boolean</option>
 		    			        <option value="Number">Number</option>
 	    			        </Input>
 	    			        <Input type="text" label='Header' required="required" id="header"/>
-	    			        <Input type="text" label='Value' required="required" id="inputVal"/>
-		    			    <Input type="submit" bsStyle="primary" value="Add" onClick={this.submit} />
+	    			        
+	    			        {inputValue}
+	    			        <Input type="submit" bsStyle="primary" value="Add" onClick={this.submit} />
 		    			</div>
 		    		</Popover>	
 		    );
