@@ -13,8 +13,6 @@ angular.module('Spreadsheet.jsx')
     	    var data_type = document.getElementById('dataId').value;
 	    	var header = document.getElementById('header').value;
 	    	
-	    	console.log("data_type " + data_type);
-	    	console.log("header " + header);
 	    	var instance = this.props.instance;
 	    	console.log("instance " + instance);
 	    	
@@ -26,8 +24,9 @@ angular.module('Spreadsheet.jsx')
 	    	var data = {
 	                instance_id: instance._id,
 	                attribute_name: header,
+	                attribute_value: data_type
 	        };
-	    	$http.post('', data)
+	    	$http.post('/addTypeAttribute', data)
 	        .success(function () {
 	        	PubSubService.publish('', [data]);
 	        });
