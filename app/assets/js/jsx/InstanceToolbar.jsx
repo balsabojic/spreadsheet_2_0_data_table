@@ -17,36 +17,36 @@ angular.module('Spreadsheet.jsx')
       },
 
       onCellUpdate: function (e) {
+        this.undo_list_pointer = this.undo_list.length;
         this.undo_list[this.undo_list_pointer] = e;
         this.undo_list_pointer = this.undo_list.length;
-//        alert(this.undo_list_pointer);
       },
 
       undo: function(text) {
-        alert(text);
-//          alert(this.undo_list_pointer);
-        if (this.undo_list_pointer > 0) {
+        if (this.undo_list_pointer > 0 && this.undo_list.length > 0) {
           this.undo_list_pointer--;
           var e = this.undo_list[this.undo_list_pointer];
+          var temp = e['attribute_value'];
           e['attribute_value'] = e['attribute_value_old'];
+          e['attribute_value_old'] = temp;
           $http.post('/updateInstance', e)
             .success(function () {
-              alert("success");
+              // TODO add reaload!
             }
           );
         }
       },
 
       redo: function(text) {
-        alert(text);
-//          alert(this.undo_list_pointer);
-        if (this.undo_list_pointer <= (this.undo_list.length - 1)) {
-          this.undo_list_pointer++;
-          var e = this.undo_list[this.undo_list_pointer];
+        if (this.undo_list.length > 0 && this.undo_list_pointer <= (this.undo_list.length - 1)) {
+          var e = this.undo_list[this.undo_list_pointer];;
+          var temp = e['attribute_value'];
           e['attribute_value'] = e['attribute_value_old'];
+          e['attribute_value_old'] = temp;
           $http.post('/updateInstance', e)
             .success(function () {
-              alert("success");
+              this.undo_list_pointer++;
+              // TODO add reaload!
             }
           );
         }
