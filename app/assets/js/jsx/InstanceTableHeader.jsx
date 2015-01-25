@@ -5,10 +5,10 @@ angular.module('Spreadsheet.jsx')
       onClick: function (orderBy, asc) {
         this.props.onLinkClick(orderBy, asc);
       },
-      handleFilterChange: function(event) {
-          var filter = event.target.value;
-          //alert(this.refs.filterInput.getDOMNode().id);
-          this.props.handleFilterChange(filter);
+      filter: function(attribute_name) {
+        var filter_value = document.getElementsByName(attribute_name)[0].value;
+        this.props.handleFilterChange(attribute_name, filter_value);
+        document.getElementsByName(attribute_name)[0].value = '';
       },
       render: function () {
         // define the component that will be used from ReactBootrap
@@ -16,6 +16,7 @@ angular.module('Spreadsheet.jsx')
         var Popover = ReactBootstrap.Popover;
 
         var ButtonToolbar = ReactBootstrap.ButtonToolbar;
+        var Button = ReactBootstrap.Button;
         var DropdownButton = ReactBootstrap.DropdownButton;
         var MenuItem = ReactBootstrap.MenuItem;
         var Well = ReactBootstrap.Well;
@@ -41,20 +42,21 @@ angular.module('Spreadsheet.jsx')
                       <DropdownButton bsSize="small" title={attribute.name}>
                       <Well bsSize="small">
                       <ul className="list-unstyled">
-	                        <li><strong>Type:</strong> {attribute.type}</li>
-	                        <li><strong>Free attribute:</strong> {attribute.isFree ? "true" : "false"}</li>
+	                    <li><strong>Type:</strong> {attribute.type}</li>
+	                    <li><strong>Free attribute:</strong> {attribute.isFree ? "true" : "false"}</li>
 	                  </ul>
 	                  </Well>
 	                  <Well bsSize="small">
                       <MenuItem onClick={this.onClick.bind(this, attribute.name, 1)} eventKey="1">Sort ascending</MenuItem>
                         <MenuItem onClick={this.onClick.bind(this, attribute.name, 0)} eventKey="2">Sort descending</MenuItem>
-                      
                       	<MenuItem divider />
-                      	
-	                        Filter
-	                        <form>
-	                          <input ref="filterInput" id={attribute.name} type="text" placeholder="Search..." onChange={this.handleFilterChange} />
-	                        </form>
+                      	Filter
+	                      <form>
+	                        <input name={attribute.name} id="filter_input" type="text" placeholder="Search..."  />
+                            <ButtonToolbar>
+                              <Button bsStyle="primary" bsSize="xsmall" onClick={this.filter.bind(this, attribute.name)}>Find</Button>
+                            </ButtonToolbar>
+	                      </form>
                         </Well>
                       </DropdownButton>
                     </ButtonToolbar>

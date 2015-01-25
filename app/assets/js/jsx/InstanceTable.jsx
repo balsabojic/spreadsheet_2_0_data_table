@@ -37,7 +37,11 @@ angular.module('Spreadsheet.jsx')
       reload: function () {
         var typeId = this.props.id;
         var instancesURL = '/api/types/' + typeId + '/instances';
-        if (_.isString(this.state.orderBy) && this.state.orderBy.trim().length > 0) {
+        if (this.state.filter_value != null && this.state.filter_value != '') {
+            instancesURL += '/filter/' + this.state.filter_name + '/' + this.state.filter_value;
+            this.state.filter_value = '';
+        }
+        else if (_.isString(this.state.orderBy) && this.state.orderBy.trim().length > 0) {
           instancesURL += '/orderBy/' + this.state.orderBy + '/' + (this.state.asc && 1);
         }
         $http.get('/api/types/' + typeId)
@@ -72,8 +76,10 @@ angular.module('Spreadsheet.jsx')
           }.bind(this));
       },
 
-      handleFilterChange: function(filter) {
-        //alert(filter);
+      handleFilterChange: function(attribute_name, filter_value) {
+          this.setState({filter_name: attribute_name, filter_value: filter_value}, function () {
+              this.reload();
+          });
       },
 
       onLinkClick: function(orderBy, asc) {
