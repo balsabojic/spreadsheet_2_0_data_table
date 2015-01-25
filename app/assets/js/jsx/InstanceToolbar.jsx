@@ -1,12 +1,55 @@
 angular.module('Spreadsheet.jsx')
-  .factory('InstanceToolbar', function () {
+  .factory('InstanceToolbar', function ($http, PubSubService) {
     return React.createClass({
       displayName: 'InstanceToolbar',
-      undo: function(text) {
-        alert(text);
+      pubsubHandle: {},
+      undo_list: [],
+      undo_list_pointer: 0,
+
+      componentDidMount: function () {
+        this.pubsubHandle['cellUpdate'] = PubSubService.subscribe('cellUpdate', this.onCellUpdate);
       },
+
+      componentWillUnmount: function () {
+        _.forIn(this.pubsubHandle, function (handle) {
+        PubSubService.unsubscribe(handle);
+        });
+      },
+
+      onCellUpdate: function (e) {
+        this.undo_list_pointer = this.undo_list.length;
+        this.undo_list[this.undo_list_pointer] = e;
+        this.undo_list_pointer = this.undo_list.length;
+      },
+
+      undo: function(text) {
+        if (this.undo_list_pointer > 0 && this.undo_list.length > 0) {
+          this.undo_list_pointer--;
+          var e = this.undo_list[this.undo_list_pointer];
+          var temp = e['attribute_value'];
+          e['attribute_value'] = e['attribute_value_old'];
+          e['attribute_value_old'] = temp;
+          $http.post('/updateInstance', e)
+            .success(function () {
+              // TODO add reaload!
+            }
+          );
+        }
+      },
+
       redo: function(text) {
-        alert(text);
+        if (this.undo_list.length > 0 && this.undo_list_pointer <= (this.undo_list.length - 1)) {
+          var e = this.undo_list[this.undo_list_pointer];;
+          var temp = e['attribute_value'];
+          e['attribute_value'] = e['attribute_value_old'];
+          e['attribute_value_old'] = temp;
+          $http.post('/updateInstance', e)
+            .success(function () {
+              this.undo_list_pointer++;
+              // TODO add reaload!
+            }
+          );
+        }
       },
       
       submit: function(){
@@ -23,8 +66,8 @@ angular.module('Spreadsheet.jsx')
 	    	
 	    	var data = {
 	                instance_id: instance._id,
-	                attribute_name: header,
 	                attribute_value: data_type
+	                attribute_name: header
 	        };
 	    	$http.post('/addTypeAttribute', data)
 	        .success(function () {

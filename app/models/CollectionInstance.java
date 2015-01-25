@@ -112,7 +112,7 @@ public class CollectionInstance extends Collection {
         return new_json;
     }
 
-    public String getInstances(String type_id, int from, int limit, String orderBy, int asc) {
+    public String getInstances(String type_id, int from, int limit, String orderBy, int asc, String filter_value) {
         ObjectId id = new ObjectId(type_id);
         BasicDBObject query = new BasicDBObject("type", id);
         DBCursor cursor = instances.find(query);
@@ -120,7 +120,15 @@ public class CollectionInstance extends Collection {
         String json = "";
         ArrayList<DBObject> objects = new ArrayList<DBObject>();
         while (cursor.hasNext()) {
-            objects.add(cursor.next());
+            DBObject object_temp = cursor.next();
+            if (filter_value != "") {
+                if (isFiltered(object_temp, orderBy, filter_value)) {
+                    objects.add(object_temp);
+                }
+            }
+            else {
+                objects.add(object_temp);
+            }
         }
         if (!"".equals(orderBy)) {
             for (int i = 1; i < objects.size(); i++) {
@@ -177,6 +185,28 @@ public class CollectionInstance extends Collection {
 
         json = parseJSON(result.toString());
         return json;
+    }
+
+    private boolean isFiltered(DBObject object, String filter_name, String filter_value) {
+        BasicDBList attributes = (BasicDBList) object.get("attributes");
+        String value = "";
+        if (attributes != null) {
+            for (Object attribute : attributes) {
+                if (attribute != null) {
+                    HashMap<String, Object> attribute_hash_map = (HashMap<String, Object>) attribute;
+                    if (attribute_hash_map != null && attribute_hash_map.get("name").equals(filter_name)) {
+                        value = attribute_hash_map.get("value").toString();
+                        if (value.equals(filter_value)) {
+                            return true;
+                        }
+                        else {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private String getValue(DBObject obj1, String orderBy) {
@@ -244,6 +274,10 @@ public class CollectionInstance extends Collection {
                 }
             }
         }
+    }
+
+    public String filter(String type_id, String filter_name, String filter_value) {
+        return "";
     }
 
     public void addNewInstance(String type_id, String attribute_name, String value) {

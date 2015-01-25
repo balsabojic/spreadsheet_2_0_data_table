@@ -3,11 +3,12 @@
 # ~~~~
 
 # REST API
-GET         /api/types                                                  controllers.Types.list()
-GET         /api/types/:id                                              controllers.Types.index(id: String)
-GET         /api/types/:typeId/instances                                controllers.Types.getInstances(typeId: String, from = "0", limit = "0", orderBy = "", asc = "0")
-GET         /api/types/:typeId/instances/from/:from/limit/:limit        controllers.Types.getInstances(typeId: String, from: String, limit: String, orderBy = "", asc = "0")
-GET         /api/types/:typeId/instances/orderBy/:orderBy/:asc          controllers.Types.getInstances(typeId, from = "0", limit = "0", orderBy, asc)
+GET         /api/types                                                      controllers.Types.list()
+GET         /api/types/:id                                                  controllers.Types.index(id: String)
+GET         /api/types/:typeId/instances                                    controllers.Types.getInstances(typeId: String, from = "0", limit = "0", orderBy = "", asc = "0", filter = "")
+GET         /api/types/:typeId/instances/from/:from/limit/:limit            controllers.Types.getInstances(typeId: String, from: String, limit: String, orderBy = "", asc = "0", filter = "")
+GET         /api/types/:typeId/instances/orderBy/:orderBy/:asc              controllers.Types.getInstances(typeId, from = "0", limit = "0", orderBy, asc, filter = "")
+GET         /api/types/:typeId/instances/filter/:filterName/:filterValue    controllers.Types.getInstances(typeId, from = "0", limit = "0", filterName , asc = "0", filterValue)
 
 POST        /addInstance                                                controllers.Instances.addInstace()
 POST        /updateInstance                                             controllers.Instances.updateInstance()

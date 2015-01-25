@@ -21,13 +21,13 @@ public class Types extends Controller {
     }
 
 
-    public static Result getInstances(String typeId, String from, String limit, String orderBy, String asc) {
+    public static Result getInstances(String typeId, String from, String limit, String orderBy, String asc, String filter) {
         CollectionInstance instance = new CollectionInstance();
         try {
             int from_num = Integer.parseInt(from);
             int limit_num = Integer.parseInt(limit);
             int asc_num = Integer.parseInt(asc);
-            String data = instance.getInstances(typeId, from_num, limit_num, orderBy, asc_num);
+            String data = instance.getInstances(typeId, from_num, limit_num, orderBy, asc_num, filter);
             return ok(data);
         } catch (NumberFormatException e) {
             return ok("Error in integer parsing, please try again");
