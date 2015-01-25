@@ -54,6 +54,7 @@ angular.module('Spreadsheet.jsx')
           var change = {
             instance_id: this.props.instance._id,
             attribute_name: this.props.attribute.name,
+            attribute_value_old: this.props.value,
             attribute_value: value
           };
           $http.post('/updateInstance', change)

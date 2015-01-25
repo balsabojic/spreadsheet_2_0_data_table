@@ -1,12 +1,55 @@
 angular.module('Spreadsheet.jsx')
-  .factory('InstanceToolbar', function () {
+  .factory('InstanceToolbar', function ($http, PubSubService) {
     return React.createClass({
       displayName: 'InstanceToolbar',
+      pubsubHandle: {},
+      undo_list: [],
+      undo_list_pointer: 0,
+
+      componentDidMount: function () {
+        this.pubsubHandle['cellUpdate'] = PubSubService.subscribe('cellUpdate', this.onCellUpdate);
+      },
+
+      componentWillUnmount: function () {
+        _.forIn(this.pubsubHandle, function (handle) {
+        PubSubService.unsubscribe(handle);
+        });
+      },
+
+      onCellUpdate: function (e) {
+        this.undo_list[this.undo_list_pointer] = e;
+        this.undo_list_pointer = this.undo_list.length;
+//        alert(this.undo_list_pointer);
+      },
+
       undo: function(text) {
         alert(text);
+//          alert(this.undo_list_pointer);
+        if (this.undo_list_pointer > 0) {
+          this.undo_list_pointer--;
+          var e = this.undo_list[this.undo_list_pointer];
+          e['attribute_value'] = e['attribute_value_old'];
+          $http.post('/updateInstance', e)
+            .success(function () {
+              alert("success");
+            }
+          );
+        }
       },
+
       redo: function(text) {
         alert(text);
+//          alert(this.undo_list_pointer);
+        if (this.undo_list_pointer <= (this.undo_list.length - 1)) {
+          this.undo_list_pointer++;
+          var e = this.undo_list[this.undo_list_pointer];
+          e['attribute_value'] = e['attribute_value_old'];
+          $http.post('/updateInstance', e)
+            .success(function () {
+              alert("success");
+            }
+          );
+        }
       },
       
       submit: function(){
@@ -25,7 +68,7 @@ angular.module('Spreadsheet.jsx')
 	    	
 	    	var data = {
 	                instance_id: instance._id,
-	                attribute_name: header,
+	                attribute_name: header
 	        };
 	    	$http.post('', data)
 	        .success(function () {
