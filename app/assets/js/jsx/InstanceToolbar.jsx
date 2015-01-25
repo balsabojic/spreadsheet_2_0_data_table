@@ -66,7 +66,7 @@ angular.module('Spreadsheet.jsx')
 	    	
 	    	var data = {
 	                instance_id: instance._id,
-	                attribute_value: data_type
+	                attribute_value: data_type,
 	                attribute_name: header
 	        };
 	    	$http.post('/addTypeAttribute', data)
