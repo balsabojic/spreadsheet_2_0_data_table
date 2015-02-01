@@ -10,28 +10,45 @@ angular.module('Spreadsheet.jsx')
     return {
       getDefaultProps: function () {
         return {
-          isEditable: true
+          isEditable: true,
+          isEditing: true
         };
       },
 
-      getInitialState: function () {
-        return {
-          isEditing: false,
-          isCurrentCell: (this.props.currentCell.rowIdx === this.props.rowIdx && this.props.currentCell.colIdx === this.props.colIdx)
-        };
-      },
+//      getInitialState: function () {
+//        return {
+//          isEditing: false,
+//          isCurrentCell: (this.props.currentCell.rowIdx === this.props.rowIdx && this.props.currentCell.colIdx === this.props.colIdx)
+//        };
+//      },
 
       componentDidMount: function () {
-        if (this.state.isCurrentCell) {
-          this.setCurrentCell();
+//        if (this.state.isCurrentCell) {
+//          this.setCurrentCell();
+//        }
+        if (this.isEditing()) {
+          this.focusOnInput();
         }
       },
 
       componentWillUnmount: function () {
         // unsubscribe incase we haven't
-        if (this.setCurrentCellHandle) {
-          PubSubService.unsubscribe(this.setCurrentCellHandle);
+//        if (this.setCurrentCellHandle) {
+//          PubSubService.unsubscribe(this.setCurrentCellHandle);
+//        }
+        if (this.isEditing()) {
+          this.finishEditing();
         }
+      },
+
+      isCurrentCell: function () {
+        return (this.props.currentCell.rowIdx === this.props.rowIdx &&
+          this.props.currentCell.colIdx === this.props.colIdx);
+      },
+
+      isEditing: function () {
+        return (this.isCurrentCell() &&
+          this.props.isEditable && this.props.isEditing);
       },
 
       focusOnInput: function () {
@@ -63,7 +80,7 @@ angular.module('Spreadsheet.jsx')
             });
         }
 
-        this.setState({isEditing: false});
+        //this.setState({isEditing: false});
       },
 
       /** handle for the pub/sub service */
@@ -96,11 +113,11 @@ angular.module('Spreadsheet.jsx')
       render: function () {
         var cx = React.addons.classSet;
         var classes = cx({
-          'current': this.state.isCurrentCell,
-          'editing': this.state.isEditing,
+          'current': this.isCurrentCell(),
+          'editing': this.isEditing(),
           'free-attribute': this.props.attribute.isFreeAttribute
         });
-        if (this.state.isEditing) {
+        if (this.isEditing()) {
           return <td className={classes} onClick={this.focusOnInput}>{this.renderInput()}</td>;
         } else {
           return <td className={classes} onClick={this.setCurrentCellAndStartEditing}>{this.renderValue()}</td>;
