@@ -11,6 +11,7 @@ angular.module('Spreadsheet.jsx')
           headers: [],
           instances: [],
           currentCell: {rowIdx: 0, colIdx: 0},
+          isEditing: false,
           orderBy: '',
           asc: 1
         };
@@ -20,9 +21,62 @@ angular.module('Spreadsheet.jsx')
         this.pubsubHandle['cellUpdate'] = PubSubService.subscribe('cellUpdate', this.onCellUpdate);
         this.pubsubHandle['setCurrentCell'] = PubSubService.subscribe('setCurrentCell', this.onSetCurrentCell);
         this.pubsubHandle['onFreeAttr'] = PubSubService.subscribe('onFreeAttr', this.onNewFreeAttribute);
+        this.pubsubHandle['cell.startEditing'] = PubSubService.subscribe('cell.startEditing', this.onCellStartEditing);
+        window.addEventListener('keydown', this.onKeyDown, false);
         this.reload();
       },
-      
+
+      onKeyDown: function (e) {
+        if (this.state.isEditing) return;
+        var newCurrentRow = this.state.currentCell.rowIdx;
+        var newCurrentCol = this.state.currentCell.colIdx;
+
+        switch (e.keyCode) {
+          case 13: // enter
+            console.log("start editing");
+            PubSubService.publish('cell.startEditing', true);
+            break;
+          case 37: // left arrow
+            newCurrentCol = newCurrentCol - 1;
+            if (newCurrentCol < 0) {
+              newCurrentCol = this.state.headers.length - 1;
+              newCurrentRow = newCurrentRow - 1;
+              if (newCurrentRow < 0) {
+                newCurrentRow = 0;
+                newCurrentCol = 0;
+              }
+            }
+            break;
+          case 39: // right arrow
+            newCurrentCol = newCurrentCol + 1;
+            if (newCurrentCol === this.state.headers.length) {
+              newCurrentCol = 0;
+              newCurrentRow = newCurrentRow + 1;
+              if (newCurrentRow === this.data.length) {
+                newCurrentRow = newCurrentRow - 1;
+                newCurrentCol = this.state.headers.length - 1;
+              }
+            }
+            break;
+          case 40: // down arrow
+            newCurrentRow = newCurrentRow + 1;
+            if (newCurrentRow === this.data.length) {
+              newCurrentRow = this.data.length - 1;
+            }
+            break;
+          case 38: // up arrow
+            newCurrentRow = newCurrentRow - 1;
+            if (newCurrentRow < 0) {
+              newCurrentRow = 0;
+            }
+        }
+
+        if (newCurrentCol !== this.state.currentCell.colIdx || newCurrentRow !== this.state.currentCell.rowIdx) {
+          PubSubService.publish('setCurrentCell', {rowIdx: newCurrentRow, colIdx: newCurrentCol});
+        }
+        // enter = 13, <- = 37, -> 39, down = 40, up = 38
+      },
+
       onNewFreeAttribute: function () {
     	  this.reload();
       },
@@ -31,6 +85,7 @@ angular.module('Spreadsheet.jsx')
         _.forIn(this.pubsubHandle, function (handle) {
           PubSubService.unsubscribe(handle);
         });
+        window.removeEventListener('keydown', this.onKeyDown, false);
       },
 
       /** loading the types and instances from backend */
@@ -94,7 +149,11 @@ angular.module('Spreadsheet.jsx')
       },
 
       onSetCurrentCell: function (currentCell) {
-        this.setState({currentCell: currentCell});
+        this.setState({currentCell: currentCell, isEditing: false});
+      },
+
+      onCellStartEditing: function (isEditing) {
+        this.setState({isEditing: isEditing});
       },
 
       render: function () {
@@ -103,7 +162,7 @@ angular.module('Spreadsheet.jsx')
 	          <table id="instanceTable" className="table table-bordered table-condensed">
 	            <InstanceToolbar />
 	            <InstanceTableHeader onLinkClick={this.onLinkClick} handleFilterChange={this.handleFilterChange} headers={this.state.headers} />
-	            <InstanceTableBody headers={this.state.headers} instances={this.state.instances} currentCell={this.state.currentCell} />
+	            <InstanceTableBody headers={this.state.headers} instances={this.state.instances} currentCell={this.state.currentCell} isEditing={this.state.isEditing} />
 	          </table>
           </div>
           );

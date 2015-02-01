@@ -7,6 +7,7 @@ angular.module('Spreadsheet.jsx')
         var rowIdx = this.props.rowIdx;
         var currentCell = this.props.currentCell;
         var instance = this.props.instance;
+        var isEditing = this.props.isEditing;
         this.props.headers.forEach(function (attribute, idx) {
           var value = instance.attributes[attribute.name];
           var cell;
@@ -16,7 +17,8 @@ angular.module('Spreadsheet.jsx')
             attribute: attribute,
             rowIdx: rowIdx,
             colIdx: idx,
-            currentCell: currentCell
+            currentCell: currentCell,
+            isEditing: isEditing
           };
           switch (attribute.type) {
             case 'boolean':

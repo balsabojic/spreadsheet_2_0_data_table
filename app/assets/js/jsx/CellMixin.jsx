@@ -11,34 +11,26 @@ angular.module('Spreadsheet.jsx')
       getDefaultProps: function () {
         return {
           isEditable: true,
-          isEditing: true
+          isEditing: false
         };
       },
 
-//      getInitialState: function () {
-//        return {
-//          isEditing: false,
-//          isCurrentCell: (this.props.currentCell.rowIdx === this.props.rowIdx && this.props.currentCell.colIdx === this.props.colIdx)
-//        };
-//      },
-
       componentDidMount: function () {
-//        if (this.state.isCurrentCell) {
-//          this.setCurrentCell();
-//        }
         if (this.isEditing()) {
           this.focusOnInput();
         }
       },
 
-      componentWillUnmount: function () {
-        // unsubscribe incase we haven't
-//        if (this.setCurrentCellHandle) {
-//          PubSubService.unsubscribe(this.setCurrentCellHandle);
-//        }
-        if (this.isEditing()) {
+      componentWillReceiveProps: function (nextProps) {
+        if (!nextProps.isEditing || (this.props.isEditing &&
+          (nextProps.currentCell.rowIdx !== this.props.rowIdx ||
+          nextProps.currentCell.colIdx !== this.props.colIdx))) {
           this.finishEditing();
         }
+      },
+
+      componentWillUnmount: function () {
+        this.finishEditing();
       },
 
       isCurrentCell: function () {
@@ -60,12 +52,14 @@ angular.module('Spreadsheet.jsx')
       /** set state isEditing to true, focus on the input form control if there is one */
       startEditing: function () {
         if (this.props.isEditable) {
-          this.setState({isEditing: true}, this.focusOnInput);
+          PubSubService.publish('cell.startEditing', true);
         }
       },
 
       /** set state isEditing to false */
       finishEditing: function () {
+        if (!this.isEditing()) return;
+
         var value = this.getInputValue();
         if (value !== this.props.value) {
           var change = {
@@ -76,37 +70,17 @@ angular.module('Spreadsheet.jsx')
           };
           $http.post('/updateInstance', change)
             .success(function () {
-              PubSubService.publish('cellUpdate', [change]);
+              PubSubService.publish('cellUpdate', change, function () {
+                PubSubService.publish('cell.startEditing', false);
+              });
             });
-        }
-
-        //this.setState({isEditing: false});
-      },
-
-      /** handle for the pub/sub service */
-      setCurrentCellHandle: null,
-
-      /** change current cell to this cell */
-      setCurrentCell: function () {
-        PubSubService.publish('setCurrentCell', {rowIdx: this.props.rowIdx, colIdx: this.props.colIdx});
-        this.setCurrentCellHandle = PubSubService.subscribe('setCurrentCell', this.unsetCurrentCell);
-        this.setState({isCurrentCell: true});
-      },
-
-      /** handle event when this cell no longer is current cell */
-      unsetCurrentCell: function (currentCell) {
-        if (this.state.isCurrentCell && (currentCell.rowIdx !== this.props.rowIdx || currentCell.colIdx !== this.props.colIdx)) {
-          if (this.state.isEditing) {
-            this.finishEditing();
-          }
-          this.setState({isCurrentCell: false});
-          PubSubService.unsubscribe(this.setCurrentCellHandle);
         }
       },
 
       setCurrentCellAndStartEditing: function () {
-        this.setCurrentCell();
-        this.startEditing();
+        PubSubService.publish('setCurrentCell', {rowIdx: this.props.rowIdx, colIdx: this.props.colIdx}, function () {
+          PubSubService.publish('cell.startEditing', true);
+        });
       },
 
       /** render the component, the component must define `renderInput` and `renderValue` methods */

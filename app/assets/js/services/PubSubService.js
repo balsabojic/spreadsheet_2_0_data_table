@@ -3,8 +3,9 @@ angular.module('Spreadsheet.services')
     // see https://gist.github.com/floatingmonkey/3384419
     var cache = {};
     return {
-      publish: function (topic, args) {
+      publish: function (topic, args, callback) {
         args = args || [];
+        var cb = callback || angular.noop;
         if (!_.isArray(args)) {
           args = [args];
         }
@@ -12,6 +13,7 @@ angular.module('Spreadsheet.services')
           _.forEach(cache[topic], function (func) {
             func.apply(null, args);
           });
+          cb();
         }
       },
 
