@@ -21,6 +21,7 @@ angular.module('Spreadsheet.jsx')
         this.pubsubHandle['cellUpdate'] = PubSubService.subscribe('cellUpdate', this.onCellUpdate);
         this.pubsubHandle['setCurrentCell'] = PubSubService.subscribe('setCurrentCell', this.onSetCurrentCell);
         this.pubsubHandle['onFreeAttr'] = PubSubService.subscribe('onFreeAttr', this.onNewFreeAttribute);
+        this.pubsubHandle['onNewColumn'] = PubSubService.subscribe('onNewColumn', this.onNewColumn);
         this.pubsubHandle['cell.startEditing'] = PubSubService.subscribe('cell.startEditing', this.onCellStartEditing);
         window.addEventListener('keydown', this.onKeyDown, false);
         this.reload();
@@ -78,6 +79,10 @@ angular.module('Spreadsheet.jsx')
       },
 
       onNewFreeAttribute: function () {
+    	  this.reload();
+      },
+      
+      onNewColumn: function () {
     	  this.reload();
       },
 

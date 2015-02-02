@@ -66,11 +66,11 @@ angular.module('Spreadsheet.jsx')
 	    	var data = {
 	    			type_id: type_id,
 	    			attribute_name: header,
-	                attribute_value: data_type
+	                attribute_type	: data_type
 	        };
 	    	$http.post('/addTypeAttribute', data)
 	        .success(function () {
-	        	PubSubService.publish('', [data]);
+	        	PubSubService.publish('onNewColumn', [data]);
 	        });
       },
       
