@@ -5,7 +5,17 @@ angular.module('Spreadsheet.jsx')
       pubsubHandle: {},
       undo_list: [],
       undo_list_pointer: 0,
-
+      
+      getInitialState: function () {
+          return {
+        	  isString: false,
+        	  isNumber: false,
+        	  isBoolean: false,
+        	  isDate: false,
+        	  isReference: false
+          };
+        },
+        
       componentDidMount: function () {
         this.pubsubHandle['cellUpdate'] = PubSubService.subscribe('cellUpdate', this.onCellUpdate);
       },
@@ -52,7 +62,28 @@ angular.module('Spreadsheet.jsx')
         }
       },
       
-      submit: function(){
+      submitNewRow: function(){
+    	    var header = document.getElementById("headerType").selectedOptions[0].label;
+    	    var value = document.getElementById('inputVal').value;
+	    	var type_id = this.props.type_Id;
+	    	
+	    	if(value == '' || value =='undefined' ){
+	    		alert('Please fill Value field'); 
+	    		return false;
+	    	}
+	    	
+	    	var data = {
+	    			type_id: type_id,
+	    			attribute_name: header,
+	                attribute_value	: value
+	        };
+	    	$http.post('/addInstance', data)
+	        .success(function () {
+	        	PubSubService.publish('', [data]);
+	        });
+      },
+      
+      submitNewColumn: function(){
     	    var data_type = document.getElementById('dataId').value;
 	    	var header = document.getElementById('header').value;
 	    	
@@ -74,6 +105,36 @@ angular.module('Spreadsheet.jsx')
 	        });
       },
       
+      checkForNumber : function(evt){
+    	  var charCode = (evt.which) ? evt.which : event.keyCode
+    	  if (charCode > 31 && (charCode < 48 || charCode > 57))
+    	        evt.preventDefault();
+      },
+      
+      change: function (){
+    	  var dataType = document.getElementById('headerType').value;
+    	  
+    	  if(dataType === "string"){
+    		  this.setState({isString: true});
+    	  }
+    	  
+    	  else if(dataType === "date"){
+    		  this.setState({isDate: true});
+    	  }
+    	  
+    	  else if(dataType === "boolean"){
+    		  this.setState({isBoolean: true});
+    	  }
+    	  
+    	  else if(dataType === "number"){
+    		  this.setState({isNumber: true});
+    	  }
+    	  
+    	  else if(dataType === 'reference'){
+    		  this.setState({isReference: true});
+    	  }
+      },
+      
       render: function () {
         var Button = ReactBootstrap.Button;
         var ButtonToolbar = ReactBootstrap.ButtonToolbar;
@@ -82,7 +143,7 @@ angular.module('Spreadsheet.jsx')
 	    var Input = ReactBootstrap.Input
 	    
 	    var PopIns = (
-	    		<Popover title="New Column">
+	    		<Popover title="Add New Column">
 	    			<form>
 	    			    <Input type="select" ref="dataType" label='Data Type' id="dataId">
 	    			        <option value="String">String</option>
@@ -91,7 +152,54 @@ angular.module('Spreadsheet.jsx')
 	    			        <option value="Number">Number</option>
     			        </Input>
     			        <Input type="text" label='Header' required="required" id="header"/>
-    			        <Input type="submit" bsStyle="primary" value="Add" onClick={this.submit} />
+    			        <Input type="submit" bsStyle="primary" value="Add" onClick={this.submitNewColumn} />
+	    			</form>
+	    		</Popover>	
+	    );
+	    
+	    var inputValue = <Input type="text" label='Value' required id="inputVal"/>;
+  	  
+  	    if(this.state.isString){
+  		  inputValue = <Input type="text" label='Value' required id="inputVal"/>
+  		  this.state.isString = false;
+  		  
+  	    }
+  	    else if(this.state.isDate){
+  		  inputValue = <Input type="date" label='Value' required id="inputVal"/>;
+	          this.state.isDate = false;
+	          
+	    }
+  	    else if(this.state.isBoolean){
+  		  inputValue = <Input type="select" ref="dataType" label='Value' id="inputVal" onChange={this.change}>
+  			        	<option value="true">True</option>
+  			        	<option value="false">False</option>
+  			        	<option value="undefined">Undefined</option>
+  			        </Input>
+  		  this.state.isBoolean = false;
+	    }
+  	    else if(this.state.isNumber){
+  		  inputValue =  <Input type="number" label='Value' required id="inputVal" onKeyPress={this.checkForNumber}/>
+  		  this.state.isNumber = false;
+	    }
+  	    
+  	    else if(this.state.isReference){
+  	    	inputValue =  <Input type="string" label='Value' id="inputVal" value='' disabled/>
+  	    	this.state.isReference = false;
+  	    }
+  	  
+  	    var rowPopIns = (
+	    		<Popover title="Add New Row">
+	    			<form>
+		    	      <Input type="select" label='Header' id="headerType" onChange={this.change}>  
+	  			      {this.props.headers.map(function (attribute) {
+	  		              return (
+	  		            		<option value={attribute.type} label={attribute.name}> {attribute.name} </option>
+	  		            	);
+	  		            }.bind(this))}
+	  			        
+	  			        </Input>
+	  			        {inputValue}
+	  			        <Input type="submit" bsStyle="primary" value="Add" onClick={this.submitNewRow} />
 	    			</form>
 	    		</Popover>	
 	    );
@@ -105,7 +213,9 @@ angular.module('Spreadsheet.jsx')
             </div>
             
             <div className="alignright">
-            	<Button bsStyle="primary" bsSize="small">Add New Row</Button>
+            	<OverlayTrigger trigger="click" placement="bottom" overlay={rowPopIns}>
+            		<Button bsStyle="primary" bsSize="small">Add New Row</Button>
+            	</OverlayTrigger>
             </div>
             
             <div className="alignright">
