@@ -56,8 +56,7 @@ angular.module('Spreadsheet.jsx')
     	    var data_type = document.getElementById('dataId').value;
 	    	var header = document.getElementById('header').value;
 	    	
-	    	var instance = this.props.instance;
-	    	console.log("instance " + instance);
+	    	var type_id = this.props.type_Id;
 	    	
 	    	if(header == '' || header =='undefined' ){
 	    		alert('Please fill header field'); 
@@ -65,9 +64,9 @@ angular.module('Spreadsheet.jsx')
 	    	}
 	    	
 	    	var data = {
-	                instance_id: instance._id,
-	                attribute_value: data_type,
-	                attribute_name: header
+	    			type_id: type_id,
+	    			attribute_name: header,
+	                attribute_value: data_type
 	        };
 	    	$http.post('/addTypeAttribute', data)
 	        .success(function () {
@@ -84,7 +83,7 @@ angular.module('Spreadsheet.jsx')
 	    
 	    var PopIns = (
 	    		<Popover title="New Column">
-	    			<div>
+	    			<form>
 	    			    <Input type="select" ref="dataType" label='Data Type' id="dataId">
 	    			        <option value="String">String</option>
 	    			        <option value="Date">Date</option>
@@ -93,7 +92,7 @@ angular.module('Spreadsheet.jsx')
     			        </Input>
     			        <Input type="text" label='Header' required="required" id="header"/>
     			        <Input type="submit" bsStyle="primary" value="Add" onClick={this.submit} />
-	    			</div>
+	    			</form>
 	    		</Popover>	
 	    );
 	    
