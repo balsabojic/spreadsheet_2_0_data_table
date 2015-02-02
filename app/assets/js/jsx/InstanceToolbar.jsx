@@ -146,10 +146,10 @@ angular.module('Spreadsheet.jsx')
 	    		<Popover title="Add New Column">
 	    			<form>
 	    			    <Input type="select" ref="dataType" label='Data Type' id="dataId">
-	    			        <option value="String">String</option>
-	    			        <option value="Date">Date</option>
-	    			        <option value="Boolean">Boolean</option>
-	    			        <option value="Number">Number</option>
+	    			        <option value="string">String</option>
+	    			        <option value="date">Date</option>
+	    			        <option value="boolean">Boolean</option>
+	    			        <option value="number">Number</option>
     			        </Input>
     			        <Input type="text" label='Header' required="required" id="header"/>
     			        <Input type="submit" bsStyle="primary" value="Add" onClick={this.submitNewColumn} />
