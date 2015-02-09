@@ -34,56 +34,38 @@ angular.module('Spreadsheet.jsx')
 
         switch (e.keyCode) {
           case 13: // enter
-            console.log("start editing");
             PubSubService.publish('cell.startEditing', true);
             break;
           case 37: // left arrow
             newCurrentCol = newCurrentCol - 1;
-            if (newCurrentCol < 0) {
-              newCurrentCol = this.state.headers.length - 1;
-              newCurrentRow = newCurrentRow - 1;
-              if (newCurrentRow < 0) {
-                newCurrentRow = 0;
-                newCurrentCol = 0;
-              }
-            }
             break;
           case 39: // right arrow
             newCurrentCol = newCurrentCol + 1;
-            if (newCurrentCol === this.state.headers.length) {
-              newCurrentCol = 0;
-              newCurrentRow = newCurrentRow + 1;
-              if (newCurrentRow === this.data.length) {
-                newCurrentRow = newCurrentRow - 1;
-                newCurrentCol = this.state.headers.length - 1;
-              }
-            }
             break;
           case 40: // down arrow
             newCurrentRow = newCurrentRow + 1;
-            if (newCurrentRow === this.data.length) {
-              newCurrentRow = this.data.length - 1;
-            }
             break;
           case 38: // up arrow
             newCurrentRow = newCurrentRow - 1;
-            if (newCurrentRow < 0) {
-              newCurrentRow = 0;
-            }
         }
+
+        if (newCurrentCol < 0) newCurrentCol = 0;
+        else if (newCurrentCol >= this.state.headers.length) newCurrentCol = this.state.headers.length - 1;
+
+        if (newCurrentRow < 0) newCurrentRow = 0;
+        else if (newCurrentRow >= this.data.length) newCurrentRow = this.data.length - 1;
 
         if (newCurrentCol !== this.state.currentCell.colIdx || newCurrentRow !== this.state.currentCell.rowIdx) {
           PubSubService.publish('setCurrentCell', {rowIdx: newCurrentRow, colIdx: newCurrentCol});
         }
-        // enter = 13, <- = 37, -> 39, down = 40, up = 38
       },
 
       onNewFreeAttribute: function () {
-    	  this.reload();
+        this.reload();
       },
-      
+
       onNewColumn: function () {
-    	  this.reload();
+        this.reload();
       },
 
       componentWillUnmount: function () {
@@ -98,8 +80,8 @@ angular.module('Spreadsheet.jsx')
         var typeId = this.props.id;
         var instancesURL = '/api/types/' + typeId + '/instances';
         if (this.state.filter_value != null && this.state.filter_value != '') {
-            instancesURL += '/filter/' + this.state.filter_name + '/' + this.state.filter_value;
-            this.state.filter_value = '';
+          instancesURL += '/filter/' + this.state.filter_name + '/' + this.state.filter_value;
+          this.state.filter_value = '';
         }
         else if (_.isString(this.state.orderBy) && this.state.orderBy.trim().length > 0) {
           instancesURL += '/orderBy/' + this.state.orderBy + '/' + (this.state.asc && 1);
@@ -136,13 +118,13 @@ angular.module('Spreadsheet.jsx')
           }.bind(this));
       },
 
-      handleFilterChange: function(attribute_name, filter_value) {
-          this.setState({filter_name: attribute_name, filter_value: filter_value}, function () {
-              this.reload();
-          });
+      handleFilterChange: function (attribute_name, filter_value) {
+        this.setState({filter_name: attribute_name, filter_value: filter_value}, function () {
+          this.reload();
+        });
       },
 
-      onLinkClick: function(orderBy, asc) {
+      onLinkClick: function (orderBy, asc) {
         this.setState({orderBy: orderBy, asc: asc}, function () {
           this.reload();
         });
@@ -162,15 +144,15 @@ angular.module('Spreadsheet.jsx')
       },
 
       render: function () {
-    	var typeId = this.props.id;
-    	
-    	return (
+        var typeId = this.props.id;
+
+        return (
           <div className="table-responsive">
-	          <table id="instanceTable" className="table table-bordered table-condensed">
-	            <InstanceToolbar type_Id={typeId} instances={this.state.instances} headers={this.state.headers}/>
-	            <InstanceTableHeader onLinkClick={this.onLinkClick} handleFilterChange={this.handleFilterChange} headers={this.state.headers} />
-	            <InstanceTableBody headers={this.state.headers} instances={this.state.instances} currentCell={this.state.currentCell} isEditing={this.state.isEditing} />
-	          </table>
+            <table id="instanceTable" className="table table-bordered table-condensed">
+              <InstanceToolbar type_Id={typeId} instances={this.state.instances} headers={this.state.headers}/>
+              <InstanceTableHeader onLinkClick={this.onLinkClick} handleFilterChange={this.handleFilterChange} headers={this.state.headers} />
+              <InstanceTableBody headers={this.state.headers} instances={this.state.instances} currentCell={this.state.currentCell} isEditing={this.state.isEditing} />
+            </table>
           </div>
           );
       }
