@@ -10,7 +10,7 @@ angular.module('Spreadsheet.jsx')
         return <textarea ref="input" defaultValue={this.props.value} />;
       },
       renderValue: function () {
-        return <div>{this.props.value}</div>;
+        return <div title={this.props.value.ref_id}>{this.props.value.display}</div>;
       }
     });
   });
