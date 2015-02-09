@@ -10,12 +10,12 @@ angular.module('Spreadsheet.jsx')
 	    	
 	    	var instance = this.props.instance;
 	    	
-	    	if(header == '' || header =='undefined' ){
+	    	if(header == ''){
 	    		alert('Please fill header field');
 	    		return false;
 	    	}
 	    	
-	    	if(value == '' || value =='undefined' ){
+	    	if(value == ''){
 	    		alert('Please submit value');
 	    		return false;
 	    	}

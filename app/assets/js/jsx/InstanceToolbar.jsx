@@ -67,7 +67,7 @@ angular.module('Spreadsheet.jsx')
     	    var value = document.getElementById('inputVal').value;
 	    	var type_id = this.props.type_Id;
 	    	
-	    	if(value == '' || value =='undefined' ){
+	    	if(value === ''){
 	    		alert('Please fill Value field'); 
 	    		return false;
 	    	}
@@ -89,7 +89,7 @@ angular.module('Spreadsheet.jsx')
 	    	
 	    	var type_id = this.props.type_Id;
 	    	
-	    	if(header == '' || header =='undefined' ){
+	    	if(header == ''){
 	    		alert('Please fill header field'); 
 	    		return false;
 	    	}
@@ -183,6 +183,13 @@ angular.module('Spreadsheet.jsx')
 	    }
   	    
   	    else if(this.state.isReference){
+  	    	/*inputValue = <Input type="select" ref="dataType" label='Value' id="inputVal" onChange={this.change}>
+	        	<option value="true">True</option>
+	        	<option value="false">False</option>
+	        	<option value="undefined">Undefined</option>
+	        </Input>
+	        this.state.isReference = false;*/
+  	    	
   	    	inputValue =  <Input type="string" label='Value' id="inputVal" value='' disabled/>
   	    	this.state.isReference = false;
   	    }
