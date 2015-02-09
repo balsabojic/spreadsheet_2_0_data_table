@@ -47,11 +47,18 @@ public class CollectionInstance extends Collection {
             String type_value = hash_type.get("$oid");
 
             ArrayList<HashMap<String, Object>> attributes = new ArrayList<HashMap<String, Object>>();
+            HashMap<String, Object> reference_data = new HashMap<String, Object>();
             for (HashMap<String, Object> hash_attribute: instance.getAttributes()) {
                 if (hash_attribute.get("value") != null && hash_attribute.get("value") instanceof HashMap) {
                     HashMap<String, Object> temp = (HashMap<String, Object>) hash_attribute.get("value");
-                    hash_attribute.put("value", temp.get("$oid"));
+                    reference_data.put("ref_id", temp.get("$oid"));
+                }
+                if (hash_attribute.get("display") != null) {
+                    String display_name = (String) hash_attribute.get("display");
+                    reference_data.put("display", display_name);
+                    hash_attribute.put("value", reference_data);
                     attributes.add(hash_attribute);
+                    reference_data = new HashMap<String, Object>();
                 }
                 else {
                     attributes.add(hash_attribute);

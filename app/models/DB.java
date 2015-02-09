@@ -91,7 +91,7 @@ public class DB {
         instance_course.append("attributes", Arrays.asList(
                 new BasicDBObject("name", "title").append("value", "Practical Course Software Engineering for Business Information Systems"),
                 new BasicDBObject("name", "content").append("value", "In this course, students realize in small teams an innovative web application of medium complexity in Java."),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer.get("_id")).append("display", instance_organizer.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer.get("_id")).append("display", "Prof. Matthes"),
                 new BasicDBObject("name", "category").append("value", "Practical course"),
                 new BasicDBObject("name", "date_start").append("value", "2014-10-25"),
                 new BasicDBObject("name", "num_students").append("value", 40),
@@ -110,7 +110,7 @@ public class DB {
         instance_course1.append("attributes", Arrays.asList(
         		new BasicDBObject("name", "title").append("value", "Software Engineering"),
                 new BasicDBObject("name", "content").append("value", "Softwaring Engineering"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer1.get("_id")).append("display", instance_organizer1.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer1.get("_id")).append("display", "Prof. Thomas"),
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "2014-11-29"),
                 new BasicDBObject("name", "num_students").append("value", 200),
@@ -129,7 +129,7 @@ public class DB {
         instance_course2.append("attributes", Arrays.asList(
         		new BasicDBObject("name", "title").append("value", "Software Architecture"),
                 new BasicDBObject("name", "content").append("value", "Softwaring Architecture"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer2.get("_id")).append("display", instance_organizer2.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer2.get("_id")).append("display", "Prof. Millber"),
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "2014-11-19"),
                 new BasicDBObject("name", "num_students").append("value", 200),
@@ -148,7 +148,7 @@ public class DB {
         instance_course3.append("attributes", Arrays.asList(
         		new BasicDBObject("name", "title").append("value", "Design Pattern"),
                 new BasicDBObject("name", "content").append("value", "Basic Object Oriented Design Pattern"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer3.get("_id")).append("display", instance_organizer3.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer3.get("_id")).append("display", "Prof. Armstrong"),
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "2014-11-20"),
                 new BasicDBObject("name", "num_students").append("value", 200),
@@ -167,7 +167,7 @@ public class DB {
         instance_course4.append("attributes", Arrays.asList(
         		new BasicDBObject("name", "title").append("value", "Computer Networks"),
                 new BasicDBObject("name", "content").append("value", "Basic Computer Networks"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer4.get("_id")).append("display", instance_organizer4.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer4.get("_id")).append("display", "Prof. Muller"),
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "2014-11-12"),
                 new BasicDBObject("name", "num_students").append("value", 200),
@@ -187,7 +187,7 @@ public class DB {
         instance_course5.append("attributes", Arrays.asList(
         		new BasicDBObject("name", "title").append("value", "Game Theory"),
                 new BasicDBObject("name", "content").append("value", "Basic Game Theory"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer5.get("_id")).append("display", instance_organizer5.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer5.get("_id")).append("display", "Prof. Arohnson"),
                 new BasicDBObject("name", "category").append("value", "Praktikum"),
                 new BasicDBObject("name", "date_start").append("value", "2015-01-13"),
                 new BasicDBObject("name", "num_students").append("value", 20),
@@ -206,7 +206,7 @@ public class DB {
         instance_course6.append("attributes", Arrays.asList(
         		new BasicDBObject("name", "title").append("value", "Computer Vision"),
                 new BasicDBObject("name", "content").append("value", "Computer Vision"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer6.get("_id")).append("display", instance_organizer6.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer6.get("_id")).append("display", "Prof. Johnson"),
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "2015-01-14"),
                 new BasicDBObject("name", "num_students").append("value", 20),
@@ -225,7 +225,7 @@ public class DB {
         instance_course7.append("attributes", Arrays.asList(
         		new BasicDBObject("name", "title").append("value", "Neural Networks"),
                 new BasicDBObject("name", "content").append("value", "Neural Networks"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer7.get("_id")).append("display", instance_organizer7.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer7.get("_id")).append("display", "Prof. Rooney"),
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "2015-01-21"),
                 new BasicDBObject("name", "num_students").append("value", 20),
@@ -246,7 +246,7 @@ public class DB {
         instance_course8.append("attributes", Arrays.asList(
         		new BasicDBObject("name", "title").append("value", "Artificial Intelligence"),
                 new BasicDBObject("name", "content").append("value", "Artificial Intelligence"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer8.get("_id")).append("display", instance_organizer8.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer8.get("_id")).append("display", "Prof. Rooney"),
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "2015-01-19"),
                 new BasicDBObject("name", "num_students").append("value", 20),
@@ -266,7 +266,7 @@ public class DB {
         instance_course9.append("attributes", Arrays.asList(
         		new BasicDBObject("name", "title").append("value", "Security Engineering"),
                 new BasicDBObject("name", "content").append("value", "Security Engineering"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer9.get("_id")).append("display", instance_organizer9.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer9.get("_id")).append("display", "Prof. Rooney"),
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "2015-01-09"),
                 new BasicDBObject("name", "num_students").append("value", 20),
@@ -285,7 +285,7 @@ public class DB {
         instance_course10.append("attributes", Arrays.asList(
         		new BasicDBObject("name", "title").append("value", "Robotics"),
                 new BasicDBObject("name", "content").append("value", "Robotics"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer10.get("_id")).append("display", instance_organizer10.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer10.get("_id")).append("display", "Prof. Lahm"),
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "2015-01-04"),
                 new BasicDBObject("name", "num_students").append("value", 20),
@@ -304,7 +304,7 @@ public class DB {
         instance_course11.append("attributes", Arrays.asList(
         		new BasicDBObject("name", "title").append("value", "Security Engineering"),
                 new BasicDBObject("name", "content").append("value", "Security Engineering"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer11.get("_id")).append("display", instance_organizer11.get("name")),
+                new BasicDBObject("name", "organizer").append("value", instance_organizer11.get("_id")).append("display", "Prof. Rooney"),
                 new BasicDBObject("name", "category").append("value", "Lecture"),
                 new BasicDBObject("name", "date_start").append("value", "2015-01-20"),
                 new BasicDBObject("name", "num_students").append("value", 20),
