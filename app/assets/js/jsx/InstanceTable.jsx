@@ -30,7 +30,7 @@ angular.module('Spreadsheet.jsx')
 
       onKeyDown: function (e) {
         if (this.state.isEditing) {
-          if (e.keyCode === 9) {
+          if (e.keyCode === 9 || e.keyCode === 27) {
             PubSubService.publish('cell.startEditing', false);
             e.preventDefault();
             e.stopPropagation();
