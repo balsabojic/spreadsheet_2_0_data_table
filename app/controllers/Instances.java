@@ -48,18 +48,6 @@ public class Instances extends Controller{
         instance.deleteInstance(instance_id);
     }
 
-    public static Result undo() {
-        CollectionInstance instance = new CollectionInstance();
-        instance.undo();
-        return ok("Success");
-    }
-
-    public static Result redo() {
-        CollectionInstance instance = new CollectionInstance();
-        instance.redo();
-        return ok("Success");
-    }
-
     public static Result getReferencedData(String type_id, String attribute_name) {
         CollectionInstance instance = new CollectionInstance();
         String result = instance.getReferenceData(type_id, attribute_name);

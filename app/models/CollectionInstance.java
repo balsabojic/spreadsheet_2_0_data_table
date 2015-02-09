@@ -20,46 +20,9 @@ public class CollectionInstance extends Collection {
 
     private DBCollection instances;
 
-    private ArrayList<UndoData> undoList = new ArrayList<UndoData>();
-    private int undo_list_pointer = 0;
-    private boolean undo_redo_flag = false;
-
     public CollectionInstance() {
         super("Instance");
         instances = db.getMongoDB().getCollection(name);
-    }
-
-    public void addToUndoList(UndoData data) {
-        undoList.add(data);
-        System.out.println("================ " + undoList.size() + " ====================");
-        undo_list_pointer = undoList.size() - 1;
-    }
-
-    public synchronized void undo() {
-        System.out.println("==================== " + undoList.size() + " ========================");
-        if (undo_list_pointer > 0) {
-            undo_list_pointer--;
-            UndoData data = undoList.get(undo_list_pointer);
-            undo_redo_flag = true;
-            updateInstanceAttribute(data.getInstance_id(), data.getAttribute_name(), data.getAttribute_value());
-            undo_redo_flag = false;
-        }
-        else if (undo_list_pointer == 0) {
-            UndoData data = undoList.get(undo_list_pointer);
-            undo_redo_flag = true;
-            updateInstanceAttribute(data.getInstance_id(), data.getAttribute_name(), data.getAttribute_value());
-            undo_redo_flag = false;
-        }
-    }
-
-    public synchronized void redo() {
-        if (undo_list_pointer < undoList.size() - 1) {
-            undo_list_pointer++;
-            UndoData data = undoList.get(undo_list_pointer);
-            undo_redo_flag = true;
-            updateInstanceAttribute(data.getInstance_id(), data.getAttribute_name(), data.getAttribute_value());
-            undo_redo_flag = false;
-        }
     }
 
     @Override
@@ -245,14 +208,6 @@ public class CollectionInstance extends Collection {
                             instance.put("attributes", attributes);
                             instances.save(instance);
                             found = true;
-//                            if (undo_redo_flag == false) {
-//                                System.out.println("================ CALL ==============");
-//                                UndoData data = new UndoData();
-//                                data.setInstance_id(instance_id);
-//                                data.setAttribute_name(attribute_name);
-//                                data.setAttribute_value(value);
-//                                addToUndoList(data);
-//                            }
                         }
                     }
                     i++;
@@ -264,13 +219,6 @@ public class CollectionInstance extends Collection {
                     attributes.put(i, attribute_hash_map);
                     instance.put("attributes", attributes);
                     instances.save(instance);
-//                    if (undo_redo_flag == false) {
-//                        UndoData data = new UndoData();
-//                        data.setInstance_id(instance_id);
-//                        data.setAttribute_name(attribute_name);
-//                        data.setAttribute_value(value);
-//                        addToUndoList(data);
-//                    }
                 }
             }
         }
