@@ -169,12 +169,14 @@ angular.module('Spreadsheet.jsx')
         var typeId = this.props.id;
 
         return (
-          <div className="table-responsive">
-            <table id="instanceTable" className="table table-bordered table-condensed">
-              <InstanceToolbar type_Id={typeId} instances={this.state.instances} headers={this.state.headers}/>
-              <InstanceTableHeader onLinkClick={this.onLinkClick} handleFilterChange={this.handleFilterChange} headers={this.state.headers} />
-              <InstanceTableBody headers={this.state.headers} instances={this.state.instances} currentCell={this.state.currentCell} isEditing={this.state.isEditing} />
-            </table>
+          <div>
+            <InstanceToolbar type_Id={typeId} instances={this.state.instances} headers={this.state.headers}/>
+            <div id="instanceTableWrapper">
+              <table id="instanceTable" className="table table-bordered table-condensed">
+                <InstanceTableHeader onLinkClick={this.onLinkClick} handleFilterChange={this.handleFilterChange} headers={this.state.headers} />
+                <InstanceTableBody headers={this.state.headers} instances={this.state.instances} currentCell={this.state.currentCell} isEditing={this.state.isEditing} />
+              </table>
+            </div>
           </div>
           );
       }
