@@ -59,4 +59,10 @@ public class Instances extends Controller{
         instance.redo();
         return ok("Success");
     }
+
+    public static Result getReferencedData(String type_id, String attribute_name) {
+        CollectionInstance instance = new CollectionInstance();
+        String result = instance.getReferenceData(type_id, attribute_name);
+        return ok(result);
+    }
  }

@@ -10,6 +10,8 @@ GET         /api/types/:typeId/instances/from/:from/limit/:limit            cont
 GET         /api/types/:typeId/instances/orderBy/:orderBy/:asc              controllers.Types.getInstances(typeId, from = "0", limit = "0", orderBy, asc, filter = "")
 GET         /api/types/:typeId/instances/filter/:filterName/:filterValue    controllers.Types.getInstances(typeId, from = "0", limit = "0", filterName , asc = "0", filterValue)
 
+GET         /api/types/:typeId/name/:name                                   controllers.Instances.getReferencedData(typeId: String, name: String)
+
 POST        /addInstance                                                controllers.Instances.addInstace()
 POST        /updateInstance                                             controllers.Instances.updateInstance()
 

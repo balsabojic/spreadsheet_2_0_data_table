@@ -299,4 +299,34 @@ public class CollectionInstance extends Collection {
         instances.remove(query);
     }
 
+    public String getReferenceData(String type_id, String attribute_name) {
+        ObjectId id = new ObjectId(type_id);
+        BasicDBObject query = new BasicDBObject("type", id);
+        DBCursor cursor = db.getMongoDB().getCollection("Instance").find(query);
+        ArrayNode result = new ArrayNode(JsonNodeFactory.instance);
+        ArrayList<DBObject> objects = new ArrayList<DBObject>();
+        while (cursor.hasNext()) {
+            DBObject instance = cursor.next();
+            BasicDBObject temp = new BasicDBObject();
+            ObjectId id_obj = (ObjectId) instance.get("_id");
+            String id_str = id_obj.toString();
+            temp.append("id", id_str);
+            BasicDBList attributes = (BasicDBList) instance.get("attributes");
+            if (attributes != null) {
+                for (Object attribute : attributes) {
+                    if (attribute != null) {
+                        HashMap<String, Object> attribute_hash_map = (HashMap<String, Object>) attribute;
+                        if (attribute_hash_map != null && attribute_hash_map.get("name").equals(attribute_name)) {
+                            temp.append(attribute_name, attribute_hash_map.get("value"));
+                        }
+                    }
+                }
+            }
+            objects.add(temp);
+        }
+        for (DBObject obj : objects) {
+            result.add(Json.parse(obj.toString()));
+        }
+        return result.toString();
+    }
 }
