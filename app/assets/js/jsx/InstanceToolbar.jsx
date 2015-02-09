@@ -41,7 +41,7 @@ angular.module('Spreadsheet.jsx')
           e['attribute_value_old'] = temp;
           $http.post('/updateInstance', e)
             .success(function () {
-              // TODO add reaload!
+              PubSubService.publish('table.shouldUpdateData', e);
             }
           );
         }
@@ -56,7 +56,7 @@ angular.module('Spreadsheet.jsx')
           $http.post('/updateInstance', e)
             .success(function () {
               this.undo_list_pointer++;
-              // TODO add reaload!
+              PubSubService.publish('table.shouldUpdateData', e);
             }
           );
         }

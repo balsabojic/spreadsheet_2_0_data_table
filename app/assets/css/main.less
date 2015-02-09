@@ -29,8 +29,6 @@ body {
 #instanceTable {
   margin: 0;
   padding: 0;
-  margin-left:4px;
-  margin-right:4px;
 
   td {
     position: relative;
@@ -58,11 +56,12 @@ body {
   }
 
   td.current {
-    border: solid 3px @component-active-bg;
+    border: solid 3px lighten(@component-active-bg, 10%);
   }
 
   td.editing {
     padding: 0;
+    border-color: darken(@component-active-bg, 10%);
   }
 
   td.free-attribute {

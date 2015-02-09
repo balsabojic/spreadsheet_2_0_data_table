@@ -19,6 +19,7 @@ angular.module('Spreadsheet.jsx')
 
       componentDidMount: function () {
         this.pubsubHandle['cellUpdate'] = PubSubService.subscribe('cellUpdate', this.onCellUpdate);
+        this.pubsubHandle['table.shouldUpdateData'] = PubSubService.subscribe('table.shouldUpdateData', this.onCellUpdate);
         this.pubsubHandle['setCurrentCell'] = PubSubService.subscribe('setCurrentCell', this.onSetCurrentCell);
         this.pubsubHandle['onFreeAttr'] = PubSubService.subscribe('onFreeAttr', this.onNewFreeAttribute);
         this.pubsubHandle['onNewColumn'] = PubSubService.subscribe('onNewColumn', this.onNewColumn);
@@ -28,16 +29,32 @@ angular.module('Spreadsheet.jsx')
       },
 
       onKeyDown: function (e) {
-        if (this.state.isEditing) return;
+        if (this.state.isEditing) {
+          if (e.keyCode === 9) {
+            PubSubService.publish('cell.startEditing', false);
+            e.preventDefault();
+            e.stopPropagation();
+          }
+          return;
+        }
         var newCurrentRow = this.state.currentCell.rowIdx;
         var newCurrentCol = this.state.currentCell.colIdx;
+        var handled = false;
 
         switch (e.keyCode) {
           case 13: // enter
             PubSubService.publish('cell.startEditing', true);
+            handled = true;
             break;
           case 37: // left arrow
             newCurrentCol = newCurrentCol - 1;
+            break;
+          case 9: // tab
+            if (e.shiftKey && !e.ctrlKey && !e.altKey)
+              newCurrentCol = newCurrentCol - 1;
+            else
+              newCurrentCol = newCurrentCol + 1;
+            handled = true;
             break;
           case 39: // right arrow
             newCurrentCol = newCurrentCol + 1;
@@ -57,6 +74,11 @@ angular.module('Spreadsheet.jsx')
 
         if (newCurrentCol !== this.state.currentCell.colIdx || newCurrentRow !== this.state.currentCell.rowIdx) {
           PubSubService.publish('setCurrentCell', {rowIdx: newCurrentRow, colIdx: newCurrentCol});
+          handled = true;
+        }
+        if (handled) {
+          e.preventDefault();
+          e.stopPropagation();
         }
       },
 
