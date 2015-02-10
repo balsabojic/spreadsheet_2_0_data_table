@@ -40,14 +40,15 @@ angular.module('Spreadsheet.jsx')
       },
 
       getInputValue: function () {
-        return this.refs.input.getDOMNode().value;
+        var ref_id = this.refs.input.getDOMNode().value;
+        return _.find(this.state.references, {'ref_id': ref_id});
       },
 
       renderInput: function () {
         var opts = _.map(this.state.references, function (option) {
-          return <option value={option.ref_id}>{option.display}</option>;
+          return <option key={option.ref_id} value={option.ref_id}>{option.display}</option>;
         });
-        return <select ref="input">{opts}</select>;
+        return <select ref="input" defaultValue={this.props.value.ref_id}>{opts}</select>;
       },
 
       renderValue: function () {
