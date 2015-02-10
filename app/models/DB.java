@@ -69,7 +69,7 @@ public class DB {
                 new BasicDBObject("name", "title").append("type", "string"),
                 new BasicDBObject("name", "content").append("type", "string"),
                 new BasicDBObject("name", "organizer").append("type", "reference")
-                        .append("ref_type", "organizer")
+                        .append("ref_type_id", type_organizer.get("_id").toString())
                         .append("display_attribute", "name"),
                 new BasicDBObject("name", "category").append("type", "string"),
                 new BasicDBObject("name", "date_start").append("type", "date"),
