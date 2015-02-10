@@ -210,7 +210,14 @@ public class CollectionInstance extends Collection {
                     if (attribute != null) {
                         HashMap<String, Object> attribute_hash_map = (HashMap<String, Object>) attribute;
                         if (attribute_hash_map != null && attribute_hash_map.get("name").equals(attribute_name)) {
-                            attribute_hash_map.put("value", value);
+                            if (attribute_hash_map.get("display") != null) {
+                                String name = findReferenceNameById(value);
+                                attribute_hash_map.put("value", new ObjectId(value));
+                                attribute_hash_map.put("display", name);
+                            }
+                            else {
+                                attribute_hash_map.put("value", value);
+                            }
                             attributes.put(i, attribute_hash_map);
                             instance.put("attributes", attributes);
                             instances.save(instance);
@@ -221,14 +228,45 @@ public class CollectionInstance extends Collection {
                 }
                 if (found == false) {
                     HashMap<String, Object> attribute_hash_map = new HashMap<String, Object>();
-                    attribute_hash_map.put("name", attribute_name);
-                    attribute_hash_map.put("value", value);
+                    if (attribute_name == "organizer") {
+                        attribute_hash_map.put("name", attribute_name);
+                        String name = findReferenceNameById(value);
+                        attribute_hash_map.put("value", value);
+                        attribute_hash_map.put("display", name);
+                    }
+                    else {
+                        attribute_hash_map.put("name", attribute_name);
+                        attribute_hash_map.put("value", value);
+                    }
                     attributes.put(i, attribute_hash_map);
                     instance.put("attributes", attributes);
                     instances.save(instance);
                 }
             }
         }
+    }
+
+    private String findReferenceNameById(String ref_id) {
+        ObjectId id = new ObjectId(ref_id);
+        BasicDBObject query = new BasicDBObject("_id", id);
+        DBCursor cursor = db.getMongoDB().getCollection("Instance").find(query);
+        while (cursor.hasNext()) {
+            DBObject instance = cursor.next();
+            BasicDBList attributes = (BasicDBList) instance.get("attributes");
+            String value = "";
+            if (attributes != null) {
+                for (Object attribute : attributes) {
+                    if (attribute != null) {
+                        HashMap<String, Object> attribute_hash_map = (HashMap<String, Object>) attribute;
+                        if (attribute_hash_map != null && attribute_hash_map.get("name").equals("name")) {
+                            value = attribute_hash_map.get("value").toString();
+                        }
+                    }
+                }
+            }
+            return value;
+        }
+        return "";
     }
 
     public String filter(String type_id, String filter_name, String filter_value) {
