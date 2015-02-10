@@ -73,6 +73,9 @@ angular.module('Spreadsheet.jsx')
               PubSubService.publish('cellUpdate', change, function () {
                 PubSubService.publish('cell.startEditing', false);
               });
+            })
+            .error(function (msg) {
+              console.error("Cannot update attribute value", msg, change);
             });
         }
       },

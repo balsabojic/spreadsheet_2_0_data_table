@@ -23,7 +23,6 @@ angular.module('Spreadsheet.jsx')
       },
 
       loadReferenceOptions: function () {
-        console.log("load data");
         var display_attribute = this.props.attribute.display_attribute;
         DataService.getInstance(this.props.attribute.ref_type_id)
           .success(function (data) {
