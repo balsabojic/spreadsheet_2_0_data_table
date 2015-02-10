@@ -228,10 +228,10 @@ public class CollectionInstance extends Collection {
                 }
                 if (found == false) {
                     HashMap<String, Object> attribute_hash_map = new HashMap<String, Object>();
-                    if (attribute_name == "organizer") {
-                        attribute_hash_map.put("name", attribute_name);
+                    if (attribute_name.equals("organizer")) {
+                        attribute_hash_map.put("name", "organizer");
                         String name = findReferenceNameById(value);
-                        attribute_hash_map.put("value", value);
+                        attribute_hash_map.put("value", new ObjectId(value));
                         attribute_hash_map.put("display", name);
                     }
                     else {
