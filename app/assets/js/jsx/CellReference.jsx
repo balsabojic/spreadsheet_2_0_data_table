@@ -51,6 +51,10 @@ angular.module('Spreadsheet.jsx')
       },
 
       renderValue: function () {
+        if (typeof this.props.value === 'undefined') {
+          return <div></div>;
+        }
+        
         return <div title={this.props.value.ref_id}>{this.props.value.display}</div>;
       }
     })
