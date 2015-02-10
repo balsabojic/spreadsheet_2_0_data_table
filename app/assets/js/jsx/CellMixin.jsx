@@ -68,7 +68,11 @@ angular.module('Spreadsheet.jsx')
             attribute_value_old: this.props.value,
             attribute_value: value
           };
-          $http.post('/updateInstance', change)
+          var data = _.clone(change);
+          if (this.props.attribute.type === 'reference') {
+            data.attribute_value = value.ref_id;
+          }
+          $http.post('/updateInstance', data)
             .success(function () {
               PubSubService.publish('cellUpdate', change, function () {
                 PubSubService.publish('cell.startEditing', false);
