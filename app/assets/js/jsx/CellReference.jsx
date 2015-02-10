@@ -44,10 +44,14 @@ angular.module('Spreadsheet.jsx')
       },
 
       renderInput: function () {
+        var selected_ref_id = (typeof this.props.value === 'undefined') ? '' : this.props.value.ref_id;
         var opts = _.map(this.state.references, function (option) {
+          if (selected_ref_id === option.ref_id) {
+            return <option key={option.ref_id} value={option.ref_id} selected>{option.display}</option>;
+          }
           return <option key={option.ref_id} value={option.ref_id}>{option.display}</option>;
         });
-        return <select ref="input" defaultValue={this.props.value.ref_id}>{opts}</select>;
+        return <select ref="input">{opts}</select>;
       },
 
       renderValue: function () {
