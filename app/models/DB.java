@@ -201,17 +201,17 @@ public class DB {
         ));
         instances.insert(instance_organizer6);
 
-        BasicDBObject instance_course6 = new BasicDBObject("type", type_course.get("_id"));
-        instance_course6.append("attributes", Arrays.asList(
-                new BasicDBObject("name", "title").append("value", "Computer Vision"),
-                new BasicDBObject("name", "content").append("value", "Computer Vision"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer6.get("_id")).append("display", "Prof. Johnson"),
-                new BasicDBObject("name", "category").append("value", "Lecture"),
-                new BasicDBObject("name", "date_start").append("value", "2015-01-14"),
-                new BasicDBObject("name", "num_students").append("value", 20),
-                new BasicDBObject("name", "has_lab").append("value", "true")
-        ));
-        instances.insert(instance_course6);
+//        BasicDBObject instance_course6 = new BasicDBObject("type", type_course.get("_id"));
+//        instance_course6.append("attributes", Arrays.asList(
+//                new BasicDBObject("name", "title").append("value", "Computer Vision"),
+//                new BasicDBObject("name", "content").append("value", "Computer Vision"),
+//                new BasicDBObject("name", "organizer").append("value", instance_organizer6.get("_id")).append("display", "Prof. Johnson"),
+//                new BasicDBObject("name", "category").append("value", "Lecture"),
+//                new BasicDBObject("name", "date_start").append("value", "2015-01-14"),
+//                new BasicDBObject("name", "num_students").append("value", 20),
+//                new BasicDBObject("name", "has_lab").append("value", "true")
+//        ));
+//        instances.insert(instance_course6);
 
         BasicDBObject instance_organizer7 = new BasicDBObject("type", type_organizer.get("_id"));
         instance_organizer7.append("attributes", Arrays.asList(
@@ -220,18 +220,18 @@ public class DB {
         ));
         instances.insert(instance_organizer7);
 
-        BasicDBObject instance_course7 = new BasicDBObject("type", type_course.get("_id"));
-        instance_course7.append("attributes", Arrays.asList(
-                new BasicDBObject("name", "title").append("value", "Neural Networks"),
-                new BasicDBObject("name", "content").append("value", "Neural Networks"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer7.get("_id")).append("display", "Prof. Rooney"),
-                new BasicDBObject("name", "category").append("value", "Lecture"),
-                new BasicDBObject("name", "date_start").append("value", "2015-01-21"),
-                new BasicDBObject("name", "num_students").append("value", 20),
-                new BasicDBObject("name", "has_lab").append("value", "true"),
-                new BasicDBObject("name", "ects").append("type", "number").append("value", 5)
-        ));
-        instances.insert(instance_course7);
+//        BasicDBObject instance_course7 = new BasicDBObject("type", type_course.get("_id"));
+//        instance_course7.append("attributes", Arrays.asList(
+//                new BasicDBObject("name", "title").append("value", "Neural Networks"),
+//                new BasicDBObject("name", "content").append("value", "Neural Networks"),
+//                new BasicDBObject("name", "organizer").append("value", instance_organizer7.get("_id")).append("display", "Prof. Rooney"),
+//                new BasicDBObject("name", "category").append("value", "Lecture"),
+//                new BasicDBObject("name", "date_start").append("value", "2015-01-21"),
+//                new BasicDBObject("name", "num_students").append("value", 20),
+//                new BasicDBObject("name", "has_lab").append("value", "true"),
+//                new BasicDBObject("name", "ects").append("type", "number").append("value", 5)
+//        ));
+//        instances.insert(instance_course7);
 
         BasicDBObject instance_organizer8 = new BasicDBObject("type", type_organizer.get("_id"));
         instance_organizer8.append("attributes", Arrays.asList(
@@ -241,18 +241,18 @@ public class DB {
         ));
         instances.insert(instance_organizer8);
 
-        BasicDBObject instance_course8 = new BasicDBObject("type", type_course.get("_id"));
-        instance_course8.append("attributes", Arrays.asList(
-                new BasicDBObject("name", "title").append("value", "Artificial Intelligence"),
-                new BasicDBObject("name", "content").append("value", "Artificial Intelligence"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer8.get("_id")).append("display", "Prof. Rooney"),
-                new BasicDBObject("name", "category").append("value", "Lecture"),
-                new BasicDBObject("name", "date_start").append("value", "2015-01-19"),
-                new BasicDBObject("name", "num_students").append("value", 20),
-                new BasicDBObject("name", "has_lab").append("value", "true"),
-                new BasicDBObject("name", "language").append("type", "string").append("value", "english")
-        ));
-        instances.insert(instance_course8);
+//        BasicDBObject instance_course8 = new BasicDBObject("type", type_course.get("_id"));
+//        instance_course8.append("attributes", Arrays.asList(
+//                new BasicDBObject("name", "title").append("value", "Artificial Intelligence"),
+//                new BasicDBObject("name", "content").append("value", "Artificial Intelligence"),
+//                new BasicDBObject("name", "organizer").append("value", instance_organizer8.get("_id")).append("display", "Prof. Rooney"),
+//                new BasicDBObject("name", "category").append("value", "Lecture"),
+//                new BasicDBObject("name", "date_start").append("value", "2015-01-19"),
+//                new BasicDBObject("name", "num_students").append("value", 20),
+//                new BasicDBObject("name", "has_lab").append("value", "true"),
+//                new BasicDBObject("name", "language").append("type", "string").append("value", "english")
+//        ));
+//        instances.insert(instance_course8);
 
         BasicDBObject instance_organizer9 = new BasicDBObject("type", type_organizer.get("_id"));
         instance_organizer9.append("attributes", Arrays.asList(
@@ -261,17 +261,17 @@ public class DB {
         ));
         instances.insert(instance_organizer9);
 
-        BasicDBObject instance_course9 = new BasicDBObject("type", type_course.get("_id"));
-        instance_course9.append("attributes", Arrays.asList(
-                new BasicDBObject("name", "title").append("value", "Security Engineering"),
-                new BasicDBObject("name", "content").append("value", "Security Engineering"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer9.get("_id")).append("display", "Prof. Rooney"),
-                new BasicDBObject("name", "category").append("value", "Lecture"),
-                new BasicDBObject("name", "date_start").append("value", "2015-01-09"),
-                new BasicDBObject("name", "num_students").append("value", 20),
-                new BasicDBObject("name", "has_lab").append("value", "true")
-        ));
-        instances.insert(instance_course9);
+//        BasicDBObject instance_course9 = new BasicDBObject("type", type_course.get("_id"));
+//        instance_course9.append("attributes", Arrays.asList(
+//                new BasicDBObject("name", "title").append("value", "Security Engineering"),
+//                new BasicDBObject("name", "content").append("value", "Security Engineering"),
+//                new BasicDBObject("name", "organizer").append("value", instance_organizer9.get("_id")).append("display", "Prof. Rooney"),
+//                new BasicDBObject("name", "category").append("value", "Lecture"),
+//                new BasicDBObject("name", "date_start").append("value", "2015-01-09"),
+//                new BasicDBObject("name", "num_students").append("value", 20),
+//                new BasicDBObject("name", "has_lab").append("value", "true")
+//        ));
+//        instances.insert(instance_course9);
 
         BasicDBObject instance_organizer10 = new BasicDBObject("type", type_organizer.get("_id"));
         instance_organizer10.append("attributes", Arrays.asList(
@@ -280,17 +280,17 @@ public class DB {
         ));
         instances.insert(instance_organizer10);
 
-        BasicDBObject instance_course10 = new BasicDBObject("type", type_course.get("_id"));
-        instance_course10.append("attributes", Arrays.asList(
-                new BasicDBObject("name", "title").append("value", "Robotics"),
-                new BasicDBObject("name", "content").append("value", "Robotics"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer10.get("_id")).append("display", "Prof. Lahm"),
-                new BasicDBObject("name", "category").append("value", "Lecture"),
-                new BasicDBObject("name", "date_start").append("value", "2015-01-04"),
-                new BasicDBObject("name", "num_students").append("value", 20),
-                new BasicDBObject("name", "has_lab").append("value", "true")
-        ));
-        instances.insert(instance_course10);
+//        BasicDBObject instance_course10 = new BasicDBObject("type", type_course.get("_id"));
+//        instance_course10.append("attributes", Arrays.asList(
+//                new BasicDBObject("name", "title").append("value", "Robotics"),
+//                new BasicDBObject("name", "content").append("value", "Robotics"),
+//                new BasicDBObject("name", "organizer").append("value", instance_organizer10.get("_id")).append("display", "Prof. Lahm"),
+//                new BasicDBObject("name", "category").append("value", "Lecture"),
+//                new BasicDBObject("name", "date_start").append("value", "2015-01-04"),
+//                new BasicDBObject("name", "num_students").append("value", 20),
+//                new BasicDBObject("name", "has_lab").append("value", "true")
+//        ));
+//        instances.insert(instance_course10);
 
         BasicDBObject instance_organizer11 = new BasicDBObject("type", type_organizer.get("_id"));
         instance_organizer11.append("attributes", Arrays.asList(
@@ -299,17 +299,17 @@ public class DB {
         ));
         instances.insert(instance_organizer11);
 
-        BasicDBObject instance_course11 = new BasicDBObject("type", type_course.get("_id"));
-        instance_course11.append("attributes", Arrays.asList(
-                new BasicDBObject("name", "title").append("value", "Security Engineering"),
-                new BasicDBObject("name", "content").append("value", "Security Engineering"),
-                new BasicDBObject("name", "organizer").append("value", instance_organizer11.get("_id")).append("display", "Prof. Rooney"),
-                new BasicDBObject("name", "category").append("value", "Lecture"),
-                new BasicDBObject("name", "date_start").append("value", "2015-01-20"),
-                new BasicDBObject("name", "num_students").append("value", 20),
-                new BasicDBObject("name", "has_lab").append("value", "true")
-        ));
-        instances.insert(instance_course11);
+//        BasicDBObject instance_course11 = new BasicDBObject("type", type_course.get("_id"));
+//        instance_course11.append("attributes", Arrays.asList(
+//                new BasicDBObject("name", "title").append("value", "Security Engineering"),
+//                new BasicDBObject("name", "content").append("value", "Security Engineering"),
+//                new BasicDBObject("name", "organizer").append("value", instance_organizer11.get("_id")).append("display", "Prof. Rooney"),
+//                new BasicDBObject("name", "category").append("value", "Lecture"),
+//                new BasicDBObject("name", "date_start").append("value", "2015-01-20"),
+//                new BasicDBObject("name", "num_students").append("value", 20),
+//                new BasicDBObject("name", "has_lab").append("value", "true")
+//        ));
+//        instances.insert(instance_course11);
 
     }
 
