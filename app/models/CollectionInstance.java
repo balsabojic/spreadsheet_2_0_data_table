@@ -210,7 +210,7 @@ public class CollectionInstance extends Collection {
                     if (attribute != null) {
                         HashMap<String, Object> attribute_hash_map = (HashMap<String, Object>) attribute;
                         if (attribute_hash_map != null && attribute_hash_map.get("name").equals(attribute_name)) {
-                            if (attribute_hash_map.get("display") != null) {
+                            if (isReferenceAttribute(instance_id, attribute_name)) {
                                 String name = findReferenceNameById(value);
                                 attribute_hash_map.put("value", new ObjectId(value));
                                 attribute_hash_map.put("display", name);
@@ -228,8 +228,8 @@ public class CollectionInstance extends Collection {
                 }
                 if (found == false) {
                     HashMap<String, Object> attribute_hash_map = new HashMap<String, Object>();
-                    if (attribute_name.equals("organizer")) {
-                        attribute_hash_map.put("name", "organizer");
+                    if (isReferenceAttribute(instance_id, attribute_name)) {
+                        attribute_hash_map.put("name", attribute_name);
                         String name = findReferenceNameById(value);
                         attribute_hash_map.put("value", new ObjectId(value));
                         attribute_hash_map.put("display", name);
@@ -244,6 +244,35 @@ public class CollectionInstance extends Collection {
                 }
             }
         }
+    }
+
+    public boolean isReferenceAttribute(String instance_id, String attribute_name) {
+        BasicDBObject query_type = new BasicDBObject("_id", new ObjectId(instance_id));
+        DBCursor cursor_type = db.getMongoDB().getCollection("Instance").find(query_type);
+        ObjectId typeId = null;
+        if (cursor_type.hasNext()) {
+            DBObject instance = cursor_type.next();
+            typeId = (ObjectId) instance.get("type");
+        }
+        if (typeId != null) {
+            BasicDBObject query = new BasicDBObject("_id", typeId);
+            DBCursor cursor = db.getMongoDB().getCollection("Type").find(query);
+            while (cursor.hasNext()) {
+                DBObject instance = cursor.next();
+                BasicDBList attributes = (BasicDBList) instance.get("attributes");
+                if (attributes != null) {
+                    for (Object attribute : attributes) {
+                        if (attribute != null) {
+                            HashMap<String, Object> attribute_hash_map = (HashMap<String, Object>) attribute;
+                            if (attribute_hash_map != null && attribute_hash_map.get("type").equals("reference") && attribute_hash_map.get("name").equals(attribute_name)) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
     }
 
     private String findReferenceNameById(String ref_id) {
